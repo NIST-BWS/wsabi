@@ -12,7 +12,7 @@ This project is an iOS client (currently iPad-only) that can connect to one or m
 * [ASIHTTPRequest][asihttp]
 
 ##Icons & Graphics
-* Several glyphs in the app are from the [Symbolicons icon set][symbolicons]
+* Several glyphs in the app are from the [Symbolicons icon set][symbolicons]. Others are from the [Glyphish icon set][glyphish].
 * Gesture icons are taken from [Afovea's Posterous][gestureLink]
 
 ##Licensing & Disclaimer
@@ -20,7 +20,8 @@ This software was developed at the National Institute of Standards and Technolog
 
 [wsbd]:http://bws.nist.gov
 [three20]:https://github.com/facebook/three20
-[aqgv]:https://github.com/rjregenold/AQGridView.git
+[aqgv]:https://github.com/AlanQuatermain/AQGridView
 [asihttp]:https://github.com/pokeb/asi-http-request/tree
 [gestureLink]:http://afovea.posterous.com/33947856
 [symbolicons]:http://symbolicons.com
+[glyphish]:http://glyphish.com
