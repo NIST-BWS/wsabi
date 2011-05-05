@@ -4,7 +4,7 @@
 * Today, we’re going to be testing a new user interface for capturing biometrics.  It’s running on something like an iPad or iPhone, so no keyboard, no mouse.  You can use touch and gestures.
 * Matt’s here to take notes
 * You’re not being tested.
-* <Explain “biometric,” “sensor,” and “left slap”>
+* _Explain “biometric,” “sensor,” and “left slap”_
 * We’re going to set up a scenario for you, and that scenario will have a series of tasks to perform.  The tasks will be split into two groups.  When you feel like you’ve reached the end of each task, tell me.
 * As you go along, try to tell me what you’re thinking as you’re performing the tasks (this is the “think aloud” instruction ☺)
 * Remember, you can leave at any time
@@ -18,7 +18,7 @@
     * TASK: The first result you get is unsatisfactory; what would you do now?
 * Another employee comes to you to have their left slap print taken
     * TASK: Using the same sensor, collect his fingerprint.
-        *SUBTASK: During the collection, the employee states that he isn’t feeling well, and can’t continue the collection.  What would you do?
+        * SUBTASK: During the collection, the employee states that he isn’t feeling well, and can’t continue the collection.  What would you do?
 * Suppose you’ve taken a bunch of results, and it’s now time to look at them in more detail
     *TASK: Browse the results you’ve taken.
         1. Open the left slap image.
