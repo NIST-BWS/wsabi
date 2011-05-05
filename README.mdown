@@ -1,6 +1,6 @@
 #Wsabi: an iOS client for WS-BD
 
-This project is an iOS client (currently iPad-only) that can connect to one or more Web Services for Biometric Devices (WS-BD) sensors and capture biometric data. It's intended as a proof-of-concept for how one might implement a touchscreen interface for remote biometric capture.
+This project is an iOS client (currently iPad-only) that can connect to one or more Web Services for Biometric Devices (WS-BD) sensors and capture biometric data. It's intended as a proof-of-concept for how one might implement a touchscreen interface for remote biometric capture. Lots of things don't work yet, or don't work quite right yet :-).
 
 ##Links of interest
 * [WS-BD website][wsbd]
