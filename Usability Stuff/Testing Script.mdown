@@ -45,3 +45,6 @@
         * SUBTASK: Return to the Face capture step, retake the picture, then resume the workflow.
 * After completing the capture session, you realize that the middle finger on the right slap print isn’t satisfactory.  
     * TASK: Since you cannot retake this print, annotate the right slap to indicate that the middle fingerprint could not be acquired.
+
+***
+I'm attempting an inline change here, directly from the **website**.
