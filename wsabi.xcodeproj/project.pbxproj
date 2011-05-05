@@ -106,6 +106,7 @@
 		EA62560112D3B3C200399D61 /* favorites_48.png in Resources */ = {isa = PBXBuildFile; fileRef = EA62560012D3B3C200399D61 /* favorites_48.png */; };
 		EA62562A12D3B5AB00399D61 /* WsabiSensorController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = EA62562812D3B5AB00399D61 /* WsabiSensorController_iPad.m */; };
 		EA7F0CF61304296600CF9ECE /* Workflow+DeepCopying.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7F0CF51304296600CF9ECE /* Workflow+DeepCopying.m */; };
+		EA82EE5E13731D61008D0677 /* Testing Script.mdown in Resources */ = {isa = PBXBuildFile; fileRef = EA82EE5D13731D61008D0677 /* Testing Script.mdown */; };
 		EA87B4D9136F1CB100AA87C8 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EA87B4D8136F1CB100AA87C8 /* Three20.bundle */; };
 		EA87B4DB1370843C00AA87C8 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA87B4DA1370843C00AA87C8 /* ImageIO.framework */; };
 		EA87B4DF13730C1400AA87C8 /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = EA87B4DD13730C1400AA87C8 /* 20-gear2.png */; };
@@ -466,6 +467,7 @@
 		EA62562812D3B5AB00399D61 /* WsabiSensorController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WsabiSensorController_iPad.m; sourceTree = "<group>"; };
 		EA7F0CF41304296600CF9ECE /* Workflow+DeepCopying.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Workflow+DeepCopying.h"; sourceTree = "<group>"; };
 		EA7F0CF51304296600CF9ECE /* Workflow+DeepCopying.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Workflow+DeepCopying.m"; sourceTree = "<group>"; };
+		EA82EE5D13731D61008D0677 /* Testing Script.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Testing Script.mdown"; path = "Usability Stuff/Testing Script.mdown"; sourceTree = "<group>"; };
 		EA87B4D8136F1CB100AA87C8 /* Three20.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Three20.bundle; path = ../../shared_libs/three20/src/Three20.bundle; sourceTree = "<group>"; };
 		EA87B4DA1370843C00AA87C8 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		EA87B4DD13730C1400AA87C8 /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear2.png"; sourceTree = "<group>"; };
@@ -622,6 +624,7 @@
 			isa = PBXGroup;
 			children = (
 				EA9CF7001365B83400CCC13A /* README.mdown */,
+				EA82EE5F13731D69008D0677 /* Usability Stuff */,
 				28EEBF621118D79A00187D67 /* Shared */,
 				29B97317FDCFA39411CA2CEA /* iPad */,
 				2860E386111B897F00E27156 /* iPhone */,
@@ -953,6 +956,14 @@
 			name = "Core Data Extras";
 			sourceTree = "<group>";
 		};
+		EA82EE5F13731D69008D0677 /* Usability Stuff */ = {
+			isa = PBXGroup;
+			children = (
+				EA82EE5D13731D61008D0677 /* Testing Script.mdown */,
+			);
+			name = "Usability Stuff";
+			sourceTree = "<group>";
+		};
 		EA87B4DC13730BD700AA87C8 /* glyphish */ = {
 			isa = PBXGroup;
 			children = (
@@ -1252,6 +1263,7 @@
 				EA87B4E013730C1400AA87C8 /* 20-gear2@2x.png in Resources */,
 				EA87B4E313730D1200AA87C8 /* 19-gear.png in Resources */,
 				EA87B4E413730D1200AA87C8 /* 19-gear@2x.png in Resources */,
+				EA82EE5E13731D61008D0677 /* Testing Script.mdown in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
