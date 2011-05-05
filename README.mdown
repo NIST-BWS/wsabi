@@ -1,0 +1,26 @@
+#Wsabi: an iOS client for WS-BD
+
+This project is an iOS client (currently iPad-only) that can connect to one or more Web Services for Biometric Devices (WS-BD) sensors and capture biometric data. It's intended as a proof-of-concept for how one might implement a touchscreen interface for remote biometric capture.
+
+##Links of interest
+* [WS-BD website][wsbd]
+
+##Requirements & External libraries used
+* [three20 libraries][three20] 
+    * You'll probably need to download this and adjust the relative paths in the XCode project to match your installed location
+* [AQGridView][aqgv]
+* [ASIHTTPRequest][asihttp]
+
+##Icons & Graphics
+* Several glyphs in the app are from the [Symbolicons icon set][symbolicons]
+* Gesture icons are taken from [Afovea's Posterous][gestureLink]
+
+##Licensing & Disclaimer
+This software was developed at the National Institute of Standards and Technology by employees of the Federal Government in the course of their official duties. Pursuant to title 17 Section 105 of the United States Code this software is not subject to copyright protection and is in the public domain. Wsabi is an experimental system. NIST assumes no responsibility whatsoever for its use by other parties, and makes no guarantees, expressed or implied, about its quality, reliability, or any other characteristic. We would appreciate acknowledgement if the software is used.
+
+[wsbd]:http://bws.nist.gov
+[three20]:https://github.com/facebook/three20
+[aqgv]:https://github.com/rjregenold/AQGridView.git
+[asihttp]:https://github.com/pokeb/asi-http-request/tree
+[gestureLink]:http://afovea.posterous.com/33947856
+[symbolicons]:http://symbolicons.com
