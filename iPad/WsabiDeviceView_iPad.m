@@ -613,7 +613,7 @@
                 
     if (badgeCount > 0) {
         self.annotationBadge.hidden = NO;
-        self.annotationBadge.titleLabel.text = [NSString stringWithFormat:@"%d",badgeCount];
+        [self.annotationBadge setTitle:[NSString stringWithFormat:@"%d",badgeCount] forState:UIControlStateNormal];
     }
     else {
         self.annotationBadge.hidden = YES;

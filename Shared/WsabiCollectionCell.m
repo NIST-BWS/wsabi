@@ -12,6 +12,7 @@
  any other characteristic. We would appreciate acknowledgement if the software is used.
  */
 
+#define BADGE_TAG 1001
 
 #import "WsabiCollectionCell.h"
 
@@ -142,8 +143,49 @@
     [singleTap requireGestureRecognizerToFail:doubleTap];
     [cell addGestureRecognizer:singleTap];
     [singleTap release];
-    
 
+    //if the cell has annotations, add a badge.
+    NSMutableDictionary *annotations = [NSKeyedUnarchiver unarchiveObjectWithData:item.annotations];
+    if (annotations) {
+        int badgeCount = 0;
+                
+        for (NSNumber *key in annotations) {
+            //NOTE: Because we're getting spurious calls to annotationValueChanged that set the value of the
+            //0-keyed entry, we need to make sure that we're looking at a valid entry before updating the badge.
+            if ([key intValue] > 0 && [[annotations objectForKey:key] intValue] > 0) {
+                badgeCount++;
+            }    
+        }
+
+        if (badgeCount > 0) {
+            //if there isn't already a badge, create one. Otherwise, update it.
+            UIButton *badge = nil;
+            if (![cell viewWithTag:BADGE_TAG]) {
+                badge = [UIButton buttonWithType:UIButtonTypeCustom];
+                badge.frame = CGRectMake(cell.contentView.bounds.size.width - 23, -5, 29, 29);
+                badge.userInteractionEnabled = NO;
+                [badge setBackgroundImage:[UIImage imageNamed:@"BadgeBackground"] forState:UIControlStateNormal];
+                badge.titleLabel.textColor = [UIColor whiteColor];
+                badge.titleLabel.font = [UIFont boldSystemFontOfSize:15];
+                [badge setTitleEdgeInsets:UIEdgeInsetsMake(-1, 0, 1, 0)];
+                badge.alpha = 0.8;
+                badge.tag = BADGE_TAG;
+                [cell.contentView addSubview:badge];
+            }
+            else
+            {
+                badge = (UIButton*)[cell viewWithTag:BADGE_TAG];
+            }
+           [badge setTitle:[NSString stringWithFormat:@"%d",badgeCount] forState:UIControlStateNormal];
+        }
+        else {
+            //remove the badge.
+            if ([cell viewWithTag:BADGE_TAG]) {
+                [[cell viewWithTag:BADGE_TAG] removeFromSuperview];
+            }
+        }
+    }
+    
     cell.contentView.backgroundColor = [UIColor clearColor];
     cell.selectionGlowColor = [UIColor colorWithRed:0 green:0.5 blue:1.0 alpha:0.2];
     cell.selectionGlowShadowRadius = 6;
