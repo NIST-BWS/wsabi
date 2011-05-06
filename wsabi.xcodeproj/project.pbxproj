@@ -521,9 +521,9 @@
 		EAF0DFED13339B1100FD2E2E /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		EAF0DFEF1333AA3800FD2E2E /* 110-bug.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "110-bug.png"; sourceTree = "<group>"; };
 		EAF0DFF01333AA3800FD2E2E /* 110-bug@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "110-bug@2x.png"; sourceTree = "<group>"; };
-		EAF0DFF31333AC8600FD2E2E /* NBCLSensorRawOutputController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBCLSensorRawOutputController.h; sourceTree = "<group>"; };
-		EAF0DFF41333AC8600FD2E2E /* NBCLSensorRawOutputController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBCLSensorRawOutputController.m; sourceTree = "<group>"; };
-		EAF0DFF51333AC8600FD2E2E /* NBCLSensorRawOutputController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NBCLSensorRawOutputController.xib; sourceTree = "<group>"; };
+		EAF0DFF31333AC8600FD2E2E /* NBCLSensorRawOutputController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBCLSensorRawOutputController.h; path = Shared/NBCLSensorRawOutputController.h; sourceTree = "<group>"; };
+		EAF0DFF41333AC8600FD2E2E /* NBCLSensorRawOutputController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NBCLSensorRawOutputController.m; path = Shared/NBCLSensorRawOutputController.m; sourceTree = "<group>"; };
+		EAF0DFF51333AC8600FD2E2E /* NBCLSensorRawOutputController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NBCLSensorRawOutputController.xib; path = Shared/NBCLSensorRawOutputController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
