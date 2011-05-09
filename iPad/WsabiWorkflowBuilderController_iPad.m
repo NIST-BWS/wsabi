@@ -323,10 +323,8 @@
 
     //Create a custom accessory button.
     UIButton *accessoryButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    accessoryButton.bounds = CGRectMake(0, 0, cell.contentView.bounds.size.height, cell.contentView.bounds.size.height);
-    //accessoryButton.titleLabel.font = [UIFont fontWithName:@"Glyphish" size:36];
-    accessoryButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    accessoryButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    accessoryButton.bounds = CGRectMake(0, 0, 26, 26);
+    //accessoryButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [accessoryButton addTarget:self action:@selector(customAccessoryButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
 //    [accessoryButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];

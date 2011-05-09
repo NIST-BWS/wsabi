@@ -26,6 +26,10 @@
 #define kFlipAnimationDuration 0.3
 #define kFadeAnimationDuration 0.2
 
+#define kFlashInAnimationDuration 0.3
+#define kFlashOutAnimationDuration 0.8
+#define kFlashOpacity 0.93
+
 #define kCollectionCellSize CGSizeMake(128, 128)
 
 #define kCollectionCellOffset CGSizeMake(12, 12)

@@ -329,16 +329,16 @@
 //        }
         CGSize targetSize = CGSizeMake(width, height);
         
-        NBCLPhoto *photo = [[[NBCLPhoto alloc] initWithCaption:photoPath 
+        NBCLPhoto *photo = [[[NBCLPhoto alloc] initWithCaption:[photoPath lastPathComponent]
                                                   urlLarge:ttpath
                                                   urlSmall:ttpath 
-                                                  urlThumb:nil 
+                                                  urlThumb:ttpath 
                                                       size:targetSize] autorelease];
         [photos addObject:photo];
     }
     
     //create the photo source for our TTPhotoViewController
-    NBCLPhotoSource *source = [[[NBCLPhotoSource alloc] initWithTitle:@"Photos" photos:photos] autorelease];
+    NBCLPhotoSource *source = [[[NBCLPhotoSource alloc] initWithTitle:@"Biometric Data" photos:photos] autorelease];
     
     NBCLPhotoBrowserController *photoController = [[[NBCLPhotoBrowserController alloc] initWithNibName:@"NBCLPhotoBrowserController" bundle:nil] autorelease];
     photoController.photoSource = source;
@@ -490,8 +490,8 @@
                 theData.filePath = tempImagePath; //store the path to this image in Core Data
                 theData.thumbnail = UIImagePNGRepresentation([UIImage scaleImage:tempImage toSize:CGSizeMake(kThumbnailImageMaxSize, kThumbnailImageMaxSize)]);
                 
-                theCapturer.data = theData; //force a data reload.
-                
+                [self updateData:theData forDeviceView:theCapturer withFlash:YES]; //force a data reload.
+
                 [self.collectionsTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:[self.sortedCollections indexOfObject:self.activeCollection]]] 
                                              withRowAnimation:UITableViewRowAnimationFade];
             }
@@ -822,6 +822,7 @@
     [headerView.headerLabel addGestureRecognizer:headerTap];
     [headerTap release];
     
+    
 	return headerView;
 }
 
@@ -1020,9 +1021,54 @@
     [self makeCollectionActiveAtIndex:recog.view.tag withActivePosition:-1 animated:YES];
 }
 
+#pragma mark - Miscellaneous animation methods, etc.
+-(void) updateData:(BiometricData*)newData forDeviceView:(WsabiDeviceView_iPad*)device withFlash:(BOOL)flash
+{
+    if (!device) {
+        return; //nothing to update.
+    }
+    
+    if (!flash) {
+        //just set the data on the specified device and return.
+        device.data = newData;
+        return;
+    }
+    
+    UIView *flashView = [[[UIView alloc] initWithFrame:self.view.bounds] autorelease]; //don't round the corners; the excess white should work as a glow effect.
+    flashView.backgroundColor = [UIColor whiteColor];
+    flashView.alpha = 0.0;
+    [self.view addSubview:flashView];
+    
+    [UIView animateWithDuration:kFlashInAnimationDuration 
+                          delay:0 
+                        options:UIViewAnimationOptionBeginFromCurrentState
+                     animations: ^{
+                         flashView.alpha = kFlashOpacity;
+                     }
+                     completion:^(BOOL completed) {
+                         //put the new data in place behind the flash view.
+                         device.data = newData;
+                         //Perform the second half of the animation, in which the new image is set and faded back in.
+                         [UIView animateWithDuration:kFlashOutAnimationDuration 
+                                               delay:0 
+                                             options:UIViewAnimationOptionBeginFromCurrentState
+                                          animations: ^{
+                                              flashView.alpha = 0.0;
+                                          }
+                                          completion:^(BOOL completed) {
+                                              //remove the flash view from the view hierarchy.
+                                              [flashView removeFromSuperview];
+                                          }
+                          
+                          ];
+                         
+                     }
+     
+     ];
 
-#pragma mark -
-#pragma mark Device View (front and back) delegates
+}
+
+#pragma mark - Device View (front and back) delegates
 -(void) didBeginAnnotating:(id)sender
 {	
 
@@ -1030,7 +1076,17 @@
 
 -(void) didEndAnnotating:(id)sender
 {	
-
+    //update the current collection to make sure we get updated badges.
+    int sectionIndex = [self.sortedCollections indexOfObject:self.activeCollection];
+    
+    //NOTE: We have to reload the entire table here, or the UITableView won't show a valid
+    //section header until the user moves the table. Not sure why reloading the section
+    //doesn't trigger a section header reload, but it doesn't.
+    [self.collectionsTable reloadData];
+    
+    //If we're adjusting an annotation on a collection that's no longer visible, show it, so the user knows
+    //we're changing something.
+    [self.collectionsTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:sectionIndex] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 -(void) didRequestConnection:(id)sender atNewUri:(NSString*)newUri
@@ -1101,13 +1157,19 @@
 
 -(void) didRequestLargeViewOfItemAtIndex:(int)index fromCollectionCell:(id)sender
 {
+    if (!sender) {
+        //nothing to show, just return.
+        NSLog(@"Requested a large view from a nonexistent collection. Ignoring.");
+        return;
+    }
+    
     //build an array of image paths, then open a full-screen image view for them.
     //Sort the existing capturers for this workflow by their stated order.
     NSSortDescriptor *orderSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"positionInCollection" ascending:YES selector:@selector(compare:)] autorelease];
     
     NSArray *sortDescriptors = [NSArray arrayWithObject:orderSortDescriptor];
     
-    NSArray *tempItems = [self.activeCollection.items sortedArrayUsingDescriptors:sortDescriptors];
+    NSArray *tempItems = [((WsabiCollectionCell*)sender).collection.items sortedArrayUsingDescriptors:sortDescriptors];
     
     //If there's nothing in this cell, just return.
     if (![(BiometricData*)[tempItems objectAtIndex:index] filePath]) {

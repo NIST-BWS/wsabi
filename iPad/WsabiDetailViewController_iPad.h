@@ -110,13 +110,15 @@
 
 - (NBCLPhotoBrowserController*) presentFullscreenPhotoBrowser:(NSArray*)sortedPhotoPaths withItemAtIndex:(int)index;
 
-
 //Multitasking methods
 -(void) handleEnterBackground:(NSNotification*)notification;
 -(void) handleEnterForeground:(NSNotification*)notification;
 
 //toolbar action methods
 -(IBAction) bugButtonPressed:(id)sender;
+
+//Miscellaneous animation methods, etc.
+-(void) updateData:(BiometricData*)newData forDeviceView:(WsabiDeviceView_iPad*)device withFlash:(BOOL)flash;
 
 @property (nonatomic, retain) IBOutlet UIPopoverController *popoverController;
 @property (nonatomic, retain) IBOutlet UIPopoverController *bugPopoverController;

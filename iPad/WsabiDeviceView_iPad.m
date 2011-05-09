@@ -186,15 +186,9 @@
     //update the preview view with the contents of this data item.
     self.resultImageView.image = [UIImage imageWithContentsOfFile:data.filePath];
     
-    //if we successfully loaded an image, hide the capture button's guide image.
-//    if (self.resultImageView.image) {
-//        [captureButton setImage:[UIImage imageNamed:@"ClearImage"] forState:UIControlStateNormal];
-//    }
-//    else
-//    {
-    [captureButton setImage:[UIImage imageNamed:@"singleTap"] forState:UIControlStateNormal];
-//    }
-    
+    //update the image.
+    [self.captureButton setImage:[UIImage imageNamed:@"singleTap"] forState:UIControlStateNormal];
+        
     //start off with certain things visible.
     self.annotationLabel1.hidden = NO;
     self.annotationLabel2.hidden = NO;
