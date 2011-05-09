@@ -1,0 +1,47 @@
+#Script for iOS WS-Biometric Devices Client User Testing
+
+##Intro
+* Today, we’re going to be testing a new user interface for capturing biometrics.  It’s running on something like an iPad or iPhone, so no keyboard, no mouse.  You can use touch and gestures.
+* Matt’s here to take notes
+* You’re not being tested.
+* _Explain “biometric,” “sensor,” and “left slap”_
+* We’re going to set up a scenario for you, and that scenario will have a series of tasks to perform.  The tasks will be split into two groups.  When you feel like you’ve reached the end of each task, tell me.
+* As you go along, try to tell me what you’re thinking as you’re performing the tasks (this is the “think aloud” instruction ☺)
+* Remember, you can leave at any time
+
+##Scenario set-up
+* Here’s the scenario for our tasks today.  You are an operator responsible for taking employees’ biometrics to enroll in your system.  In your big, spacious corner office, you have a number of sensors available to you – a couple of fingerprint scanners, an iris scanner, a camera, and a few others.  You will be using some of those sensors to gather data from a few employees today.
+
+##Task group 1
+* An employee comes to you to have his left slap print taken
+    * TASK: Use the “Crossmatch Guardian A” sensor to collect a fingerprint.
+    * TASK: The first result you get is unsatisfactory; what would you do now?
+* Another employee comes to you to have their left slap print taken
+    * TASK: Using the same sensor, collect his fingerprint.
+        * SUBTASK: During the collection, the employee states that he isn’t feeling well, and can’t continue the collection.  What would you do?
+* Suppose you’ve taken a bunch of results, and it’s now time to look at them in more detail
+    *TASK: Browse the results you’ve taken.
+        1. Open the left slap image.
+        2. Browse to the next captured image.
+        3. Return to the previous image.
+        4. Return to the main sensor interface.
+* For this employee, you only need 5 face photos and 1 single-finger print.  What would you do?
+    * TASK: Set up the results so that only 5 face photos and 1 single-finger print remain.
+* You’ve completed that set of tasks, so let’s move on to the next set.
+
+##Task group 2
+* Now you’re going to set up the system to take a series of biometrics in a row.
+    * TASK: Start a new workflow session
+    * TASK: Set up this workflow so that it captures (in this order):
+        1. A left slap, using the Crossmatch Guardian A sensor
+        2. A right slap, using the Crossmatch Guardian A sensor
+        3. A face image, using the Canon 5D Mk II sensor
+    * TASK: Rearrange the steps inside the workflow so that the face image is captured before the right slap.
+    * TASK: Rename the workflow to “Test Workflow”
+* Now it’s time to go through the workflow you created.  A new employee arrives, looking very much like Leonard Nimoy.
+    * TASK: Activate the workflow you created.
+    * TASK: Perform all capture steps included in this workflow.
+        * NOTE: While you are preparing to take the Right Slap, the employee asks to have a replacement picture taken.
+        * SUBTASK: Return to the Face capture step, retake the picture, then resume the workflow.
+* After completing the capture session, you realize that the middle finger on the right slap print isn’t satisfactory.  
+    * TASK: Since you cannot retake this print, annotate the right slap to indicate that the middle fingerprint could not be acquired.
