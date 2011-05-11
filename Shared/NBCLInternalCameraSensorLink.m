@@ -369,7 +369,11 @@
                                                                             }
                                                                         }];
 
-
+    //add an indicator that a picture is being taken.
+    UIView *captureInProgressView = [[[UIView alloc] initWithFrame:self.previewLayer.frame] autorelease];
+    captureInProgressView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+    captureInProgressView.layer.name = @"captureInProgressLayer";
+    [self.previewLayer addSublayer:captureInProgressView.layer];
 }
 
 -(void) beginGetCaptureInfo:(NSString*)captureId withSenderTag:(int)senderTag
@@ -410,6 +414,13 @@
     [delegate sensorOperationCompleted:kOpTypeDownload 
                               fromLink:self withResult:result];
 
+    //remove the indicator that a picture is being taken.
+    for (CALayer *layer in self.previewLayer.sublayers) {
+        if ([layer.name isEqualToString:@"captureInProgressLayer"]) {
+            [layer removeFromSuperlayer];
+        }
+    }
+
     if (self.sequenceInProgress) {
         self.sequenceInProgress = NO;
         [delegate sensorCaptureSequenceCompletedFromLink:self withResults:[NSMutableArray arrayWithObject:result] withSenderTag:senderTag];
@@ -440,6 +451,13 @@
     [delegate sensorOperationCompleted:kOpTypeThriftyDownload 
                               fromLink:self withResult:result];
     
+    //remove the indicator that a picture is being taken.
+    for (CALayer *layer in self.previewLayer.sublayers) {
+        if ([layer.name isEqualToString:@"captureInProgressLayer"]) {
+            [layer removeFromSuperlayer];
+        }
+    }
+
     if (self.sequenceInProgress) {
         self.sequenceInProgress = NO;
         [delegate sensorCaptureSequenceCompletedFromLink:self withResults:[NSMutableArray arrayWithObject:result] withSenderTag:senderTag];
