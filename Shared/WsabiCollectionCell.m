@@ -55,7 +55,7 @@
     self.sortedItems = [collection.items sortedArrayUsingDescriptors:sortDescriptors];
 
     [self.cellGrid reloadData];
-    
+
 }
 
 #pragma mark -

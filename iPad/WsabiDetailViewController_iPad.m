@@ -110,6 +110,21 @@
         [self.toolbar setItems:tempItems animated:YES];
     }
     [tempItems release];
+    
+    //if we're supposed to autoload a workflow, do it.
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults boolForKey:@"do_not_autoload_preference"]) {
+        //Based heavily on http://stackoverflow.com/questions/516443/nsmanagedobjectid-into-nsdata/516735#516735
+        
+        NSManagedObjectContext *context = [(AppDelegate_Shared*)[[UIApplication sharedApplication] delegate] managedObjectContext];
+        NSPersistentStoreCoordinator *store = [(AppDelegate_Shared*)[[UIApplication sharedApplication] delegate] persistentStoreCoordinator];
+
+        NSURL *uri = [NSKeyedUnarchiver unarchiveObjectWithData:[defaults objectForKey:@"currentWorkflowObjectID"]];
+        NSManagedObjectID *objID = [store managedObjectIDForURIRepresentation:uri];
+        if (objID) {
+            [self setWorkflow:(Workflow*)[context objectWithID:objID]];
+        }
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -131,6 +146,16 @@
     //save the context here, before we start messing with things.
     [(AppDelegate_Shared*)[[UIApplication sharedApplication] delegate] saveContext];
 
+    //store the new workflow's object ID (converted to an archivable object) in the preferences in case we want to reload it later.
+    if (workflow) {
+        NSURL *uri = [[workflow objectID] URIRepresentation];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:uri] forKey:@"currentWorkflowObjectID"];
+    }
+    else {
+        //if we've set the workflow to nil, clear any stored workflow ID.
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"currentWorkflowObjectID"];
+    }
+    
 	//clear the existing workflow scroll.
 	for (UIView *v in self.capturerScroll.subviews) {
 		if ([v isKindOfClass:[WsabiDeviceView_iPad class]]) {
@@ -627,7 +652,7 @@
     
     //first, hide the preview for all views in the capture scroll view.
     for (WsabiDeviceView_iPad *v in self.capturerScroll.subviews) {
-        v.livePreviewView.hidden = YES;
+          v.livePreviewView.hidden = YES;
     }
     
     //figure out which device we're working on, and which sensor link it's connected to.
@@ -756,7 +781,7 @@
     [self performSelectorOnMainThread:@selector(enableLivePreviewForDeviceAtIndex:) withObject:self.activeCollection.currentPosition waitUntilDone:NO];
     
     [self.collectionsTable reloadData];
-    
+        
     //Make sure the newly created collection is visible.
     [self.collectionsTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:index] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
@@ -1352,10 +1377,7 @@
         NSLog(@"After animation, setting new active collection position to %d",itemNumber);
         self.activeCollection.currentPosition = [NSNumber numberWithInt:itemNumber];
     }
-    
-    //enable live preview for this workflow position (if applicable)
-    [self performSelectorOnMainThread:@selector(enableLivePreviewForDeviceAtIndex:) withObject:self.activeCollection.currentPosition waitUntilDone:NO];
-    
+        
     NSLog(@"After setting active collection, scrollView offset is (%1.0f,%1.0f)",self.capturerScroll.contentOffset.x, self.capturerScroll.contentOffset.y);
 
 }
@@ -1364,6 +1386,9 @@
 -(void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     [self updateScrollPositionData:scrollView];
+    //enable live preview for this workflow position (if applicable)
+    [self performSelectorOnMainThread:@selector(enableLivePreviewForDeviceAtIndex:) withObject:self.activeCollection.currentPosition waitUntilDone:NO];
+
 }
 
 //NOTE: This is only called when scrolling programmatically.

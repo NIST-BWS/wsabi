@@ -8,9 +8,19 @@
 			<key>DefaultValue</key>
 			<false/>
 			<key>Key</key>
+			<string>do_not_autoload_preference</string>
+			<key>Title</key>
+			<string>Don&apos;t autoload last workflow</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
 			<string>bug_button_visible_preference</string>
 			<key>Title</key>
-			<string>Show Raw Output Button</string>
+			<string>Show &quot;Raw Output&quot; button</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>

@@ -118,6 +118,7 @@
 -(IBAction) bugButtonPressed:(id)sender;
 
 //Miscellaneous animation methods, etc.
+-(void) updateScrollPositionData:(UIScrollView*)scrollView;
 -(void) updateData:(BiometricData*)newData forDeviceView:(WsabiDeviceView_iPad*)device withFlash:(BOOL)flash;
 
 @property (nonatomic, retain) IBOutlet UIPopoverController *popoverController;
