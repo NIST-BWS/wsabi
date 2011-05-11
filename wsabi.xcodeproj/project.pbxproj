@@ -134,6 +134,7 @@
 		EAD0451A135CC188004FCD3B /* wsabi.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EAD04518135CC188004FCD3B /* wsabi.xcdatamodeld */; };
 		EAD9B635135F642F008ED33B /* AVCamDemoCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD9B634135F642F008ED33B /* AVCamDemoCaptureManager.m */; };
 		EADAB81412C13A36001DE0F9 /* WsabiDeviceView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = EADAB81312C13A36001DE0F9 /* WsabiDeviceView_iPad.xib */; };
+		EAE14875137AC5BD00DD655C /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAE14874137AC5BD00DD655C /* Settings.bundle */; };
 		EAE171DD132FA95000F652F3 /* DropShadow_Linear.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE171DC132FA95000F652F3 /* DropShadow_Linear.png */; };
 		EAE171DF132FAE0000F652F3 /* OutlineButton_Stretchable.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE171DE132FAE0000F652F3 /* OutlineButton_Stretchable.png */; };
 		EAE171E4132FD87D00F652F3 /* CollectionDataBackground_Face.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE171E0132FD87D00F652F3 /* CollectionDataBackground_Face.png */; };
@@ -503,6 +504,7 @@
 		EAD9B633135F642F008ED33B /* AVCamDemoCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVCamDemoCaptureManager.h; path = Shared/AVCamDemo/AVCamDemoCaptureManager.h; sourceTree = "<group>"; };
 		EAD9B634135F642F008ED33B /* AVCamDemoCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVCamDemoCaptureManager.m; path = Shared/AVCamDemo/AVCamDemoCaptureManager.m; sourceTree = "<group>"; };
 		EADAB81312C13A36001DE0F9 /* WsabiDeviceView_iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = WsabiDeviceView_iPad.xib; path = iPad/WsabiDeviceView_iPad.xib; sourceTree = "<group>"; };
+		EAE14874137AC5BD00DD655C /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Shared/Settings.bundle; sourceTree = "<group>"; };
 		EAE171DC132FA95000F652F3 /* DropShadow_Linear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DropShadow_Linear.png; path = Shared/Images/DropShadow_Linear.png; sourceTree = "<group>"; };
 		EAE171DE132FAE0000F652F3 /* OutlineButton_Stretchable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OutlineButton_Stretchable.png; path = Shared/Images/OutlineButton_Stretchable.png; sourceTree = "<group>"; };
 		EAE171E0132FD87D00F652F3 /* CollectionDataBackground_Face.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CollectionDataBackground_Face.png; path = Shared/Images/CollectionDataBackground_Face.png; sourceTree = "<group>"; };
@@ -613,6 +615,7 @@
 				EA62532D12D24AED00399D61 /* WsabiWorkflowItem.h */,
 				EA62532E12D24AED00399D61 /* WsabiWorkflowItem.m */,
 				EA62532B12D24AD600399D61 /* WsabiWorkflowItem.xib */,
+				EAE14874137AC5BD00DD655C /* Settings.bundle */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -1264,6 +1267,7 @@
 				EA87B4E313730D1200AA87C8 /* 19-gear.png in Resources */,
 				EA87B4E413730D1200AA87C8 /* 19-gear@2x.png in Resources */,
 				EA82EE5E13731D61008D0677 /* Testing Script.mdown in Resources */,
+				EAE14875137AC5BD00DD655C /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

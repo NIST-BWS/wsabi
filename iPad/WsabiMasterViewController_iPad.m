@@ -258,7 +258,8 @@
 														initWithNibName:@"WsabiWorkflowBuilderController_iPad" bundle:nil] 
 													   autorelease];
 		builder.managedObjectContext = self.managedObjectContext;
-		
+        builder.delegate = self;
+
 		Workflow *newWorkflow = [NSEntityDescription insertNewObjectForEntityForName:@"Workflow" inManagedObjectContext:self.managedObjectContext];
 		newWorkflow.timestampCreated = [NSDate date];
 		newWorkflow.timestampModified = [NSDate date];
@@ -348,9 +349,8 @@
 	//for now, just reload all the cell data.
 	[self.tableView reloadData];
 	
-	//if the current detail selection has changed, reload the detail view.
-	if (self.detailViewController && [self.detailViewController.workflow isEqual:w]) {
-		self.detailViewController.workflow = w; //refresh the workflow.
+	if (self.detailViewController) {
+		self.detailViewController.workflow = w; //load this workflow.
 	}
 }
 

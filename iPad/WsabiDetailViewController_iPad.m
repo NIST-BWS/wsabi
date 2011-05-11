@@ -96,9 +96,21 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+    
+    //if necessary, add or remove the bug button.
+    NSMutableArray *tempItems = [self.toolbar.items mutableCopy];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"bug_button_visible_preference"]) {
+        if (![tempItems containsObject:self.bugToolbarItem]) {
+            [tempItems addObject:self.bugToolbarItem];
+            [self.toolbar setItems:tempItems animated:YES];
+        }
+    }
+    else {
+        [tempItems removeObject:self.bugToolbarItem];
+        [self.toolbar setItems:tempItems animated:YES];
+    }
+    [tempItems release];
 }
-
-
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Overriden to allow any orientation.
@@ -248,6 +260,20 @@
     for (NBCLSensorLink *s in self.sensorLinks) {
         [s beginConnectSequence:YES withSenderTag:-1];
     }
+    
+    //if necessary, add or remove the bug button.
+    NSMutableArray *tempItems = [self.toolbar.items mutableCopy];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"bug_button_visible_preference"]) {
+        if (![tempItems containsObject:self.bugToolbarItem]) {
+            [tempItems addObject:self.bugToolbarItem];
+            [self.toolbar setItems:tempItems animated:YES];
+        }
+    }
+    else {
+        [tempItems removeObject:self.bugToolbarItem];
+        [self.toolbar setItems:tempItems animated:YES];
+    }
+    [tempItems release];
 
 }
 

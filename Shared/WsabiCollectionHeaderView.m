@@ -25,6 +25,15 @@
 {
     [super layoutSubviews];
     self.layer.shouldRasterize = YES; //performance.
+    
+    self.editCollectionsButton.layer.cornerRadius = 6;
+    self.editCollectionsButton.layer.borderWidth = 2;
+    self.editCollectionsButton.layer.borderColor = [[UIColor grayColor] CGColor];
+    
+    self.addCollectionButton.layer.cornerRadius = 6;
+    self.addCollectionButton.layer.borderWidth = 2;
+    self.addCollectionButton.layer.borderColor = [[UIColor grayColor] CGColor];
+    
 }
 
 -(void) setEditing:(BOOL)isEditing
