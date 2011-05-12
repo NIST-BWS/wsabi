@@ -20,7 +20,7 @@
     * TASK: Using the same sensor, collect his fingerprint. **NOTE: This requires a sensor with a LONG timeout**
         * SUBTASK: During the collection, the employee states that he isn’t feeling well, and can’t continue the collection.  What would you do?
 * Suppose you’ve taken a bunch of results, and it’s now time to look at them in more detail
-    *TASK: Browse the results you’ve taken.
+    * TASK: Browse the results you’ve taken.
         1. Open the left slap image.
         2. Zoom in on the left slap image to see it larger.
         3. Browse to the next captured image.
