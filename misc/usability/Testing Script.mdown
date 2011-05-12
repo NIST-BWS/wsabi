@@ -17,16 +17,15 @@
     * TASK: Use the “Crossmatch Guardian A” sensor to collect a fingerprint.
     * TASK: The first result you get is unsatisfactory; what would you do now?
 * Another employee comes to you to have their left slap print taken
-    * TASK: Using the same sensor, collect his fingerprint.
+    * TASK: Using the same sensor, collect his fingerprint. **NOTE: This requires a sensor with a LONG timeout**
         * SUBTASK: During the collection, the employee states that he isn’t feeling well, and can’t continue the collection.  What would you do?
 * Suppose you’ve taken a bunch of results, and it’s now time to look at them in more detail
     *TASK: Browse the results you’ve taken.
         1. Open the left slap image.
-        2. Browse to the next captured image.
-        3. Return to the previous image.
-        4. Return to the main sensor interface.
-* For this employee, you only need 5 face photos and 1 single-finger print.  What would you do?
-    * TASK: Set up the results so that only 5 face photos and 1 single-finger print remain.
+        2. Zoom in on the left slap image to see it larger.
+        3. Browse to the next captured image.
+        4. Return to the previous image.
+        5. Return to the main sensor interface.
 * You’ve completed that set of tasks, so let’s move on to the next set.
 
 ##Task group 2
