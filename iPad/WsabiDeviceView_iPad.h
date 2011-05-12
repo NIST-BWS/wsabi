@@ -81,6 +81,8 @@
     BOOL sensorAvailable;
 	Capturer *capturer;
     BiometricData *data;
+    
+    BOOL reconnectOptionsEnabled;
 	
 	//delegate
 	id<WsabiDeviceViewDelegate> delegate;
@@ -148,6 +150,9 @@
 @property (nonatomic) BOOL sensorAvailable;
 @property (nonatomic, assign) Capturer *capturer;
 @property (nonatomic, assign) BiometricData *data;
+
+@property (nonatomic) BOOL reconnectOptionsEnabled;
+
 @property (nonatomic, assign) id<WsabiDeviceViewDelegate> delegate;
 
 @end

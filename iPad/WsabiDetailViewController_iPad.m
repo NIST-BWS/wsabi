@@ -232,8 +232,11 @@
             }
             
             WsabiDeviceView_iPad *dView = [self createDeviceViewForCapturer:c];
+            
             [self.capturerScroll addSubview:dView];
-                            
+            
+            //start with the reconnect options disabled.
+            dView.reconnectOptionsEnabled = NO;
         }
         self.capturerScroll.contentSize = CGSizeMake([tempCapturers count] * (CAPTURER_WIDTH_OFFSET + CAPTURER_WIDTH), self.capturerScroll.bounds.size.height);
         self.capturerScroll.contentOffset = CGPointMake(0, 0);
@@ -425,6 +428,8 @@
                     //reset the UI to "not capturing."
                     [currentDevice captureCompleted];
                 }
+                //in either case, re-enable the reconnect options.
+                currentDevice.reconnectOptionsEnabled = YES;
             }
         }
     }
@@ -456,6 +461,7 @@
     //add this result to the WS-BD Result cache (at the top)
     [self.wsbdOpNameCache insertObject:[NBCLSensorLink stringForOpType:opType] atIndex:0];
     [self.wsbdResultCache insertObject:result atIndex:0];
+    
 }
 
 -(void) sensorConnectionStatusChanged:(BOOL)connectedAndReady fromLink:(id)link
@@ -849,7 +855,7 @@
         [formatter setDateStyle:NSDateFormatterShortStyle];
         [formatter setTimeStyle:NSDateFormatterShortStyle];
         
-        headerView.headerLabel.text = [NSString stringWithFormat:@"Started %@",[formatter stringFromDate:c.timestampStarted]];
+        headerView.headerLabel.text = [NSString stringWithFormat:@"Collection (started %@)",[formatter stringFromDate:c.timestampStarted]];
     }
     else {
         headerView.headerLabel.text = @"";
@@ -1151,7 +1157,10 @@
             //update the URI
             link.uri = newUri;
             currentDevice.capturer.sensor.uri = newUri;
-               
+            
+            //disable the reconnect options until this call resolves one way or another.
+            currentDevice.reconnectOptionsEnabled = NO;
+            
             //attempt to connect this sensor, stealing the lock if necessary.
             BOOL sequenceStarted = [link beginConnectSequence:YES withSenderTag:-1];
             if (!sequenceStarted) {

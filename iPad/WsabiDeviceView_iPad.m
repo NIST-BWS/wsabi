@@ -30,6 +30,7 @@
 @synthesize annotation1,annotation2,annotation3,annotation4;
 
 @synthesize capturer, data, delegate, sensorAvailable, titleBarItem, doneButton;
+@synthesize reconnectOptionsEnabled;
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -304,14 +305,24 @@
                      animations:^{
                          //show or hide the reconnect view.
                          self.reconnectView.alpha = isAvailable ? 0 : 1;
+                         //configure the capture button to match (but in reverse)
+                         self.captureButton.alpha = isAvailable ? CAPTURE_BUTTON_ALPHA : 0;
                      }
      ];
-    self.captureButton.enabled = isAvailable;
 
     //stop the connection spinner.
     [self.reconnectActivity stopAnimating];
     
     sensorAvailable = isAvailable;
+}
+
+-(void) setReconnectOptionsEnabled:(BOOL)enabled
+{
+    reconnectOptionsEnabled = enabled;
+    
+    self.reconnectTextField.enabled = reconnectOptionsEnabled;
+    self.reconnectButton.enabled = reconnectOptionsEnabled;
+
 }
 
 //-(void) setHasLivePreview:(BOOL)prev
@@ -398,6 +409,9 @@
 //    self.livePreviewView.hidden = !isActive;
 //
 //}
+
+
+
 
 #pragma mark Action methods
 

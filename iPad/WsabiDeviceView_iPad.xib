@@ -10288,7 +10288,7 @@ AAEAAQABA</bytes>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="430218057"/>
 								<bool key="IBUIOpaque">NO</bool>
-								<float key="IBUIAlpha">0.40000000596046448</float>
+								<float key="IBUIAlpha">0.0</float>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
