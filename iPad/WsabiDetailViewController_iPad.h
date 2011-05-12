@@ -73,6 +73,8 @@
     UIImageView *collectionsDropShadowTop;
     UIImageView *collectionsDropShadowBottom;
     
+    UIView *workflowLoadedOverlay;
+    
 	//Core data...data.
 	Workflow *workflow;
     BiometricCollection *activeCollection;
@@ -118,6 +120,7 @@
 -(IBAction) bugButtonPressed:(id)sender;
 
 //Miscellaneous animation methods, etc.
+-(void) showWorkflowLoadedOverlay:(NSTimeInterval)visibleTime;
 -(void) updateScrollPositionData:(UIScrollView*)scrollView;
 -(void) updateData:(BiometricData*)newData forDeviceView:(WsabiDeviceView_iPad*)device withFlash:(BOOL)flash;
 
@@ -136,6 +139,8 @@
 @property (nonatomic, retain) IBOutlet UITableView *collectionsTable;
 @property (nonatomic, retain) IBOutlet UIImageView *collectionsDropShadowTop;
 @property (nonatomic, retain) IBOutlet UIImageView *collectionsDropShadowBottom;
+
+@property (nonatomic, retain) IBOutlet UIView *workflowLoadedOverlay;
 
 //Core data...data.
 @property (nonatomic, assign) Workflow *workflow;

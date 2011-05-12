@@ -32,6 +32,7 @@
 @synthesize toolbar, titleToolbarItem, popoverController, bugPopoverController, rootViewController, rootMenuToolbarItem, bugToolbarItem;
 @synthesize capturerScroll, capturerPageControl;//, capturerPagingOverlay;
 @synthesize collectionsTable, collectionsDropShadowTop, collectionsDropShadowBottom, sortedCollections;
+@synthesize workflowLoadedOverlay;
 @synthesize sensorLinks;
 @synthesize captureVideoPreviewLayer = _captureVideoPreviewLayer;
 @synthesize captureManager = _captureManager;
@@ -78,6 +79,15 @@
     self.collectionsDropShadowTop.image = [[UIImage imageNamed:@"DropShadow_Linear"] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
     self.collectionsDropShadowBottom.image = [[UIImage imageNamed:@"DropShadow_Linear"] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
     self.collectionsDropShadowBottom.transform = CGAffineTransformMakeRotation(M_PI);
+    
+    //round the corners of the workflow loaded overlay.
+    self.workflowLoadedOverlay.layer.shadowColor = [[UIColor blackColor] CGColor];
+    self.workflowLoadedOverlay.layer.shadowOpacity = 0.5;
+    self.workflowLoadedOverlay.layer.shadowOffset = CGSizeMake(2,3);
+    self.workflowLoadedOverlay.layer.shadowRadius = 10;
+    self.workflowLoadedOverlay.layer.cornerRadius = 12;
+    self.workflowLoadedOverlay.layer.shouldRasterize = YES;
+
     
     //TESTING ONLY: Set up the WSBD result cache
     self.wsbdResultCache = [[[NSMutableArray alloc] init] autorelease];
@@ -254,6 +264,9 @@
             [self updateCollections];
             
         }
+        
+        //show the workflow loaded overlay to alert the user.
+        [self showWorkflowLoadedOverlay:1.5];
         
         //update the active collection indicators (this reloads the data table as well).
         //Pass -1 as the position parameter so that we maintain the existing collection position.
@@ -1125,6 +1138,32 @@
 
 }
 
+-(void) showWorkflowLoadedOverlay:(NSTimeInterval)visibleTime
+{
+    [UIView animateWithDuration:0.5
+                          delay:0 
+                        options:UIViewAnimationOptionBeginFromCurrentState
+                     animations: ^{
+                         self.workflowLoadedOverlay.alpha = 1.0;
+                     }
+                     completion:^(BOOL completed) {
+   
+                         //wait the specified amount of time, then hide the overlay.
+                         [UIView animateWithDuration:0.5 
+                                               delay:visibleTime 
+                                             options:UIViewAnimationOptionBeginFromCurrentState
+                                          animations: ^{
+                                              self.workflowLoadedOverlay.alpha = 0.0;
+                                          }
+                                          completion:nil                          
+                          ];
+                         
+                     }
+     
+     ];
+
+}
+
 #pragma mark - Device View (front and back) delegates
 -(void) didBeginAnnotating:(id)sender
 {	
@@ -1443,6 +1482,8 @@
 	[collectionsTable release];
     [collectionsDropShadowTop release];
 	[collectionsDropShadowBottom release];
+    [workflowLoadedOverlay release];
+    
     [sortedCollections release];
     [sensorLinks release];
     [_captureVideoPreviewLayer release];
