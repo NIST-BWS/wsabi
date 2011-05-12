@@ -35,11 +35,10 @@
     * TASK: Set up this workflow so that it captures (in this order):
         1. A left slap, using the Crossmatch Guardian A sensor
         2. A right slap, using the Crossmatch Guardian A sensor
-        3. A face image, using the Canon 5D Mk II sensor
+        3. A face image, using the WebCam A sensor
     * TASK: Rearrange the steps inside the workflow so that the face image is captured before the right slap.
     * TASK: Rename the workflow to “Test Workflow”
 * Now it’s time to go through the workflow you created.  A new employee arrives, looking very much like Leonard Nimoy.
-    * TASK: Activate the workflow you created.
     * TASK: Perform all capture steps included in this workflow.
         * NOTE: While you are preparing to take the Right Slap, the employee asks to have a replacement picture taken.
         * SUBTASK: Return to the Face capture step, retake the picture, then resume the workflow.
