@@ -213,8 +213,9 @@
     //mark this item as the current collection position.
     self.collection.currentPosition = [NSNumber numberWithInt:recog.view.tag];
     
-    //highlight this item.
-    [self.cellGrid selectItemAtIndex:recog.view.tag animated:YES scrollPosition:AQGridViewScrollPositionNone];
+    //reload this cell.
+    [self.cellGrid reloadData];
+    
     //figure out which cell was pressed and notify our delegate.
     [delegate didSelectItemAtIndex:recog.view.tag fromCollectionCell:self];
 }
@@ -231,6 +232,10 @@
 
 -(void) selectItemAtIndex:(int)index
 {
+    if ([self.collection.isActive boolValue] && [self.collection.currentPosition intValue] == index) {
+        //nothing to do.
+        return;
+    }
     //highlight this item.
     [self.cellGrid selectItemAtIndex:index animated:YES scrollPosition:AQGridViewScrollPositionNone];
 }

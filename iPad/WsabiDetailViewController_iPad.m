@@ -1411,15 +1411,6 @@
     
     int itemNumber = round(scrollView.contentOffset.x / (CAPTURER_WIDTH_OFFSET + CAPTURER_WIDTH));
     
-    //Find the active collection
-    for (int i = 0; i < [self.sortedCollections count]; i++) {
-        BiometricCollection *c = [self.sortedCollections objectAtIndex:i];
-        if ([c.isActive boolValue]) {
-            //this is the one we want. Select the matching cell in the collections table.
-            [(WsabiCollectionCell*)[self.collectionsTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:i]] selectItemAtIndex:itemNumber];
-        }
-    }
-    
     //update the current workflow position.
     if (self.activeCollection) {
         NSLog(@"After animation, setting new active collection position to %d",itemNumber);
