@@ -1405,11 +1405,23 @@
 }
 
 //NOTE: This will be called when the user scrolls, OR when the system calls scrollRectToVisible with animations enabled.
--(void) updateScrollPositionData:(UIScrollView*)scrollView
+-(void) updateScrollPositionData:(UIScrollView*)scrollView setActiveCell:(BOOL)shouldSet
 {
     //Perform some more computationally expensive operations here, rather than any time the scroll amount changes.
     
     int itemNumber = round(scrollView.contentOffset.x / (CAPTURER_WIDTH_OFFSET + CAPTURER_WIDTH));
+    
+    //if necessary, manually set the active cell.
+    if (shouldSet) {
+        for (int i = 0; i < [self.sortedCollections count]; i++) {
+          BiometricCollection *c = [self.sortedCollections objectAtIndex:i];
+           if ([c.isActive boolValue]) {
+             //this is the one we want. Select the matching cell in the collections table.
+               [(WsabiCollectionCell*)[self.collectionsTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:i]] selectItemAtIndex:itemNumber];
+            }
+        }
+
+    }
     
     //update the current workflow position.
     if (self.activeCollection) {
@@ -1424,21 +1436,26 @@
 //NOTE: This is only called when scrolling manually.
 -(void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    [self updateScrollPositionData:scrollView];
-    //enable live preview for this workflow position (if applicable)
-    [self performSelectorOnMainThread:@selector(enableLivePreviewForDeviceAtIndex:) withObject:self.activeCollection.currentPosition waitUntilDone:NO];
+    if (scrollView == self.capturerScroll) {
 
+        [self updateScrollPositionData:scrollView setActiveCell:YES];
+        //enable live preview for this workflow position (if applicable)
+        [self performSelectorOnMainThread:@selector(enableLivePreviewForDeviceAtIndex:) withObject:self.activeCollection.currentPosition waitUntilDone:NO];
+    }
 }
 
 //NOTE: This is only called when scrolling programmatically.
 -(void) scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    [self updateScrollPositionData:scrollView];
-    self.capturerPageControl.currentPage = round(scrollView.contentOffset.x / (CAPTURER_WIDTH_OFFSET + CAPTURER_WIDTH));
-	
-	if (workflow && workflow.name) {
-		self.titleToolbarItem.title = [NSString stringWithFormat:@"%@ (Step %d of %d)", workflow.name, self.capturerPageControl.currentPage + 1, [workflow.capturers count]];
-	}
+    if (scrollView == self.capturerScroll) {
+        [self updateScrollPositionData:scrollView setActiveCell:NO];
+        self.capturerPageControl.currentPage = round(scrollView.contentOffset.x / (CAPTURER_WIDTH_OFFSET + CAPTURER_WIDTH));
+        
+        if (workflow && workflow.name) {
+            self.titleToolbarItem.title = [NSString stringWithFormat:@"%@ (Step %d of %d)", workflow.name, self.capturerPageControl.currentPage + 1, [workflow.capturers count]];
+        }
+
+    }
 
 }
 

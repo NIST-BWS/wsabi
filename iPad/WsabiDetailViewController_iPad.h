@@ -121,7 +121,7 @@
 
 //Miscellaneous animation methods, etc.
 -(void) showWorkflowLoadedOverlay:(NSTimeInterval)visibleTime;
--(void) updateScrollPositionData:(UIScrollView*)scrollView;
+-(void) updateScrollPositionData:(UIScrollView*)scrollView setActiveCell:(BOOL)shouldSet;
 -(void) updateData:(BiometricData*)newData forDeviceView:(WsabiDeviceView_iPad*)device withFlash:(BOOL)flash;
 
 @property (nonatomic, retain) IBOutlet UIPopoverController *popoverController;

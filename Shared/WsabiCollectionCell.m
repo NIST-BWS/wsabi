@@ -232,12 +232,12 @@
 
 -(void) selectItemAtIndex:(int)index
 {
-    if ([self.collection.isActive boolValue] && [self.collection.currentPosition intValue] == index) {
-        //nothing to do.
-        return;
-    }
-    //highlight this item.
-    [self.cellGrid selectItemAtIndex:index animated:YES scrollPosition:AQGridViewScrollPositionNone];
+    //mark this item as the current collection position.
+    self.collection.currentPosition = [NSNumber numberWithInt:index];
+    
+    //reload this cell.
+    [self.cellGrid reloadData];
+
 }
 
 -(void) clearSelection
