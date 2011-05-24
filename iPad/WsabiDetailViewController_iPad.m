@@ -468,7 +468,22 @@
 {
     if (result.status != StatusSuccess) {
         //make sure we reset any UI state so we can try again.
-         
+        if (opType == kOpTypeRegister || opType == kOpTypeLock || opType == kOpTypeInitialize) {
+            //we need to reconnect to this sensor.
+            for (UIView *v in self.capturerScroll.subviews) {
+                if ([v isKindOfClass:[WsabiDeviceView_iPad class]]) {
+                    WsabiDeviceView_iPad *currentDevice = (WsabiDeviceView_iPad*) v;
+                    NBCLSensorLink *currentLink = link;
+                    //If the URI matches, this is a matching capturer.
+                    if ([currentDevice.capturer.sensor.uri localizedCaseInsensitiveCompare:currentLink.uri] == NSOrderedSame) {
+                        currentDevice.sensorAvailable = NO;
+                        //make sure we're not in "reconnect" mode anymore if we shouldn't be.
+                        [currentDevice reconnectCompleted:NO];
+                    }
+                }
+            }
+        }
+
     }   
     
     //add this result to the WS-BD Result cache (at the top)

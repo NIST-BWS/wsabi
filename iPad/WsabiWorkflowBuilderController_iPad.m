@@ -754,7 +754,11 @@
     [self.workflowGrid deleteItemsAtIndices:[NSIndexSet indexSetWithIndex:index] withAnimation:AQGridViewItemAnimationRight];
     //if there's anything after the deleted cell, reload it.
     //NOTE: The crash isn't coming from here.
-    [self.workflowGrid reloadItemsAtIndices:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index+1, [self.capturers count] - index - 1)] withAnimation:AQGridViewItemAnimationBottom];
+    int remainingCount = ([self.capturers count] - index) - 1;
+    if (remainingCount > 0) 
+    {
+        [self.workflowGrid reloadItemsAtIndices:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index+1, [self.capturers count] - index - 1)] withAnimation:AQGridViewItemAnimationBottom];
+    }
     
     
 }
