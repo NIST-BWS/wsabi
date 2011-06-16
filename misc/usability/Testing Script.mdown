@@ -1,7 +1,5 @@
 #Script for iOS WS-Biometric Devices Client User Testing
 
-(link to issue #3)
-
 ##Intro
 * Today, we’re going to be testing a new user interface for capturing biometrics.  It’s running on something like an iPad or iPhone, so no keyboard, no mouse.  You can use touch and gestures.
 * Matt’s here to take notes
