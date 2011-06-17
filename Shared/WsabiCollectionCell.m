@@ -118,6 +118,10 @@
             cell.isFilled = YES;
             cell.dataImage = [UIImage imageWithData:item.thumbnail];
         }
+        else {
+            cell.isFilled = NO;
+            cell.dataImage = nil;
+        }
         
     }
     
