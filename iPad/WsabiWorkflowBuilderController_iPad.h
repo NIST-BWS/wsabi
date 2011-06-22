@@ -39,6 +39,7 @@
     UIPopoverController *popoverController;
     
 	UITextField *titleTextField;
+    UIBarButtonItem *doneButton;
 	
 	UITableView *sensorTable;
 	UINavigationBar *sensorNavBar;
@@ -89,6 +90,8 @@
 @property (nonatomic, retain) IBOutlet UIPopoverController *popoverController;
 
 @property (nonatomic, retain) IBOutlet UITextField *titleTextField;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *doneButton;
+
 @property (nonatomic, retain) IBOutlet UITableView *sensorTable;
 @property (nonatomic, retain) IBOutlet UINavigationBar *sensorNavBar;
 @property (nonatomic, retain) IBOutlet AQGridView *workflowGrid;

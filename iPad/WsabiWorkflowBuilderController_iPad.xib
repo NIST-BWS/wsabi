@@ -65,10 +65,8 @@
 						</object>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<bool key="IBUIAlwaysBounceVertical">YES</bool>
 						<int key="IBUISeparatorStyle">1</int>
 						<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>
-						<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>
 						<float key="IBUIRowHeight">66</float>
 						<float key="IBUISectionHeaderHeight">22</float>
 						<float key="IBUISectionFooterHeight">22</float>
@@ -650,28 +648,24 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>doneButton</string>
 							<string>helpView</string>
 							<string>popoverController</string>
-							<string>redoButton</string>
 							<string>sensorNavBar</string>
 							<string>sensorTable</string>
 							<string>titleTextField</string>
 							<string>topToolbar</string>
-							<string>trashButton</string>
-							<string>undoButton</string>
 							<string>workflowGrid</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UIBarButtonItem</string>
 							<string>UIView</string>
 							<string>UIPopoverController</string>
-							<string>UIButton</string>
 							<string>UINavigationBar</string>
 							<string>UITableView</string>
 							<string>UITextField</string>
 							<string>UIToolbar</string>
-							<string>UIButton</string>
-							<string>UIButton</string>
 							<string>AQGridView</string>
 						</object>
 					</object>
@@ -679,19 +673,21 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>doneButton</string>
 							<string>helpView</string>
 							<string>popoverController</string>
-							<string>redoButton</string>
 							<string>sensorNavBar</string>
 							<string>sensorTable</string>
 							<string>titleTextField</string>
 							<string>topToolbar</string>
-							<string>trashButton</string>
-							<string>undoButton</string>
 							<string>workflowGrid</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">doneButton</string>
+								<string key="candidateClassName">UIBarButtonItem</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">helpView</string>
 								<string key="candidateClassName">UIView</string>
@@ -699,10 +695,6 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">popoverController</string>
 								<string key="candidateClassName">UIPopoverController</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">redoButton</string>
-								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">sensorNavBar</string>
@@ -719,14 +711,6 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">topToolbar</string>
 								<string key="candidateClassName">UIToolbar</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">trashButton</string>
-								<string key="candidateClassName">UIButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">undoButton</string>
-								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">workflowGrid</string>

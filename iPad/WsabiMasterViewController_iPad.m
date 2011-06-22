@@ -265,8 +265,12 @@
 		Workflow *newWorkflow = [NSEntityDescription insertNewObjectForEntityForName:@"Workflow" inManagedObjectContext:self.managedObjectContext];
 		newWorkflow.timestampCreated = [NSDate date];
 		newWorkflow.timestampModified = [NSDate date];
-		newWorkflow.name = [NSString stringWithFormat:@"New Workflow",newWorkflow.timestampCreated];
+        //don't auto-set this.
+		//newWorkflow.name = [NSString stringWithFormat:@"New Workflow %@",[newWorkflow.timestampCreated description]];
 		builder.workflow = newWorkflow;
+        
+        //deselect the cell in this case.
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 		
 		//save the context (to make sure the new workflow is there even if there's a crash), dismiss the popover, then show the workflow builder.
 		[(AppDelegate_Shared*)[[UIApplication sharedApplication] delegate] saveContext];
@@ -276,6 +280,7 @@
 		}
 		
 		[self presentModalViewController:builder animated:YES];
+        
 	}
 
 	

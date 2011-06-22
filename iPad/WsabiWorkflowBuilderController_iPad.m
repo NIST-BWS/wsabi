@@ -23,7 +23,8 @@
 
 @implementation WsabiWorkflowBuilderController_iPad
 @synthesize topToolbar, popoverController;
-@synthesize titleTextField, sensorTable, sensorNavBar, workflowGrid, helpView;
+@synthesize titleTextField, doneButton;
+@synthesize sensorTable, sensorNavBar, workflowGrid, helpView;
 @synthesize tempDraggedCapturer, tempDraggedItem, currentCapturer, dragPositionIndicator;
 @synthesize workflow, capturers, fetchedResultsController, managedObjectContext;
 @synthesize delegate;
@@ -49,10 +50,15 @@
 	UIBarButtonItem *flexibleSpaceButtonItem = [[UIBarButtonItem alloc]
 												initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
 												target:nil action:nil];
-	
-	UIBarButtonItem *doneButtonItem = [[UIBarButtonItem alloc]
+    
+    UIBarButtonItem *cancelButtonItem = [[UIBarButtonItem alloc]
+                                       initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                       target:self action:@selector(cancelButtonPressed:)];
+
+	self.doneButton = [[UIBarButtonItem alloc]
 										 initWithBarButtonSystemItem:UIBarButtonSystemItemDone
 										 target:self action:@selector(doneButtonPressed:)];
+    self.doneButton.enabled = NO; //start with this disabled, and only re-enable it if there's already content in the workflow.
 	
 	//add an editable text field to the center.
 	self.titleTextField = [[[UITextField alloc] initWithFrame:CGRectMake(0, 0, 500, 26)] autorelease];
@@ -71,33 +77,23 @@
 	
 	// Set our toolbar items
 	self.topToolbar.items = [NSArray arrayWithObjects:
+                          cancelButtonItem,
                          flexibleSpaceButtonItem,
                          textFieldItem,
                          flexibleSpaceButtonItem,
-                         doneButtonItem,
+                         self.doneButton,
                          nil];
 	
-	[flexibleSpaceButtonItem release];
-    [doneButtonItem release];
-	[textFieldItem release];
-
 	//configure the sensor list's nav bar.
 	self.sensorNavBar.topItem.leftBarButtonItem = self.editButtonItem;
 
 	//we need to fetch data so we have something to put in the table view.
     [self refetchData];
 	
-	//add a drag listener to the sensor table to pick up item drags
-//	UILongPressGestureRecognizer *tempDrag = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleTableLongPress:)];
-//	//tempDrag.cancelsTouchesInView = NO; //this allows normal operation of the table.
-//	tempDrag.allowableMovement = 1024; //allow this to be used for drags as well.
-//	[self.sensorTable addGestureRecognizer:tempDrag];
-//	[tempDrag release];
-	
-	
 	_emptyCellIndex = NSNotFound;
 	self.workflowGrid.backgroundColor = [UIColor clearColor];
     self.workflowGrid.opaque = NO;
+    self.workflowGrid.topContentInset = 30;
     
     //create a drag position indicator for adding new workflow items.
     self.dragPositionIndicator = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.workflowGrid.bounds.size.width, 4)] autorelease];
@@ -121,6 +117,8 @@
         if ([workflow.capturers count] > 0) {
             //hide the help view.
             self.helpView.alpha = 0;
+            //enable the done button.
+            self.doneButton.enabled = YES;
         }
         else
         {
@@ -133,14 +131,15 @@
 	[self.workflowGrid reloadData];
     
     //update the sensor table.
+    self.sensorTable.alwaysBounceVertical = NO;
     [self.sensorTable reloadData];
+    
+    //clean up
+    [flexibleSpaceButtonItem release];
+	[textFieldItem release];
+    
 }
 
-//-(void) setWorkflow:(Workflow *)newWorkflow
-//{
-//workflow = newWorkflow;
-//
-//}
 
 //need to override setEditing:animated: to pass the message to our custom sensor table view.
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
@@ -264,7 +263,9 @@
 
 -(IBAction) cancelButtonPressed:(id)sender
 {
-	//TODO: Remove this workflow if there's nothing in it and the user presses the cancel button.
+	//Remove this workflow if there's nothing in it and the user presses the cancel button.
+    [[self.workflow managedObjectContext] deleteObject:self.workflow];
+    
 	[self dismissModalViewControllerAnimated:YES];
 }
 
@@ -336,6 +337,9 @@
     accessoryButton.tag = indexPath.row; //we'll use this to determine what to edit later.
 
     cell.accessoryView = accessoryButton;
+    
+    //don't show standard cell selection here.
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
 }
 
@@ -576,7 +580,7 @@
         
         //position the drag position indicator; cap it to the maximum number of cells already in the table.
         float cellHeight = [self portraitGridCellSizeForGridView:self.workflowGrid].height;
-        float indicatorHeight = MIN(cellHeight * [self.capturers count], cellHeight * round([recog locationInView:self.workflowGrid].y/cellHeight));
+        float indicatorHeight = MIN(self.workflowGrid.topContentInset + cellHeight * [self.capturers count],self.workflowGrid.topContentInset + cellHeight * round([recog locationInView:self.workflowGrid].y/cellHeight));
         self.dragPositionIndicator.center = CGPointMake(self.dragPositionIndicator.center.x, indicatorHeight);
         
         //only show the indicator if dropping the object here is valid.
@@ -660,6 +664,9 @@
             //scroll everything so that this cell is visible.
             [self.workflowGrid scrollToItemAtIndex:[self workflowIndexForInsertionPoint:[recog locationInView:self.workflowGrid]]
                                   atScrollPosition:AQGridViewScrollPositionNone animated:YES];
+            
+            //enable the "Done" button in case it wasn't already.
+            self.doneButton.enabled = YES;
             
         }
         else {
@@ -753,14 +760,16 @@
     
     [self.workflowGrid deleteItemsAtIndices:[NSIndexSet indexSetWithIndex:index] withAnimation:AQGridViewItemAnimationRight];
     //if there's anything after the deleted cell, reload it.
-    //NOTE: The crash isn't coming from here.
     int remainingCount = ([self.capturers count] - index) - 1;
     if (remainingCount > 0) 
     {
         [self.workflowGrid reloadItemsAtIndices:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index+1, [self.capturers count] - index - 1)] withAnimation:AQGridViewItemAnimationBottom];
     }
     
-    
+    //if there isn't anything left in this workflow, disable the done button.
+    if ([self.capturers count] <= 0) {
+        self.doneButton.enabled = NO;
+    }
 }
 
 #pragma mark -
@@ -1049,6 +1058,7 @@
     [helpView release];
     [popoverController release];
 	[topToolbar release];
+    [doneButton release];
 	[titleTextField release];
 	[tempDraggedItem release];
 	[capturers release];
