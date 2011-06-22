@@ -177,10 +177,12 @@
         
 	}
 	else {
-		//add a cell for the "Create new" action
+		//add a cell for the "Create new" action, making sure to set all other variables to match this cell style.
 		cell.imageView.image = [UIImage imageNamed:@"favorites_48.png"];
 		cell.textLabel.text = @"Create new workflow";
 		cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.accessoryView = nil;
+        cell.detailTextLabel.text = nil;
 	}
 
 }

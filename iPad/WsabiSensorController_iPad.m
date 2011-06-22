@@ -262,6 +262,7 @@
 		}
 		if (indexPath.section == kSensorSectionNetwork && self.sensor.uri) {
 			textField.text = self.sensor.uri;
+            textField.autocorrectionType = UITextAutocorrectionTypeNo;
 		}
 	}
 	else if (indexPath.section == kSensorSectionModality)
