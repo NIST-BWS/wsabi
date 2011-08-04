@@ -3,7 +3,7 @@
 ##Intro
 * Today, we’re going to be testing a new user interface for capturing biometrics.  It’s running on something like an iPad or iPhone, so no keyboard, no mouse.  You can use touch and gestures.
 * Matt’s here to take notes 
-<!--Here's a note-->
+<!--Here's a note-->  
 * You’re not being tested.
 * _Explain “biometric,” “sensor,” and “left slap”_
 * We’re going to set up a scenario for you, and that scenario will have a series of tasks to perform.  The tasks will be split into two groups.  When you feel like you’ve reached the end of each task, tell me.
