@@ -489,6 +489,11 @@
     [self.tableView endUpdates];
 }
 
+-(void) viewWillDisappear:(BOOL)animated {
+    //return this controller to non-editing mode.
+    [self setEditing:NO];
+}
+
 #pragma mark -
 #pragma mark Memory management
 
