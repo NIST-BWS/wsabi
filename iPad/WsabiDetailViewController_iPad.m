@@ -243,10 +243,15 @@
             
             WsabiDeviceView_iPad *dView = [self createDeviceViewForCapturer:c];
             
+            //unless this is the first card, disable the capture button.
+            //NOTE: If anything besides the first card should be active,
+            //it will be set as active by updateScrollPositionData:
+            dView.captureButton.enabled = ([tempCapturers indexOfObject:c] == 0);
+            
             [self.capturerScroll addSubview:dView];
             
-            //start with the reconnect options disabled.
-            dView.reconnectOptionsEnabled = NO;
+            //start with the reconnect options enabled.
+            dView.reconnectOptionsEnabled = YES;
         }
         self.capturerScroll.contentSize = CGSizeMake([tempCapturers count] * (CAPTURER_WIDTH_OFFSET + CAPTURER_WIDTH), self.capturerScroll.bounds.size.height);
         self.capturerScroll.contentOffset = CGPointMake(0, 0);
@@ -1446,6 +1451,13 @@
         
     NSLog(@"After setting active collection, scrollView offset is (%1.0f,%1.0f)",self.capturerScroll.contentOffset.x, self.capturerScroll.contentOffset.y);
 
+    //disable capture buttons on all but this capture card.
+    for (int j = 0; j < [self.workflow.capturers count]; j++) {
+        WsabiDeviceView_iPad *captureCard = (WsabiDeviceView_iPad*) [self.capturerScroll viewWithTag:(j + CAPTURER_TAG_OFFSET)];
+        BOOL shouldEnable = (j == itemNumber);
+        captureCard.captureButton.enabled = shouldEnable;
+    }
+    
 }
 
 //NOTE: This is only called when scrolling manually.
