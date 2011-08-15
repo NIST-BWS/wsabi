@@ -79,6 +79,14 @@
 	self.captureButton.layer.shadowRadius = 3;
 	self.captureButton.layer.shadowOffset = CGSizeMake(1, 2);
 	self.captureButton.layer.shadowOpacity = 0.8;
+    
+    //animate the capture guide button.
+    [UIView animateWithDuration:1.0 delay:0 options:UIViewAnimationOptionAutoreverse|UIViewAnimationOptionRepeat|UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionCurveEaseOut animations:^{
+        self.captureButton.transform = CGAffineTransformMakeScale(1.04, 1.04);
+    }
+                     completion:nil];
+    
+
 
 }
 

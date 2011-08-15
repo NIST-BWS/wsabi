@@ -18,10 +18,12 @@
 #import "Three20/Three20.h"
 
 @interface NBCLPhotoBrowserController : TTPhotoViewController {
-    
+    UIPageControl *pageControl;
 }
 
 -(void) configureView;
 -(IBAction) doneButtonPressed:(id)sender;
+
+@property (nonatomic, retain) IBOutlet UIPageControl *pageControl;
 
 @end

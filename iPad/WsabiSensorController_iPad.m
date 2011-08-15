@@ -83,6 +83,13 @@
     return NO;
 }
 
+//This is a solution to the non-dismissal of the keyboard when this controller
+//is presented as a form sheet. This is, apparently, the desired behavior from Apple,
+//but I think it's a bug and so do all the users :-).
+- (BOOL)disablesAutomaticKeyboardDismissal {
+    return NO;
+}
+
 #pragma mark -
 #pragma mark Core Data interactions
 -(Sensor*) sensor

@@ -50,6 +50,11 @@
     }
 	
 	self.collectionsNavBar.topItem.leftBarButtonItem = self.editButtonItem;
+    
+    UIBarButtonItem *flexSpace = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease];
+    UIBarButtonItem *addNewWorkflowButton = [[[UIBarButtonItem alloc] initWithTitle:@"+ New Workflow" style:UIBarButtonItemStyleBordered target:self action:@selector(addNewWorkflowButtonPressed:)] autorelease];
+    [self setToolbarItems:[NSArray arrayWithObjects:flexSpace, addNewWorkflowButton, nil]];
+    self.navigationController.toolbarHidden = NO;
 }
 
 
@@ -123,6 +128,32 @@
     [self tableView:self.tableView accessoryButtonTappedForRowWithIndexPath:[NSIndexPath indexPathForRow:((UIView*)sender).tag inSection:0]];
 }
 
+-(IBAction)addNewWorkflowButtonPressed:(id)sender {
+    //Load the workflow builder with a new workflow.
+    WsabiWorkflowBuilderController_iPad *builder = [[[WsabiWorkflowBuilderController_iPad alloc] 
+                                                     initWithNibName:@"WsabiWorkflowBuilderController_iPad" bundle:nil] 
+                                                    autorelease];
+    builder.managedObjectContext = self.managedObjectContext;
+    builder.delegate = self;
+    
+    Workflow *newWorkflow = [NSEntityDescription insertNewObjectForEntityForName:@"Workflow" inManagedObjectContext:self.managedObjectContext];
+    newWorkflow.timestampCreated = [NSDate date];
+    newWorkflow.timestampModified = [NSDate date];
+    //don't auto-set this.
+    //newWorkflow.name = [NSString stringWithFormat:@"New Workflow %@",[newWorkflow.timestampCreated description]];
+    builder.workflow = newWorkflow;
+        
+    //save the context (to make sure the new workflow is there even if there's a crash), dismiss the popover, then show the workflow builder.
+    [(AppDelegate_Shared*)[[UIApplication sharedApplication] delegate] saveContext];
+    
+    if (self.popoverController) {
+        [self.popoverController dismissPopoverAnimated:YES];
+    }
+    
+    [self presentModalViewController:builder animated:YES];
+
+}
+
 #pragma mark -
 #pragma mark Table view data source
 
@@ -133,7 +164,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects] + 1; //add an extra cell for the "Create new" action
+    return [sectionInfo numberOfObjects];
 }
 
 

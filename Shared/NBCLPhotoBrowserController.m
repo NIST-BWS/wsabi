@@ -18,6 +18,8 @@
 
 @implementation NBCLPhotoBrowserController
 
+@synthesize pageControl;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -49,15 +51,23 @@
 }
 
 #pragma mark - Overrides
-//- (void)updateChrome {
-//    [super updateChrome];
-//    //We need to make some changes after their updates are done.
-//    self.navigationItem.rightBarButtonItem = nil;
-//}
+- (void)updateChrome {
+    [super updateChrome];
+    //We need to make some changes after their updates are done.
+    self.pageControl.numberOfPages = [self.photoSource numberOfPhotos];
+    self.pageControl.currentPage = self.centerPhotoIndex;
+    [self.view bringSubviewToFront:self.pageControl];
+
+}
+
+-(void) didMoveToPhoto:(id<TTPhoto>)photo fromPhoto:(id<TTPhoto>)fromPhoto {
+    self.pageControl.currentPage = self.centerPhotoIndex;
+}
 
 - (void)dealloc
 {
     [super dealloc];
+    [pageControl release];
 }
 
 - (void)didReceiveMemoryWarning

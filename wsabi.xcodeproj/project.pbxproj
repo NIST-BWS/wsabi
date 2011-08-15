@@ -118,9 +118,7 @@
 		EA9CF6FD1365A67C00CCC13A /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9CF6FC1365A67C00CCC13A /* AssetsLibrary.framework */; };
 		EA9CF6FF1365B67500CCC13A /* GlossLayer.png in Resources */ = {isa = PBXBuildFile; fileRef = EA9CF6FE1365B67500CCC13A /* GlossLayer.png */; };
 		EA9CF7011365B83400CCC13A /* README.mdown in Resources */ = {isa = PBXBuildFile; fileRef = EA9CF7001365B83400CCC13A /* README.mdown */; };
-		EA9CF7061365BB9600CCC13A /* singleTap.png in Resources */ = {isa = PBXBuildFile; fileRef = EA9CF7051365BB9600CCC13A /* singleTap.png */; };
 		EA9CF70C1365C4B700CCC13A /* singleTap_color.png in Resources */ = {isa = PBXBuildFile; fileRef = EA9CF70B1365C4B700CCC13A /* singleTap_color.png */; };
-		EA9CF70E1365E53000CCC13A /* singleTap_small.png in Resources */ = {isa = PBXBuildFile; fileRef = EA9CF70D1365E53000CCC13A /* singleTap_small.png */; };
 		EA9CF7191368620E00CCC13A /* NBCLInternalCameraSensorLink.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF7181368620E00CCC13A /* NBCLInternalCameraSensorLink.m */; };
 		EAA001FE13046C5E002485B3 /* WsabiCaptureTypePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA001FC13046C5C002485B3 /* WsabiCaptureTypePickerController.m */; };
 		EAA001FF13046C5E002485B3 /* WsabiCaptureTypePickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA001FD13046C5C002485B3 /* WsabiCaptureTypePickerController.xib */; };
@@ -131,6 +129,8 @@
 		EABFA9191326B6FC00E72BFE /* PerforatedMetalBG.png in Resources */ = {isa = PBXBuildFile; fileRef = EABFA9181326B6FC00E72BFE /* PerforatedMetalBG.png */; };
 		EAC164041305C1FF000FAD39 /* BlueButtonGlossy_Stretchable.png in Resources */ = {isa = PBXBuildFile; fileRef = EAC164031305C1FF000FAD39 /* BlueButtonGlossy_Stretchable.png */; };
 		EAC164061305C231000FAD39 /* BlueButtonGlossy_StretchableSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = EAC164051305C231000FAD39 /* BlueButtonGlossy_StretchableSelected.png */; };
+		EAC8D28313F969330040B18B /* singleTap_small.png in Resources */ = {isa = PBXBuildFile; fileRef = EAC8D28113F969330040B18B /* singleTap_small.png */; };
+		EAC8D28413F969330040B18B /* singleTap.png in Resources */ = {isa = PBXBuildFile; fileRef = EAC8D28213F969330040B18B /* singleTap.png */; };
 		EAD0451A135CC188004FCD3B /* wsabi.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EAD04518135CC188004FCD3B /* wsabi.xcdatamodeld */; };
 		EAD9B635135F642F008ED33B /* AVCamDemoCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD9B634135F642F008ED33B /* AVCamDemoCaptureManager.m */; };
 		EADAB81412C13A36001DE0F9 /* WsabiDeviceView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = EADAB81312C13A36001DE0F9 /* WsabiDeviceView_iPad.xib */; };
@@ -482,9 +482,7 @@
 		EA9CF6FC1365A67C00CCC13A /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		EA9CF6FE1365B67500CCC13A /* GlossLayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GlossLayer.png; path = Shared/Images/GlossLayer.png; sourceTree = "<group>"; };
 		EA9CF7001365B83400CCC13A /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.mdown; sourceTree = "<group>"; };
-		EA9CF7051365BB9600CCC13A /* singleTap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = singleTap.png; path = Shared/Images/singleTap.png; sourceTree = "<group>"; };
 		EA9CF70B1365C4B700CCC13A /* singleTap_color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = singleTap_color.png; path = Shared/Images/singleTap_color.png; sourceTree = "<group>"; };
-		EA9CF70D1365E53000CCC13A /* singleTap_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = singleTap_small.png; path = Shared/Images/singleTap_small.png; sourceTree = "<group>"; };
 		EA9CF7171368620E00CCC13A /* NBCLInternalCameraSensorLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBCLInternalCameraSensorLink.h; path = Shared/NBCLInternalCameraSensorLink.h; sourceTree = "<group>"; };
 		EA9CF7181368620E00CCC13A /* NBCLInternalCameraSensorLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NBCLInternalCameraSensorLink.m; path = Shared/NBCLInternalCameraSensorLink.m; sourceTree = "<group>"; };
 		EAA001FB13046C5B002485B3 /* WsabiCaptureTypePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WsabiCaptureTypePickerController.h; path = Shared/WsabiCaptureTypePickerController.h; sourceTree = "<group>"; };
@@ -500,6 +498,8 @@
 		EABFA9181326B6FC00E72BFE /* PerforatedMetalBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PerforatedMetalBG.png; path = Shared/Images/PerforatedMetalBG.png; sourceTree = "<group>"; };
 		EAC164031305C1FF000FAD39 /* BlueButtonGlossy_Stretchable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BlueButtonGlossy_Stretchable.png; path = Shared/Images/BlueButtonGlossy_Stretchable.png; sourceTree = "<group>"; };
 		EAC164051305C231000FAD39 /* BlueButtonGlossy_StretchableSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BlueButtonGlossy_StretchableSelected.png; path = Shared/Images/BlueButtonGlossy_StretchableSelected.png; sourceTree = "<group>"; };
+		EAC8D28113F969330040B18B /* singleTap_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = singleTap_small.png; sourceTree = "<group>"; };
+		EAC8D28213F969330040B18B /* singleTap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = singleTap.png; sourceTree = "<group>"; };
 		EAD04519135CC188004FCD3B /* wsabi.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = wsabi.xcdatamodel; sourceTree = "<group>"; };
 		EAD9B633135F642F008ED33B /* AVCamDemoCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVCamDemoCaptureManager.h; path = Shared/AVCamDemo/AVCamDemoCaptureManager.h; sourceTree = "<group>"; };
 		EAD9B634135F642F008ED33B /* AVCamDemoCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVCamDemoCaptureManager.m; path = Shared/AVCamDemo/AVCamDemoCaptureManager.m; sourceTree = "<group>"; };
@@ -983,8 +983,8 @@
 		EA9CF7021365B9D900CCC13A /* gesture icons */ = {
 			isa = PBXGroup;
 			children = (
-				EA9CF7051365BB9600CCC13A /* singleTap.png */,
-				EA9CF70D1365E53000CCC13A /* singleTap_small.png */,
+				EAC8D28113F969330040B18B /* singleTap_small.png */,
+				EAC8D28213F969330040B18B /* singleTap.png */,
 				EA9CF70B1365C4B700CCC13A /* singleTap_color.png */,
 			);
 			name = "gesture icons";
@@ -1258,9 +1258,7 @@
 				EA4A7E02135CA9880066C392 /* WsabiSensorController_iPad.xib in Resources */,
 				EA9CF6FF1365B67500CCC13A /* GlossLayer.png in Resources */,
 				EA9CF7011365B83400CCC13A /* README.mdown in Resources */,
-				EA9CF7061365BB9600CCC13A /* singleTap.png in Resources */,
 				EA9CF70C1365C4B700CCC13A /* singleTap_color.png in Resources */,
-				EA9CF70E1365E53000CCC13A /* singleTap_small.png in Resources */,
 				EA87B4D9136F1CB100AA87C8 /* Three20.bundle in Resources */,
 				EA87B4DF13730C1400AA87C8 /* 20-gear2.png in Resources */,
 				EA87B4E013730C1400AA87C8 /* 20-gear2@2x.png in Resources */,
@@ -1268,6 +1266,8 @@
 				EA87B4E413730D1200AA87C8 /* 19-gear@2x.png in Resources */,
 				EA82EE5E13731D61008D0677 /* Testing Script.mdown in Resources */,
 				EAE14875137AC5BD00DD655C /* Settings.bundle in Resources */,
+				EAC8D28313F969330040B18B /* singleTap_small.png in Resources */,
+				EAC8D28413F969330040B18B /* singleTap.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

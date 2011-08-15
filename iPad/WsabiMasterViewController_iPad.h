@@ -43,6 +43,7 @@
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 - (void)insertNewObject:(id)sender;
+- (IBAction)addNewWorkflowButtonPressed:(id)sender;
 - (void)loadWorkflowAtIndexPath:(NSIndexPath*)indexPath;
 - (void) editWorkflowAtIndexPath:(NSIndexPath*)indexPath copyFirst:(BOOL)copy;
 

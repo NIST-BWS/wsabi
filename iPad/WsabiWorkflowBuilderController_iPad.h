@@ -30,13 +30,15 @@
 @interface WsabiWorkflowBuilderController_iPad : UIViewController <UITableViewDelegate, UITableViewDataSource, 
 																	AQGridViewDelegate, AQGridViewDataSource, 
 																	UIGestureRecognizerDelegate, NSFetchedResultsControllerDelegate,
-																	UITextFieldDelegate, 
+																	UITextFieldDelegate, UIActionSheetDelegate,
                                                                     WsabiSensorControllerDelegate, WsabiCaptureTypeSelectorDelegate,
                                                                     WsabiWorkflowItemDelegate, WsabiWorkflowBuilderCellDelegate
 > 
 {
 	UIToolbar *topToolbar;
     UIPopoverController *popoverController;
+    UIActionSheet *sensorListActionSheet;
+    NSIndexPath *sensorListActionIndexPath;
     
 	UITextField *titleTextField;
     UIBarButtonItem *doneButton;
@@ -83,11 +85,15 @@
 
 -(IBAction) customAccessoryButtonTapped:(id)sender;
 
+-(IBAction) showEditorForSensorAtIndexPath:(NSIndexPath*)indexPath;
+
 //gesture recognizer action methods
 -(void) handleTableLongPress:(UILongPressGestureRecognizer*)recog;
 
 @property (nonatomic, retain) IBOutlet UIToolbar *topToolbar;
 @property (nonatomic, retain) IBOutlet UIPopoverController *popoverController;
+@property (nonatomic, retain) IBOutlet UIActionSheet *sensorListActionSheet;
+@property (nonatomic, retain) IBOutlet NSIndexPath *sensorListActionIndexPath;
 
 @property (nonatomic, retain) IBOutlet UITextField *titleTextField;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *doneButton;

@@ -22,7 +22,7 @@
 #define WORKFLOW_CELL_HEIGHT 300.0
 
 @implementation WsabiWorkflowBuilderController_iPad
-@synthesize topToolbar, popoverController;
+@synthesize topToolbar, popoverController, sensorListActionSheet, sensorListActionIndexPath;
 @synthesize titleTextField, doneButton;
 @synthesize sensorTable, sensorNavBar, workflowGrid, helpView;
 @synthesize tempDraggedCapturer, tempDraggedItem, currentCapturer, dragPositionIndicator;
@@ -55,9 +55,13 @@
                                        initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                        target:self action:@selector(cancelButtonPressed:)];
 
-	self.doneButton = [[UIBarButtonItem alloc]
-										 initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-										 target:self action:@selector(doneButtonPressed:)];
+//	self.doneButton = [[UIBarButtonItem alloc]
+//										 initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+//										 target:self action:@selector(doneButtonPressed:)];
+    
+    self.doneButton = [[UIBarButtonItem alloc]
+                       initWithTitle:@"Save & Launch" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonPressed:)];
+    
     self.doneButton.enabled = NO; //start with this disabled, and only re-enable it if there's already content in the workflow.
 	
 	//add an editable text field to the center.
@@ -68,6 +72,7 @@
 	self.titleTextField.backgroundColor = [UIColor clearColor];
 	self.titleTextField.opaque = NO;
 	self.titleTextField.delegate = self;
+    self.titleTextField.returnKeyType = UIReturnKeyDone;
 	[self.titleTextField setFont:[UIFont boldSystemFontOfSize:22]];
 	
 	//set placeholder title text.
@@ -85,7 +90,7 @@
                          nil];
 	
 	//configure the sensor list's nav bar.
-	self.sensorNavBar.topItem.leftBarButtonItem = self.editButtonItem;
+	//self.sensorNavBar.topItem.leftBarButtonItem = self.editButtonItem;
 
 	//we need to fetch data so we have something to put in the table view.
     [self refetchData];
@@ -103,7 +108,7 @@
     
 	// add our gesture recognizer to the grid view to allow rearranging capturers
     UILongPressGestureRecognizer * gr = [[UILongPressGestureRecognizer alloc] initWithTarget: self action: @selector(moveActionGestureRecognizerStateChanged:)];
-    gr.minimumPressDuration = 0.35;
+    gr.minimumPressDuration = 0.2;
     gr.delegate = self;
     [self.workflowGrid addGestureRecognizer: gr];
     [gr release];
@@ -284,8 +289,32 @@
 
 -(IBAction) customAccessoryButtonTapped:(id)sender
 {
-    //just pass this action to the main "accessory tapped" handler.
-    [self tableView:self.sensorTable accessoryButtonTappedForRowWithIndexPath:[NSIndexPath indexPathForRow:((UIView*)sender).tag inSection:0]];
+    [self showEditorForSensorAtIndexPath:[NSIndexPath indexPathForRow:((UIView*)sender).tag inSection:0]];
+}
+
+-(IBAction) showEditorForSensorAtIndexPath:(NSIndexPath*)indexPath
+{
+    //NOTE: The sensor editor makes use of Core Data's rollback method (which discards everything back to the last commit), 
+	//so we need to make sure we've committed all the changes we want to keep
+	//prior to opening it.
+	[(AppDelegate_Shared*)[[UIApplication sharedApplication] delegate] saveContext];
+	
+	WsabiSensorController_iPad *sensorEditor = [[[WsabiSensorController_iPad alloc] initWithNibName:@"WsabiSensorController_iPad" bundle:nil] autorelease];
+	
+	//FIXME: There's a bug in the iOS SDK which means that the resignFirstResponder call doesn't hide
+	//the keyboard when presenting a modal view as a Form Sheet (the user has to hide it manually).  However, all of the other presentation
+	//styles are much too big, so we've got to stick with it until there's an alternative.
+	//(http://stackoverflow.com/questions/3699868/uitextfield-resignfirstresponder-but-keybord-will-not-disappear )
+    
+    //UPDATE: The above issue is fixed by overriding disablesAutomaticKeyboardDismissal: in the sensor controller.
+	sensorEditor.modalPresentationStyle = UIModalPresentationFormSheet;
+	sensorEditor.managedObjectContext = self.managedObjectContext;
+	sensorEditor.delegate = self;
+	
+	sensorEditor.sensor = [self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
+	
+	[self presentModalViewController:sensorEditor animated:YES];
+
 }
 
 
@@ -322,24 +351,24 @@
 
 	//cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 
-    //Create a custom accessory button.
-    UIButton *accessoryButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    accessoryButton.bounds = CGRectMake(0, 0, 26, 26);
-    //accessoryButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [accessoryButton addTarget:self action:@selector(customAccessoryButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    
-//    [accessoryButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-//    [accessoryButton setTitle:@"Q" forState:UIControlStateNormal]; //the one-gear configuration icon.
-    //accessoryButton.showsTouchWhenHighlighted = YES;
-    accessoryButton.alpha = 0.6;
-    [accessoryButton setImage:[UIImage imageNamed:@"19-gear"] forState:UIControlStateNormal];
-    
-    accessoryButton.tag = indexPath.row; //we'll use this to determine what to edit later.
-
-    cell.accessoryView = accessoryButton;
-    
-    //don't show standard cell selection here.
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    //Create a custom accessory button.
+//    UIButton *accessoryButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    accessoryButton.bounds = CGRectMake(0, 0, 26, 26);
+//    //accessoryButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+//    [accessoryButton addTarget:self action:@selector(customAccessoryButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+//    
+////    [accessoryButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+////    [accessoryButton setTitle:@"Q" forState:UIControlStateNormal]; //the one-gear configuration icon.
+//    //accessoryButton.showsTouchWhenHighlighted = YES;
+//    accessoryButton.alpha = 0.6;
+//    [accessoryButton setImage:[UIImage imageNamed:@"19-gear"] forState:UIControlStateNormal];
+//    
+//    accessoryButton.tag = indexPath.row; //we'll use this to determine what to edit later.
+//
+//    cell.accessoryView = accessoryButton;
+//    
+//    //don't show standard cell selection here.
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
 }
 
@@ -366,33 +395,33 @@
 }
 
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-   if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
-        // Delete the managed object.
-        NSManagedObject *objectToDelete = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-        [context deleteObject:objectToDelete];
-        
-        NSError *error;
-        if (![context save:&error]) {
-            /*
-             Replace this implementation with code to handle the error appropriately.
-             
-             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
-             */
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-       
-       //update the fetched results controller so that when we update the table UI, the number of results will match.
-       [self refetchData];
-       
-       //update the UI.
-       [self.sensorTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
-    }   
-}
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//   if (editingStyle == UITableViewCellEditingStyleDelete) {
+//        
+//        // Delete the managed object.
+//        NSManagedObject *objectToDelete = [self.fetchedResultsController objectAtIndexPath:indexPath];
+//        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+//        [context deleteObject:objectToDelete];
+//        
+//        NSError *error;
+//        if (![context save:&error]) {
+//            /*
+//             Replace this implementation with code to handle the error appropriately.
+//             
+//             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
+//             */
+//            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//            abort();
+//        }
+//       
+//       //update the fetched results controller so that when we update the table UI, the number of results will match.
+//       [self refetchData];
+//       
+//       //update the UI.
+//       [self.sensorTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+//    }   
+//}
 
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -405,32 +434,94 @@
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    //Show an action sheet to allow the user to either add a sensor instance to the list,
+    //or edit the sensor's properties.
+    if (!self.sensorListActionSheet) {
+        self.sensorListActionSheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add to workflow",@"Edit properties", nil] autorelease];
+    }
+    self.sensorListActionIndexPath = indexPath;
+    [self.sensorListActionSheet showFromRect:[aTableView rectForRowAtIndexPath:indexPath] inView:aTableView animated:YES];
+
+    //deselect the row.
+    [aTableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
-	//NOTE: The sensor editor makes use of Core Data's rollback method (which discards everything back to the last commit), 
-	//so we need to make sure we've committed all the changes we want to keep
-	//prior to opening it.
-	[(AppDelegate_Shared*)[[UIApplication sharedApplication] delegate] saveContext];
-	
-	WsabiSensorController_iPad *sensorEditor = [[[WsabiSensorController_iPad alloc] initWithNibName:@"WsabiSensorController_iPad" bundle:nil] autorelease];
-	
-	//FIXME: There's a bug in the iOS SDK which means that the resignFirstResponder call doesn't hide
-	//the keyboard when presenting a modal view as a Form Sheet (the user has to hide it manually).  However, all of the other presentation
-	//styles are much too big, so we've got to stick with it until there's an alternative.
-	//(http://stackoverflow.com/questions/3699868/uitextfield-resignfirstresponder-but-keybord-will-not-disappear )
-	sensorEditor.modalPresentationStyle = UIModalPresentationFormSheet;
-	sensorEditor.managedObjectContext = self.managedObjectContext;
-	sensorEditor.delegate = self;
-	
-	sensorEditor.sensor = [self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
-	
-	[self presentModalViewController:sensorEditor animated:YES];
+    [self showEditorForSensorAtIndexPath:indexPath];
 }
 
 #pragma mark -
-#pragma mark WsabiSensorControllerDelegate methods
+#pragma mark Action Sheet Delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (actionSheet == self.sensorListActionSheet && buttonIndex != actionSheet.cancelButtonIndex) {
+ 
+        switch (buttonIndex) {
+            case 0:
+                //add to workflow
+                self.helpView.alpha = 0.0;
+                                
+                //create a new capturer for this drag.
+                Capturer *tempCapturer = [NSEntityDescription insertNewObjectForEntityForName:@"Capturer" inManagedObjectContext:self.managedObjectContext];
+                tempCapturer.sensor = (Sensor*)[self.fetchedResultsController objectAtIndexPath:self.sensorListActionIndexPath]; //connect this to the sensor the user chose.
+                tempCapturer.workflow = self.workflow;
+
+                [self.workflow addCapturersObject:tempCapturer];
+                
+                //add the capturer to the end of the ordered array.
+                NSLog(@"Should be adding new object to the end of the capturers array");
+                [self.capturers addObject:tempCapturer];
+                
+                //update the indices in Core Data before re-fetching.
+                [self updateCapturerIndices];
+                
+                //refetch data from Core data so that we have the correct number of capturers.
+                NSError *error = nil;
+                if (![self.fetchedResultsController performFetch:&error]) {
+                    /*
+                     Replace this implementation with code to handle the error appropriately.
+                     
+                     abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
+                     */
+                    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                    abort();
+                }
+                
+                //refresh the list of capturers based on Core Data.
+                //NOTE: This will probably be redundant most of the time,
+                //because we're making manual changes to self.capturers.
+                //It's basically to make sure things stay in sync.
+                [self refreshOrderedCapturers];
+                
+                //refresh the grid.
+                [self.workflowGrid reloadData];
+                
+                //scroll everything so that this cell is visible.
+                [self.workflowGrid scrollToItemAtIndex:([self.workflow.capturers count] - 1)
+                                      atScrollPosition:AQGridViewScrollPositionNone animated:YES];
+                
+                //enable the "Done" button in case it wasn't already.
+                self.doneButton.enabled = YES;
+                
+                //Show the capture type selector
+                [self didRequestCaptureTypeChangeForCapturer:tempCapturer];
+
+                break;
+            case 1:
+                //edit properties.
+                [self showEditorForSensorAtIndexPath:self.sensorListActionIndexPath];
+                break;
+            default:
+                break;
+        }
+        
+    }
+    
+    //No matter what the user clicked, we need to clear the stored index path here.
+    self.sensorListActionIndexPath = nil;
+}
+
 
 #pragma mark -
 #pragma mark Fetched results controller
@@ -567,7 +658,32 @@
 							 self.tempDraggedItem.bounds = CGRectMake(0, 0, 430, 270);
                              self.tempDraggedItem.transform = CGAffineTransformMakeScale(0.33, 0.33);
 							 self.tempDraggedItem.center = location;
-						 }];
+						 }
+                         completion:^(BOOL completed) {
+                             //make sure we haven't let go while animating.
+                             if (recog.state != UIGestureRecognizerStateBegan && recog.state != UIGestureRecognizerStateChanged) {
+                                 NSLog(@"Need to be hiding the dragged preview here.");
+                                 //Hide the temporary object, the help view, and the drag position indicator.
+                                 [UIView animateWithDuration:0.3
+                                                  animations:^{ 
+                                                      self.tempDraggedItem.alpha = 0.0;
+                                                     self.tempDraggedItem.center = CGPointMake(-400, -WORKFLOW_CELL_HEIGHT);
+                                                    
+                                                      self.tempDraggedItem.transform = CGAffineTransformIdentity;
+                                                      self.dragPositionIndicator.alpha = 0.0;
+                                                      
+                                                  }
+                                                  completion:^(BOOL finished){ 
+                                                      [self.tempDraggedItem removeFromSuperview];
+                                                      self.tempDraggedItem = nil;
+                                                      //remove the temporary capturer we created at the start of this gesture.
+                                                      [self.managedObjectContext deleteObject:self.tempDraggedCapturer];
+                                                  }
+                                  ];
+
+                             }
+                         }
+         ];
         
         self.dragPositionIndicator.hidden =  ![self.workflowGrid pointInside:[recog locationInView:self.workflowGrid] withEvent:nil];
 		self.dragPositionIndicator.alpha = 1.0;
@@ -1057,6 +1173,8 @@
 - (void)dealloc {
     [helpView release];
     [popoverController release];
+    [sensorListActionSheet release];
+    [sensorListActionIndexPath release];
 	[topToolbar release];
     [doneButton release];
 	[titleTextField release];
