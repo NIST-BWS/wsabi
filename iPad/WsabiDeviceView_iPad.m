@@ -192,12 +192,15 @@
         return;
     }
     
+    //update the guide image.
+    [self.captureButton setImage:[UIImage imageNamed:@"singleTap"] forState:UIControlStateNormal];
+    
     //update the preview view with the contents of this data item.
     self.resultImageView.image = [UIImage imageWithContentsOfFile:data.filePath];
     
-    //update the image.
-    [self.captureButton setImage:[UIImage imageNamed:@"singleTap"] forState:UIControlStateNormal];
-        
+    //if there's a result stored at this position, hide the capture button.
+    self.captureButton.hidden = (self.resultImageView.image != nil);
+    
     //start off with certain things visible.
     self.annotationLabel1.hidden = NO;
     self.annotationLabel2.hidden = NO;
@@ -517,11 +520,16 @@
 
 -(IBAction) annotateButtonPressed:(id)sender
 {
-    //flip this over to the back.
-    [self flipToBack];
+    UIActionSheet *actionSheet = [[[UIActionSheet alloc] initWithTitle:nil 
+                                                              delegate:self 
+                                                     cancelButtonTitle:@"Cancel" 
+                                                destructiveButtonTitle:@"Annotate" 
+                                                     otherButtonTitles:@"Clear this result", nil] autorelease];
     
-	//notify the delegate that we're starting annotation
-	[delegate didBeginAnnotating:self];
+    //NOTE: We're using index 1 as the destructive button, which means
+    //that it's actually the first "otherButtonTitles" item that will be red.
+    actionSheet.destructiveButtonIndex = 1; //put the clear button at the bottom.
+    [actionSheet showFromRect:self.annotationButton.frame inView:[self.annotationButton superview] animated:YES];
 }
 
 -(IBAction) captureButtonPressed:(id)sender
@@ -594,6 +602,30 @@
 	//notify the delegate that we're done annotating.
 	[delegate didEndAnnotating:self];
 }
+
+#pragma mark - UIActionSheet delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        //do nothing
+    }
+    else if (buttonIndex == actionSheet.destructiveButtonIndex) {
+        //clear the current result.
+        [delegate didRequestClearData:self];
+    }
+    else {
+        //start annotating.
+        
+        //flip this over to the back.
+        [self flipToBack];
+        
+        //notify the delegate that we're starting annotation
+        [delegate didBeginAnnotating:self];
+
+    }
+    
+ }
+
 
 #pragma mark - Annotation control methods
 -(IBAction) annotationValueChanged:(id)sender

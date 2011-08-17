@@ -1259,6 +1259,39 @@
 
 }
 
+-(void) didRequestClearData:(id)sender
+{
+    //Clear the data from this collection item.
+    WsabiDeviceView_iPad *currentDevice = sender;
+    int tag = currentDevice.tag;
+
+    //Remove the matching result from the active collection.
+    //Get the data objects for the current collection so we can modify them as necessary.
+    NSSortDescriptor *orderSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"positionInCollection" ascending:YES selector:@selector(compare:)] autorelease];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:orderSortDescriptor];
+    NSArray *sortedDataObjects = [self.activeCollection.items sortedArrayUsingDescriptors:sortDescriptors];
+    
+    BiometricData *theData = [sortedDataObjects objectAtIndex:(tag - CAPTURER_TAG_OFFSET)];
+
+    //remove the file at theData's file path, then remove the path and thumbnail.
+    if (theData.filePath) {
+        @try {
+            [[NSFileManager defaultManager] removeItemAtPath:theData.filePath error:nil];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"DetailView::didRequestClearData couldn't delete the requested file (%@)", theData.filePath);
+        }
+        theData.filePath = nil;
+    }
+    theData.thumbnail = nil;
+    
+    //Reload the collection to display the changes
+    [self.collectionsTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:[self.sortedCollections indexOfObject:self.activeCollection]]] 
+                                 withRowAnimation:UITableViewRowAnimationFade];
+
+    [self updateData:theData forDeviceView:currentDevice withFlash:NO];
+}
+
 #pragma mark -
 #pragma mark Collection delegate methods
 -(void) didSelectItemAtIndex:(int)index fromCollectionCell:(id)sender

@@ -31,9 +31,10 @@
 -(void) didRequestConnection:(id)sender atNewUri:(NSString*)newUri;
 -(void) didRequestCapture:(id)sender;
 -(void) didRequestCancelCapture:(id)sender;
+-(void) didRequestClearData:(id)sender;
 @end
 
-@interface WsabiDeviceView_iPad : UIView
+@interface WsabiDeviceView_iPad : UIView <UIActionSheetDelegate>
 {
 
     //Front View
