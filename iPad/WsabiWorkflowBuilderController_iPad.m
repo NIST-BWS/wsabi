@@ -23,7 +23,7 @@
 
 @implementation WsabiWorkflowBuilderController_iPad
 @synthesize topToolbar, popoverController, sensorListActionSheet, sensorListActionIndexPath;
-@synthesize titleTextField, doneButton;
+@synthesize noTitlePromptField, titleTextField, doneButton;
 @synthesize sensorTable, sensorNavBar, workflowGrid, helpView;
 @synthesize tempDraggedCapturer, tempDraggedItem, currentCapturer, dragPositionIndicator;
 @synthesize workflow, capturers, fetchedResultsController, managedObjectContext;
@@ -59,8 +59,7 @@
 //										 initWithBarButtonSystemItem:UIBarButtonSystemItemDone
 //										 target:self action:@selector(doneButtonPressed:)];
     
-    self.doneButton = [[UIBarButtonItem alloc]
-                       initWithTitle:@"Save & Launch" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonPressed:)];
+    self.doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonPressed:)];
     
     self.doneButton.enabled = NO; //start with this disabled, and only re-enable it if there's already content in the workflow.
 	
@@ -74,9 +73,10 @@
 	self.titleTextField.delegate = self;
     self.titleTextField.returnKeyType = UIReturnKeyDone;
 	[self.titleTextField setFont:[UIFont boldSystemFontOfSize:22]];
-	
+    self.titleTextField.text = @"My Cool Workflow";
+	    
 	//set placeholder title text.
-	self.titleTextField.placeholder = @"Press to set workflow name";
+	//self.titleTextField.placeholder = @"Tap here to name workflow";
 	
 	UIBarButtonItem *textFieldItem = [[UIBarButtonItem alloc] initWithCustomView:self.titleTextField];
 	
@@ -115,10 +115,22 @@
     
  	[self refreshOrderedCapturers];
 
+    //start with the title selected.
+    [self.titleTextField becomeFirstResponder];
+
 	//Load miscellaneous workflow info from Core Data into the UI.
 	if (workflow) 
 	{
+
+        if (!workflow.name) {
+            NSDateFormatter *format = [[NSDateFormatter alloc] init];
+            [format setDateFormat:@"'Workflow' MM.dd.yyyy'-'HH.mm"];
+
+            workflow.name = [format stringFromDate:[NSDate date]]; //stamp this with the current date.
+        }
+
 		self.titleTextField.text = workflow.name;
+         
         if ([workflow.capturers count] > 0) {
             //hide the help view.
             self.helpView.alpha = 0;
@@ -132,7 +144,7 @@
 
  	}
 	
-	
+
 	[self.workflowGrid reloadData];
     
     //update the sensor table.
@@ -221,6 +233,14 @@
 
 #pragma mark -
 #pragma mark Button Action methods
+-(IBAction)backgroundTapped:(UITapGestureRecognizer*)recog
+{
+    //dismiss the title editor if it's showing.
+    [self.titleTextField resignFirstResponder];
+    
+    [self.view removeGestureRecognizer:backgroundTap];
+}
+
 -(IBAction) addSensorButtonPressed:(id)sender
 {
 	//NOTE: The sensor editor makes use of Core Data's rollback method (which discards everything back to the last commit), 
@@ -276,15 +296,34 @@
 
 -(IBAction) doneButtonPressed:(id)sender
 {
-	//TODO: Save changes
 	
 	//make sure we've got the current workflow name (in case the title field hasn't resigned first responder)
 	if (self.workflow) {
 		self.workflow.name = self.titleTextField.text;
 	}
 	
-	[delegate didEditWorkflow:self.workflow];
-	[self dismissModalViewControllerAnimated:YES];
+    //if there's no workflow name, we need to prompt the user for one.
+    if (!self.workflow.name || [self.workflow.name isEqualToString:@""]) {
+        UIAlertView *myAlertView = [[[UIAlertView alloc] initWithTitle:@"Name the workflow"
+                                                               message:@"this gets covered" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Done", nil] autorelease];
+        self.noTitlePromptField = [[[UITextField alloc] initWithFrame:CGRectMake(14.0, 45.0, 256.0, 31.0)] autorelease];
+        self.noTitlePromptField.borderStyle = UITextBorderStyleRoundedRect;
+        self.noTitlePromptField.delegate = self;
+        self.noTitlePromptField.returnKeyType = UIReturnKeyDone;
+        [self.noTitlePromptField setBackgroundColor:[UIColor clearColor]];
+
+        [self.noTitlePromptField becomeFirstResponder];
+        
+        [myAlertView addSubview:self.noTitlePromptField];
+        [myAlertView show];
+    }
+    else {
+        //Notify our delegate and close this controller.
+        
+        [delegate didEditWorkflow:self.workflow];
+        [self dismissModalViewControllerAnimated:YES];
+
+    }
 }
 
 -(IBAction) customAccessoryButtonTapped:(id)sender
@@ -522,6 +561,17 @@
     self.sensorListActionIndexPath = nil;
 }
 
+#pragma mark - UIAlertView delegate
+- (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != actionSheet.cancelButtonIndex) {
+        //update the title, notify the delegate, and dismiss this controller.
+        self.workflow.name = self.noTitlePromptField.text;
+        
+        [delegate didEditWorkflow:self.workflow];
+        [self dismissModalViewControllerAnimated:YES];
+    }
+}
 
 #pragma mark -
 #pragma mark Fetched results controller
@@ -620,12 +670,39 @@
 
 #pragma mark -
 #pragma mark UITextFieldDelegate methods
+- (void) textFieldDidBeginEditing:(UITextField *)textField {
+    if (textField == self.titleTextField) {
+        
+        //add a gesture recognizer to resign the first responder if anything besides this field is selected.
+        backgroundTap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped:)] autorelease];
+        backgroundTap.numberOfTapsRequired = 1;
+        [self.view addGestureRecognizer:backgroundTap];
+        
+        [self.titleTextField selectAll:self.titleTextField];
+        [UIMenuController sharedMenuController].menuVisible = NO; //hide the cut/copy/paste menu
+
+    }
+ }
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-	//set the workflow name to match the new value.
-	if (self.workflow) {
-		self.workflow.name = textField.text;
-	}
+    if (textField == self.noTitlePromptField) {
+        //don't do any additional data processing here.
+    }
+    else {
+        //set the workflow name to match the new value.
+        if (self.workflow) {
+            self.workflow.name = textField.text;
+        }
+    }
+
+    //If the global gesture recognizer is in place, remove it.
+    if ([self.view.gestureRecognizers containsObject:backgroundTap]) {
+        [self.view removeGestureRecognizer:backgroundTap];
+    }
+    
+    [self.view removeGestureRecognizer:backgroundTap];
+
 	
 	[textField resignFirstResponder];
 	return YES;
@@ -1177,6 +1254,7 @@
     [sensorListActionIndexPath release];
 	[topToolbar release];
     [doneButton release];
+    [noTitlePromptField release];
 	[titleTextField release];
 	[tempDraggedItem release];
 	[capturers release];

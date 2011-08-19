@@ -20,6 +20,7 @@
 #import "WsabiSensorController_iPad.h"
 #import "WsabiCaptureTypePickerController.h"
 #import "AppDelegate_Shared.h"
+#import "UITransparentToolbar.h"
 
 #import "Workflow.h"
 
@@ -30,7 +31,7 @@
 @interface WsabiWorkflowBuilderController_iPad : UIViewController <UITableViewDelegate, UITableViewDataSource, 
 																	AQGridViewDelegate, AQGridViewDataSource, 
 																	UIGestureRecognizerDelegate, NSFetchedResultsControllerDelegate,
-																	UITextFieldDelegate, UIActionSheetDelegate,
+																	UITextFieldDelegate, UIActionSheetDelegate, UIAlertViewDelegate,
                                                                     WsabiSensorControllerDelegate, WsabiCaptureTypeSelectorDelegate,
                                                                     WsabiWorkflowItemDelegate, WsabiWorkflowBuilderCellDelegate
 > 
@@ -40,6 +41,10 @@
     UIActionSheet *sensorListActionSheet;
     NSIndexPath *sensorListActionIndexPath;
     
+    UITapGestureRecognizer *backgroundTap;
+    
+    UITextField *noTitlePromptField;
+        
 	UITextField *titleTextField;
     UIBarButtonItem *doneButton;
 	
@@ -76,6 +81,8 @@
 -(int) workflowIndexForInsertionPoint:(CGPoint)point;
 -(void) updateCapturerIndices;
 
+-(IBAction) backgroundTapped:(UITapGestureRecognizer*)recog;
+
 -(IBAction) addSensorButtonPressed:(id)sender;
 -(IBAction) editSensorsButtonPressed:(id)sender;
 
@@ -94,6 +101,8 @@
 @property (nonatomic, retain) IBOutlet UIPopoverController *popoverController;
 @property (nonatomic, retain) IBOutlet UIActionSheet *sensorListActionSheet;
 @property (nonatomic, retain) IBOutlet NSIndexPath *sensorListActionIndexPath;
+
+@property (nonatomic, retain) UITextField *noTitlePromptField;
 
 @property (nonatomic, retain) IBOutlet UITextField *titleTextField;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *doneButton;

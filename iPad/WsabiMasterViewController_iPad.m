@@ -18,6 +18,7 @@
 
 @implementation WsabiMasterViewController_iPad
 @synthesize detailViewController, collectionsNavBar, fetchedResultsController, managedObjectContext;
+@synthesize editActionSheet, renameActionSheet;
 @synthesize popoverController;
 
 #pragma mark -
@@ -331,8 +332,8 @@
     if ([activeWorkflow.collections count] > 0) {
         //we need to copy this workflow first.
         indexPathOfWorkflowToCopy = indexPath;
-        UIActionSheet *actionSheet = [[[UIActionSheet alloc] initWithTitle:@"This workflow already contains collected data, so it can't be modified. Make an editable copy of this workflow?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Make a copy", nil] autorelease];
-        [actionSheet showInView:self.view];
+        self.editActionSheet = [[[UIActionSheet alloc] initWithTitle:@"This workflow already contains data, so it can't be modified directly." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Rename",@"Edit a copy", nil] autorelease];
+        [self.editActionSheet showInView:self.view];
     }
     else
         [self editWorkflowAtIndexPath:indexPath copyFirst:NO];
@@ -372,12 +373,24 @@
 #pragma mark Action Sheet Delegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex != actionSheet.cancelButtonIndex && indexPathOfWorkflowToCopy) {
-        //copy the managed object and load it.
-         [self editWorkflowAtIndexPath:indexPathOfWorkflowToCopy copyFirst:YES];
-        //clear the pointer to the copyable workflow.
-        indexPathOfWorkflowToCopy = nil;
-    }
+    if (actionSheet == self.editActionSheet && buttonIndex != actionSheet.cancelButtonIndex && indexPathOfWorkflowToCopy) {
+        
+        switch (buttonIndex) {
+            case 0:
+                //edit name
+                
+                break;
+            case 1:
+                //edit a copy
+                //copy the managed object and load it.
+                [self editWorkflowAtIndexPath:indexPathOfWorkflowToCopy copyFirst:YES];
+                //clear the pointer to the copyable workflow.
+                indexPathOfWorkflowToCopy = nil;
+                break;
+            default:
+                break;
+        }
+     }
 }
 
 #pragma mark -
@@ -386,10 +399,11 @@
 {
 	//for now, just reload all the cell data.
 	[self.tableView reloadData];
-	
-	if (self.detailViewController) {
-		self.detailViewController.workflow = w; //load this workflow.
-	}
+
+	//DON'T AUTOLOAD.
+//	if (self.detailViewController) {
+//		self.detailViewController.workflow = w; //load this workflow.
+//	}
 }
 
 #pragma mark -
@@ -516,6 +530,9 @@
 	[collectionsNavBar release];
     [fetchedResultsController release];
     [managedObjectContext release];
+
+    [editActionSheet release];
+    [renameActionSheet release];
 	
     [super dealloc];
 }

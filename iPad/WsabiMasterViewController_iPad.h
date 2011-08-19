@@ -26,7 +26,10 @@
 
 	UIPopoverController *popoverController;
 	UINavigationBar *collectionsNavBar;
-	
+    
+    UIActionSheet *editActionSheet;
+	UIActionSheet *renameActionSheet;
+    
     WsabiDetailViewController_iPad *detailViewController;
     
     NSFetchedResultsController *fetchedResultsController;
@@ -38,6 +41,9 @@
 @property (nonatomic, retain) IBOutlet WsabiDetailViewController_iPad *detailViewController;
 @property (nonatomic, retain) UIPopoverController *popoverController;
 @property (nonatomic, retain) IBOutlet UINavigationBar *collectionsNavBar;
+
+@property (nonatomic, retain) UIActionSheet *editActionSheet;
+@property (nonatomic, retain) UIActionSheet *renameActionSheet;
 
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
