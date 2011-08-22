@@ -141,6 +141,11 @@
     [cell addGestureRecognizer:doubleTap];
     [doubleTap release];
 
+    //attach a reverse-pinch gesture recognizer to this cell
+    UIPinchGestureRecognizer *reversePinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(itemReversePinched:)];
+    [cell addGestureRecognizer:reversePinch];
+    [reversePinch release];
+    
     //attach a tap gesture recognizer to this cell.
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemButtonPressed:)];
     singleTap.numberOfTapsRequired = 1;
@@ -233,6 +238,21 @@
     //figure out which cell was pressed and notify our delegate.
     [delegate didRequestLargeViewOfItemAtIndex:recog.view.tag fromCollectionCell:self];
 }
+
+-(void) itemReversePinched:(UIPinchGestureRecognizer *)recog
+{
+    NSLog(@"Pinch velocity is %f",recog.velocity);
+    if (recog.velocity > 3) {
+        //mark this item as the current collection position.
+        self.collection.currentPosition = [NSNumber numberWithInt:recog.view.tag];
+        
+        //figure out which cell was pressed and notify our delegate.
+        [delegate didRequestLargeViewOfItemAtIndex:recog.view.tag fromCollectionCell:self];
+
+    }
+
+}
+
 
 -(void) selectItemAtIndex:(int)index
 {

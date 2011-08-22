@@ -32,10 +32,13 @@
 -(void) didRequestCapture:(id)sender;
 -(void) didRequestCancelCapture:(id)sender;
 -(void) didRequestClearData:(id)sender;
+-(void) didRequestCurrentItemFullScreen;
 @end
 
 @interface WsabiDeviceView_iPad : UIView <UIActionSheetDelegate>
 {
+    
+    BOOL firstInitCompleted;
 
     //Front View
     UIView *frontView;
@@ -66,6 +69,8 @@
     UIView *backView;
     UIBarButtonItem *doneButton;
 	UIBarButtonItem *titleBarItem;
+    
+    UIButton *notTakenButton;
     
     UILabel *annotationLabel1;
     UILabel *annotationLabel2;
@@ -101,6 +106,9 @@
 
 -(IBAction) annotationValueChanged:(id)sender;
 
+-(IBAction) resultAreaDoubleTapped:(UITapGestureRecognizer*)recog;
+-(IBAction) resultAreaPinched:(UIPinchGestureRecognizer*)recog;
+
 //Front View
 @property (nonatomic, retain) IBOutlet UIView *frontView;
 @property (nonatomic, retain) IBOutlet UILabel *nameLabel;
@@ -133,6 +141,8 @@
 @property (nonatomic, retain) IBOutlet UIView *backView;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *doneButton;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *titleBarItem;
+
+@property (nonatomic, retain) IBOutlet UIButton *notTakenButton;
 
 @property (nonatomic, retain) IBOutlet UILabel *annotationLabel1;
 @property (nonatomic, retain) IBOutlet UILabel *annotationLabel2;

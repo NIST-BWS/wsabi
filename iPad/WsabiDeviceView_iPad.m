@@ -23,6 +23,7 @@
 @synthesize livePreviewView, hasLivePreview;
 @synthesize nameLabel, modalityLabel, modalityIconView, resultImageView;
 @synthesize reconnectView, reconnectButton, reconnectTextField, reconnectActivity, captureButton, cancelCaptureButton, captureActivity;
+@synthesize notTakenButton;
 @synthesize annotationLabel1,annotationLabel2,annotationLabel3,annotationLabel4;
 @synthesize annotationButton, annotationBadge;
 @synthesize annotations;
@@ -32,62 +33,72 @@
 @synthesize capturer, data, delegate, sensorAvailable, titleBarItem, doneButton;
 @synthesize reconnectOptionsEnabled;
 
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-//- (void)drawRect:(CGRect)rect {
-//    // Drawing code.
-//}
-
-
 - (void)layoutSubviews
 {
-	self.layer.shouldRasterize = YES;
-	
-	//Configure the basic layer appearance stuff we can't to in Interface Builder.
-	self.layer.shadowColor = [[UIColor blackColor] CGColor];
-	self.layer.shadowRadius = 7;
-	self.layer.shadowOffset = CGSizeMake(2, 3);
-	self.layer.shadowOpacity = 0.5;
-	
-    self.frontView.layer.cornerRadius = 12;
-	self.frontView.layer.borderColor = [[UIColor grayColor] CGColor];
-	self.frontView.layer.borderWidth = 2;
-    
-    self.backView.layer.cornerRadius = 12;
-	self.backView.layer.borderColor = [[UIColor grayColor] CGColor];
-	self.backView.layer.borderWidth = 2;
+    if (!firstInitCompleted) {
+        self.layer.shouldRasterize = YES;
+        
+        //Configure the basic layer appearance stuff we can't to in Interface Builder.
+        self.layer.shadowColor = [[UIColor blackColor] CGColor];
+        self.layer.shadowRadius = 7;
+        self.layer.shadowOffset = CGSizeMake(2, 3);
+        self.layer.shadowOpacity = 0.5;
+        
+        self.frontView.layer.cornerRadius = 12;
+        self.frontView.layer.borderColor = [[UIColor grayColor] CGColor];
+        self.frontView.layer.borderWidth = 2;
+        
+        self.backView.layer.cornerRadius = 12;
+        self.backView.layer.borderColor = [[UIColor grayColor] CGColor];
+        self.backView.layer.borderWidth = 2;
+        
+        self.annotationButton.layer.cornerRadius = 4;
+        
+        self.resultImageView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+        self.resultImageView.layer.borderWidth = 1.0;
+        self.resultImageView.layer.cornerRadius = 4;
+        
+        //round the reconnect view to match the result view.
+        self.reconnectView.layer.cornerRadius = self.resultImageView.layer.cornerRadius;
+        
+        //round the preview view to match the result view.
+        self.livePreviewView.layer.cornerRadius = self.resultImageView.layer.cornerRadius;
+        
+        //set the images for the reconnect button.
+        [self.reconnectButton setBackgroundImage:[[UIImage imageNamed:@"BlueButtonGlossy_Stretchable"] stretchableImageWithLeftCapWidth:16 topCapHeight:0] forState:UIControlStateNormal];
+        [self.reconnectButton setBackgroundImage:[[UIImage imageNamed:@"BlueButtonGlossy_StretchableSelected"] stretchableImageWithLeftCapWidth:16 topCapHeight:0] forState:UIControlStateHighlighted];
+        
+        //put a light shadow behind the capture button
+        self.captureButton.layer.shouldRasterize = YES;
+        self.captureButton.layer.shadowColor = [[UIColor whiteColor] CGColor];
+        self.captureButton.layer.shadowRadius = 3;
+        self.captureButton.layer.shadowOffset = CGSizeMake(1, 2);
+        self.captureButton.layer.shadowOpacity = 0.8;
+        
+        //animate the capture guide button.
+        [UIView animateWithDuration:1.0 delay:0 options:UIViewAnimationOptionAutoreverse|UIViewAnimationOptionRepeat|UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionCurveEaseOut animations:^{
+            self.captureButton.transform = CGAffineTransformMakeScale(1.04, 1.04);
+        }
+                         completion:nil];
+        
+        //set the images for the not-taken button.
+        [self.notTakenButton setBackgroundImage:[[UIImage imageNamed:@"UISegmentBorderedButton"] stretchableImageWithLeftCapWidth:11 topCapHeight:0] forState:UIControlStateNormal];
+        [self.notTakenButton setBackgroundImage:[[UIImage imageNamed:@"UISegmentBorderedButtonHighlighted"] stretchableImageWithLeftCapWidth:11 topCapHeight:0] forState:UIControlStateSelected];
+        
+        //attach a reverse-pinch gesture recognizer to the result area
+        UIPinchGestureRecognizer *reversePinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(resultAreaPinched:)];
+        [self.resultImageView addGestureRecognizer:reversePinch];
+        [reversePinch release];
+        
+        //attach a double-tap gesture recognizer to the result area
+        UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resultAreaDoubleTapped:)];
+        doubleTap.numberOfTapsRequired = 2;
+        [self.resultImageView addGestureRecognizer:doubleTap];
+        [doubleTap release];
 
-	self.annotationButton.layer.cornerRadius = 4;
-    
-	self.resultImageView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-	self.resultImageView.layer.borderWidth = 1.0;
-	self.resultImageView.layer.cornerRadius = 4;
-    
-    //round the reconnect view to match the result view.
-    self.reconnectView.layer.cornerRadius = self.resultImageView.layer.cornerRadius;
-    
-    //round the preview view to match the result view.
-    self.livePreviewView.layer.cornerRadius = self.resultImageView.layer.cornerRadius;
-    
-    //set the images for the reconnect button.
-    [self.reconnectButton setBackgroundImage:[[UIImage imageNamed:@"BlueButtonGlossy_Stretchable"] stretchableImageWithLeftCapWidth:16 topCapHeight:0] forState:UIControlStateNormal];
-    [self.reconnectButton setBackgroundImage:[[UIImage imageNamed:@"BlueButtonGlossy_StretchableSelected"] stretchableImageWithLeftCapWidth:16 topCapHeight:0] forState:UIControlStateHighlighted];
-    
-    //put a light shadow behind the capture button
-    self.captureButton.layer.shouldRasterize = YES;
-    self.captureButton.layer.shadowColor = [[UIColor whiteColor] CGColor];
-	self.captureButton.layer.shadowRadius = 3;
-	self.captureButton.layer.shadowOffset = CGSizeMake(1, 2);
-	self.captureButton.layer.shadowOpacity = 0.8;
-    
-    //animate the capture guide button.
-    [UIView animateWithDuration:1.0 delay:0 options:UIViewAnimationOptionAutoreverse|UIViewAnimationOptionRepeat|UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionCurveEaseOut animations:^{
-        self.captureButton.transform = CGAffineTransformMakeScale(1.04, 1.04);
+        
+        firstInitCompleted = YES;
     }
-                     completion:nil];
-    
-
-
 }
 
 - (void)dealloc {
@@ -107,6 +118,8 @@
 	[captureButton release];
     [cancelCaptureButton release];
     [captureActivity release];
+    
+    [notTakenButton release];
     
     [annotation1 release];
     [annotation2 release];
@@ -199,7 +212,8 @@
     self.resultImageView.image = [UIImage imageWithContentsOfFile:data.filePath];
     
     //if there's a result stored at this position, hide the capture button.
-    self.captureButton.hidden = (self.resultImageView.image != nil);
+    self.captureButton.alpha = (self.resultImageView.image == nil) ? CAPTURE_BUTTON_ALPHA : 0.0;
+    //NSLog(@"Setting the capture button's alpha to %f",self.captureButton.alpha);
     
     //start off with certain things visible.
     self.annotationLabel1.hidden = NO;
@@ -602,6 +616,28 @@
 	//notify the delegate that we're done annotating.
 	[delegate didEndAnnotating:self];
 }
+
+-(IBAction)notTakenButtonPressed:(id)sender 
+{
+    //toggle the button.
+    self.notTakenButton.selected = !self.notTakenButton.selected;
+}
+
+-(IBAction) resultAreaDoubleTapped:(UITapGestureRecognizer *)recog
+{
+    NSLog(@"Capture card got a result area double-tap");
+    [delegate didRequestCurrentItemFullScreen];
+}
+
+-(IBAction) resultAreaPinched:(UIPinchGestureRecognizer*)recog
+{
+    //NSLog(@"Pinch velocity is %f",recog.velocity);
+    if (recog.velocity > 5) {
+        NSLog(@"Capture card got a successful reverse pinch.");
+        [delegate didRequestCurrentItemFullScreen];
+    }
+}
+
 
 #pragma mark - UIActionSheet delegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

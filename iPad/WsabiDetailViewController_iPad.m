@@ -418,6 +418,7 @@
     [photoController updateView];
     
     UINavigationController *tempNav = [[[UINavigationController alloc] initWithRootViewController:photoController] autorelease];
+    tempNav.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
     //launch this as a modal view controller.
     [self presentModalViewController:tempNav animated:YES];
@@ -1291,6 +1292,47 @@
 
     [self updateData:theData forDeviceView:currentDevice withFlash:NO];
 }
+
+-(void) didRequestCurrentItemFullScreen
+{
+    int index = [self.activeCollection.currentPosition intValue];
+    
+    //build an array of image paths, then open a full-screen image view for them.
+    //Sort the existing capturers for this workflow by their stated order.
+    NSSortDescriptor *orderSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"positionInCollection" ascending:YES selector:@selector(compare:)] autorelease];
+    
+    NSArray *sortDescriptors = [NSArray arrayWithObject:orderSortDescriptor];
+    
+    NSArray *tempItems = [self.activeCollection.items sortedArrayUsingDescriptors:sortDescriptors];
+    
+    //If there's nothing in this cell, just return.
+    if (![(BiometricData*)[tempItems objectAtIndex:index] filePath]) {
+        return;
+    }
+    
+    //We need to convert the index to a matching number that doesn't include any missing cells prior
+    //to this result (that is, if the first real result is at index 3, so index 3 gets passed in here,
+    //the photo browser still only thinks there's one result, so we need to ask for the photo at index
+    //0).
+    
+    int convertedIndex = index;
+    
+    NSMutableArray *paths = [[[NSMutableArray alloc] init] autorelease];
+    for (int i = 0; i < [tempItems count]; i++) {
+        if ([(BiometricData*)[tempItems objectAtIndex:i] filePath]) {
+            [paths addObject:[(BiometricData*)[tempItems objectAtIndex:i] filePath]];
+        }
+        else if (i < index) {
+            //if there's no result and we're before the requested index, decrement the converted
+            //index counter.
+            convertedIndex--;
+        }
+    }
+    
+    [self presentFullscreenPhotoBrowser:paths withItemAtIndex:convertedIndex];
+
+}
+
 
 #pragma mark -
 #pragma mark Collection delegate methods

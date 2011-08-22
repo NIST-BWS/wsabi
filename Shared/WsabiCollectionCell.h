@@ -40,7 +40,7 @@
 
 -(void) itemButtonPressed:(UITapGestureRecognizer*)recog;
 -(void) itemButtonDoublePressed:(UITapGestureRecognizer*)recog;
-
+-(void) itemReversePinched:(UIPinchGestureRecognizer*)recog;
 
 -(void) selectItemAtIndex:(int)index;
 -(void) clearSelection;
