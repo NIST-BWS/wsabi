@@ -131,6 +131,18 @@
 		EAC164061305C231000FAD39 /* BlueButtonGlossy_StretchableSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = EAC164051305C231000FAD39 /* BlueButtonGlossy_StretchableSelected.png */; };
 		EAC8D28313F969330040B18B /* singleTap_small.png in Resources */ = {isa = PBXBuildFile; fileRef = EAC8D28113F969330040B18B /* singleTap_small.png */; };
 		EAC8D28413F969330040B18B /* singleTap.png in Resources */ = {isa = PBXBuildFile; fileRef = EAC8D28213F969330040B18B /* singleTap.png */; };
+		EAD00F6814027F7D00525190 /* WsabiMasterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD00F6714027F7D00525190 /* WsabiMasterTableViewCell.m */; };
+		EAD00F6A1402809900525190 /* WsabiMasterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAD00F691402809900525190 /* WsabiMasterTableViewCell.xib */; };
+		EAD00FAD14028BDE00525190 /* PurchaseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD00FA514028BDE00525190 /* PurchaseButton.png */; };
+		EAD00FAE14028BDE00525190 /* PurchaseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD00FA614028BDE00525190 /* PurchaseButton@2x.png */; };
+		EAD00FAF14028BDE00525190 /* PurchaseButtonBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD00FA714028BDE00525190 /* PurchaseButtonBlue.png */; };
+		EAD00FB014028BDE00525190 /* PurchaseButtonBlue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD00FA814028BDE00525190 /* PurchaseButtonBlue@2x.png */; };
+		EAD00FB114028BDE00525190 /* PurchaseButtonBluePressed.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD00FA914028BDE00525190 /* PurchaseButtonBluePressed.png */; };
+		EAD00FB214028BDE00525190 /* PurchaseButtonBluePressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD00FAA14028BDE00525190 /* PurchaseButtonBluePressed@2x.png */; };
+		EAD00FB314028BDE00525190 /* PurchaseButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD00FAB14028BDE00525190 /* PurchaseButtonPressed.png */; };
+		EAD00FB414028BDE00525190 /* PurchaseButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD00FAC14028BDE00525190 /* PurchaseButtonPressed@2x.png */; };
+		EAD00FB714029A7600525190 /* PurchasedAlready.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD00FB514029A7600525190 /* PurchasedAlready.png */; };
+		EAD00FB814029A7600525190 /* PurchasedAlready@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD00FB614029A7600525190 /* PurchasedAlready@2x.png */; };
 		EAD0451A135CC188004FCD3B /* wsabi.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EAD04518135CC188004FCD3B /* wsabi.xcdatamodeld */; };
 		EAD9B635135F642F008ED33B /* AVCamDemoCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD9B634135F642F008ED33B /* AVCamDemoCaptureManager.m */; };
 		EADAB81412C13A36001DE0F9 /* WsabiDeviceView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = EADAB81312C13A36001DE0F9 /* WsabiDeviceView_iPad.xib */; };
@@ -500,6 +512,19 @@
 		EAC164051305C231000FAD39 /* BlueButtonGlossy_StretchableSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BlueButtonGlossy_StretchableSelected.png; path = Shared/Images/BlueButtonGlossy_StretchableSelected.png; sourceTree = "<group>"; };
 		EAC8D28113F969330040B18B /* singleTap_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = singleTap_small.png; sourceTree = "<group>"; };
 		EAC8D28213F969330040B18B /* singleTap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = singleTap.png; sourceTree = "<group>"; };
+		EAD00F6614027F7D00525190 /* WsabiMasterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WsabiMasterTableViewCell.h; path = Shared/WsabiMasterTableViewCell.h; sourceTree = "<group>"; };
+		EAD00F6714027F7D00525190 /* WsabiMasterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WsabiMasterTableViewCell.m; path = Shared/WsabiMasterTableViewCell.m; sourceTree = "<group>"; };
+		EAD00F691402809900525190 /* WsabiMasterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WsabiMasterTableViewCell.xib; path = Shared/WsabiMasterTableViewCell.xib; sourceTree = "<group>"; };
+		EAD00FA514028BDE00525190 /* PurchaseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PurchaseButton.png; sourceTree = "<group>"; };
+		EAD00FA614028BDE00525190 /* PurchaseButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PurchaseButton@2x.png"; sourceTree = "<group>"; };
+		EAD00FA714028BDE00525190 /* PurchaseButtonBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PurchaseButtonBlue.png; sourceTree = "<group>"; };
+		EAD00FA814028BDE00525190 /* PurchaseButtonBlue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PurchaseButtonBlue@2x.png"; sourceTree = "<group>"; };
+		EAD00FA914028BDE00525190 /* PurchaseButtonBluePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PurchaseButtonBluePressed.png; sourceTree = "<group>"; };
+		EAD00FAA14028BDE00525190 /* PurchaseButtonBluePressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PurchaseButtonBluePressed@2x.png"; sourceTree = "<group>"; };
+		EAD00FAB14028BDE00525190 /* PurchaseButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PurchaseButtonPressed.png; sourceTree = "<group>"; };
+		EAD00FAC14028BDE00525190 /* PurchaseButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PurchaseButtonPressed@2x.png"; sourceTree = "<group>"; };
+		EAD00FB514029A7600525190 /* PurchasedAlready.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PurchasedAlready.png; sourceTree = "<group>"; };
+		EAD00FB614029A7600525190 /* PurchasedAlready@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PurchasedAlready@2x.png"; sourceTree = "<group>"; };
 		EAD04519135CC188004FCD3B /* wsabi.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = wsabi.xcdatamodel; sourceTree = "<group>"; };
 		EAD9B633135F642F008ED33B /* AVCamDemoCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVCamDemoCaptureManager.h; path = Shared/AVCamDemo/AVCamDemoCaptureManager.h; sourceTree = "<group>"; };
 		EAD9B634135F642F008ED33B /* AVCamDemoCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVCamDemoCaptureManager.m; path = Shared/AVCamDemo/AVCamDemoCaptureManager.m; sourceTree = "<group>"; };
@@ -616,6 +641,9 @@
 				EA62532E12D24AED00399D61 /* WsabiWorkflowItem.m */,
 				EA62532B12D24AD600399D61 /* WsabiWorkflowItem.xib */,
 				EAE14874137AC5BD00DD655C /* Settings.bundle */,
+				EAD00F6614027F7D00525190 /* WsabiMasterTableViewCell.h */,
+				EAD00F6714027F7D00525190 /* WsabiMasterTableViewCell.m */,
+				EAD00F691402809900525190 /* WsabiMasterTableViewCell.xib */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -912,6 +940,7 @@
 		EA62560212D3B3C900399D61 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				EAD00FA414028BCD00525190 /* from UIKit */,
 				EA87B4DC13730BD700AA87C8 /* glyphish */,
 				EA9CF7021365B9D900CCC13A /* gesture icons */,
 				EA9CF6FE1365B67500CCC13A /* GlossLayer.png */,
@@ -1006,6 +1035,23 @@
 				EABFA916132689FB00E72BFE /* ColorablePageControl.m */,
 			);
 			name = "Custom Page Control";
+			sourceTree = "<group>";
+		};
+		EAD00FA414028BCD00525190 /* from UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				EAD00FB514029A7600525190 /* PurchasedAlready.png */,
+				EAD00FB614029A7600525190 /* PurchasedAlready@2x.png */,
+				EAD00FA514028BDE00525190 /* PurchaseButton.png */,
+				EAD00FA614028BDE00525190 /* PurchaseButton@2x.png */,
+				EAD00FA714028BDE00525190 /* PurchaseButtonBlue.png */,
+				EAD00FA814028BDE00525190 /* PurchaseButtonBlue@2x.png */,
+				EAD00FA914028BDE00525190 /* PurchaseButtonBluePressed.png */,
+				EAD00FAA14028BDE00525190 /* PurchaseButtonBluePressed@2x.png */,
+				EAD00FAB14028BDE00525190 /* PurchaseButtonPressed.png */,
+				EAD00FAC14028BDE00525190 /* PurchaseButtonPressed@2x.png */,
+			);
+			name = "from UIKit";
 			sourceTree = "<group>";
 		};
 		EAD9B632135F6413008ED33B /* AVCamDemo */ = {
@@ -1268,6 +1314,17 @@
 				EAE14875137AC5BD00DD655C /* Settings.bundle in Resources */,
 				EAC8D28313F969330040B18B /* singleTap_small.png in Resources */,
 				EAC8D28413F969330040B18B /* singleTap.png in Resources */,
+				EAD00F6A1402809900525190 /* WsabiMasterTableViewCell.xib in Resources */,
+				EAD00FAD14028BDE00525190 /* PurchaseButton.png in Resources */,
+				EAD00FAE14028BDE00525190 /* PurchaseButton@2x.png in Resources */,
+				EAD00FAF14028BDE00525190 /* PurchaseButtonBlue.png in Resources */,
+				EAD00FB014028BDE00525190 /* PurchaseButtonBlue@2x.png in Resources */,
+				EAD00FB114028BDE00525190 /* PurchaseButtonBluePressed.png in Resources */,
+				EAD00FB214028BDE00525190 /* PurchaseButtonBluePressed@2x.png in Resources */,
+				EAD00FB314028BDE00525190 /* PurchaseButtonPressed.png in Resources */,
+				EAD00FB414028BDE00525190 /* PurchaseButtonPressed@2x.png in Resources */,
+				EAD00FB714029A7600525190 /* PurchasedAlready.png in Resources */,
+				EAD00FB814029A7600525190 /* PurchasedAlready@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1340,6 +1397,7 @@
 				EAD0451A135CC188004FCD3B /* wsabi.xcdatamodeld in Sources */,
 				EAD9B635135F642F008ED33B /* AVCamDemoCaptureManager.m in Sources */,
 				EA9CF7191368620E00CCC13A /* NBCLInternalCameraSensorLink.m in Sources */,
+				EAD00F6814027F7D00525190 /* WsabiMasterTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

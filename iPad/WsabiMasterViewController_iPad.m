@@ -169,64 +169,44 @@
 }
 
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row < [self.fetchedResultsController.fetchedObjects count]) {
-		Workflow *w = (Workflow*)[self.fetchedResultsController objectAtIndexPath:indexPath];
-		cell.imageView.image = nil;
-		if (w.name) {
-			cell.textLabel.text = w.name;
-		}
-		else {
-			cell.textLabel.text = [NSString stringWithFormat:@"Workflow %@", w.timestampCreated];
-		}
-		
-		if (w.timestampCreated) {
-            NSDateFormatter *format = [[NSDateFormatter alloc] init];
-            [format setDateFormat:@"MM/dd/yyyy 'at' hh:mm a"];
-            
-			cell.detailTextLabel.text = [NSString stringWithFormat:@"Created %@\n%d collections", [format stringFromDate:w.timestampCreated], [w.collections count]];
-            cell.detailTextLabel.numberOfLines = 2;
-            cell.detailTextLabel.lineBreakMode = UILineBreakModeWordWrap;
-		}
-		//cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-        //Create a custom accessory button.
-        UIButton *accessoryButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        accessoryButton.bounds = CGRectMake(0, 0, cell.contentView.bounds.size.height, cell.contentView.bounds.size.height);
-//        accessoryButton.titleLabel.font = [UIFont fontWithName:@"Glyphish" size:36];
-        accessoryButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        [accessoryButton addTarget:self action:@selector(customAccessoryButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-        
-//        [accessoryButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-//        [accessoryButton setTitle:@"q" forState:UIControlStateNormal]; //the one-gear configuration icon.
-        //accessoryButton.showsTouchWhenHighlighted = YES;
+- (void)configureCell:(WsabiMasterTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    //[self configureCell:cell atIndexPath:indexPath];
+    Workflow *w = (Workflow*)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.workflow = w;
+    cell.delegate = self;
+    
+    int numCollections = [w.collections count];
+    
+    cell.workflowTitleField.text = w.name;
+    
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"MM/dd/yyyy 'at' hh:mm a"];
+    
+    cell.workflowDetailLabel.text = [NSString stringWithFormat:@"Created %@\n%d collections", 
+                                     [format stringFromDate:w.timestampCreated], 
+                                     numCollections];
+    
+    if (numCollections <= 0) {
+        [cell.editWorkflowButton setTitle:@"Edit" forState:UIControlStateNormal];
+    }
+    else {
+        [cell.editWorkflowButton setTitle:@"Edit a copy" forState:UIControlStateNormal];
+    }
 
-        accessoryButton.alpha = 0.6;
-        [accessoryButton setImage:[UIImage imageNamed:@"20-gear2"] forState:UIControlStateNormal];
-        
-        accessoryButton.tag = indexPath.row; //we'll use this to determine what to edit later.
-        
-        cell.accessoryView = accessoryButton;
-        
-	}
-	else {
-		//add a cell for the "Create new" action, making sure to set all other variables to match this cell style.
-		cell.imageView.image = [UIImage imageNamed:@"favorites_48.png"];
-		cell.textLabel.text = @"Create new workflow";
-		cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.accessoryView = nil;
-        cell.detailTextLabel.text = nil;
-	}
-
+    //make sure the buttons start enabled.
+    cell.renameButton.enabled = YES;
+    cell.editWorkflowButton.enabled = YES;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"WsabiMasterTableViewCell"; //this is the same ID string used in the interface builder doc for this cell, so we can reuse cells.
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    WsabiMasterTableViewCell *cell = (WsabiMasterTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"WsabiMasterTableViewCell" owner:self options:nil];
+        cell = (WsabiMasterTableViewCell *)[nib objectAtIndex:0];
     }
     
     // Configure the cell.
@@ -320,8 +300,13 @@
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self loadWorkflowAtIndexPath:indexPath];
+    
+    //deselect the row.
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     //dismiss the popover.
     [self.popoverController dismissPopoverAnimated:YES];
+    
  }
 
 //Called when the accessory button is tapped for an existing workflow
@@ -368,30 +353,45 @@
 
 }
 
-
-#pragma mark -
-#pragma mark Action Sheet Delegate
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+#pragma mark - Table View Cell Delegate
+-(void) didRenameWorkflow:(Workflow*)w
 {
-    if (actionSheet == self.editActionSheet && buttonIndex != actionSheet.cancelButtonIndex && indexPathOfWorkflowToCopy) {
-        
-        switch (buttonIndex) {
-            case 0:
-                //edit name
-                
-                break;
-            case 1:
-                //edit a copy
-                //copy the managed object and load it.
-                [self editWorkflowAtIndexPath:indexPathOfWorkflowToCopy copyFirst:YES];
-                //clear the pointer to the copyable workflow.
-                indexPathOfWorkflowToCopy = nil;
-                break;
-            default:
-                break;
-        }
-     }
+    //Update the detail view controller if this is the active workflow.
+    if (self.detailViewController.workflow == w) {
+        self.detailViewController.titleToolbarItem.title = [NSString stringWithFormat:@"%@ (Step %d of %d)", w.name, 
+                                                            [self.detailViewController.activeCollection.currentPosition intValue]+1, 
+                                                            [w.capturers count]];
+    }
 }
+
+-(void) didRequestModificationForWorkflow:(Workflow*)w copyFirst:(BOOL)shouldCopy
+{
+    [self editWorkflowAtIndexPath:[self.fetchedResultsController indexPathForObject:w] copyFirst:shouldCopy];
+}
+
+
+//#pragma mark Action Sheet Delegate
+//- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+//{
+//    if (actionSheet == self.editActionSheet && buttonIndex != actionSheet.cancelButtonIndex && indexPathOfWorkflowToCopy) {
+//        
+//        switch (buttonIndex) {
+//            case 0:
+//                //edit name
+//                
+//                break;
+//            case 1:
+//                //edit a copy
+//                //copy the managed object and load it.
+//                [self editWorkflowAtIndexPath:indexPathOfWorkflowToCopy copyFirst:YES];
+//                //clear the pointer to the copyable workflow.
+//                indexPathOfWorkflowToCopy = nil;
+//                break;
+//            default:
+//                break;
+//        }
+//     }
+//}
 
 #pragma mark -
 #pragma mark Workflow Editor Delegate

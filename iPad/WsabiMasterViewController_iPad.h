@@ -19,10 +19,11 @@
 #import "Workflow.h"
 #import "AppDelegate_iPad.h"
 #import "WsabiWorkflowBuilderController_iPad.h"
+#import "WsabiMasterTableViewCell.h"
 
 @class WsabiDetailViewController_iPad;
 
-@interface WsabiMasterViewController_iPad : UITableViewController <NSFetchedResultsControllerDelegate, UIActionSheetDelegate, WsabiWorkflowEditorDelegate> {
+@interface WsabiMasterViewController_iPad : UITableViewController <NSFetchedResultsControllerDelegate, UIActionSheetDelegate, WsabiWorkflowEditorDelegate, WsabiMasterTableViewCellDelegate> {
 
 	UIPopoverController *popoverController;
 	UINavigationBar *collectionsNavBar;
