@@ -37,6 +37,17 @@
     // Configure the view for the selected state.
 }
 
+-(void) layoutSubviews {
+    [super layoutSubviews];
+    
+    //If this isn't the active collection, make it translucent.
+    if ([self.collection.isActive boolValue]) {
+        self.alpha = 1.0;
+    }
+    else {
+        self.alpha = 0.4;
+    }
+}
 
 #pragma mark -
 #pragma mark Core Data interaction
