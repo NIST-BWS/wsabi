@@ -168,6 +168,7 @@
 
         if (badgeCount > 0) {
             //if there isn't already a badge, create one. Otherwise, update it.
+            NSLog(@"Found at least 1 badge for collection item %d",index);
             UIButton *badge = nil;
             if (![cell viewWithTag:BADGE_TAG]) {
                 badge = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -193,6 +194,13 @@
                 [[cell viewWithTag:BADGE_TAG] removeFromSuperview];
             }
         }
+    }
+    else {
+        //if there are no annotations, we also need to remove any badges that were there (in case this is a reused cell)
+        if ([cell viewWithTag:BADGE_TAG]) {
+            [[cell viewWithTag:BADGE_TAG] removeFromSuperview];
+        }
+
     }
     
     cell.contentView.backgroundColor = [UIColor clearColor];
