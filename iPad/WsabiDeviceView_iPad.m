@@ -74,7 +74,7 @@
         self.captureButton.layer.shadowRadius = 3;
         self.captureButton.layer.shadowOffset = CGSizeMake(1, 2);
         self.captureButton.layer.shadowOpacity = 0.8;
-        
+
         //animate the capture guide button.
         [UIView animateWithDuration:1.0 delay:0 options:UIViewAnimationOptionAutoreverse|UIViewAnimationOptionRepeat|UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionCurveEaseOut animations:^{
             self.captureButton.transform = CGAffineTransformMakeScale(1.04, 1.04);
@@ -331,7 +331,14 @@
                          //show or hide the reconnect view.
                          self.reconnectView.alpha = isAvailable ? 0 : 1;
                          //configure the capture button to match (but in reverse)
-                         self.captureButton.alpha = isAvailable ? CAPTURE_BUTTON_ALPHA : 0;
+                         //NOTE: if there's a result stored at this position, hide the capture button.
+                         if (isAvailable && self.resultImageView.image == nil) {
+                             self.captureButton.alpha = CAPTURE_BUTTON_ALPHA;
+                         }
+                         else {
+                             self.captureButton.alpha = 0;
+                         }
+ 
                      }
      ];
 
