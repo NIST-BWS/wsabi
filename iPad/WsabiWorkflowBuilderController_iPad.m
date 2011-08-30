@@ -73,7 +73,6 @@
 	self.titleTextField.delegate = self;
     self.titleTextField.returnKeyType = UIReturnKeyDone;
 	[self.titleTextField setFont:[UIFont boldSystemFontOfSize:22]];
-    self.titleTextField.text = @"My Cool Workflow";
 	    
 	//set placeholder title text.
 	//self.titleTextField.placeholder = @"Tap here to name workflow";
@@ -124,7 +123,7 @@
 
         if (!workflow.name) {
             NSDateFormatter *format = [[NSDateFormatter alloc] init];
-            [format setDateFormat:@"'Workflow' MM.dd.yyyy'-'HH.mm"];
+            [format setDateFormat:@"'Workflow' MM.dd.yyyy'-'HH:mm"];
 
             workflow.name = [format stringFromDate:[NSDate date]]; //stamp this with the current date.
         }
@@ -310,8 +309,14 @@
         self.noTitlePromptField.borderStyle = UITextBorderStyleRoundedRect;
         self.noTitlePromptField.delegate = self;
         self.noTitlePromptField.returnKeyType = UIReturnKeyDone;
+        self.noTitlePromptField.clearButtonMode = UITextFieldViewModeWhileEditing;
         [self.noTitlePromptField setBackgroundColor:[UIColor clearColor]];
 
+        NSDateFormatter *format = [[NSDateFormatter alloc] init];
+        [format setDateFormat:@"'Workflow' MM.dd.yyyy'-'HH:mm"];
+        
+        self.noTitlePromptField.text = [format stringFromDate:[NSDate date]]; //stamp this with the current date.
+        
         [self.noTitlePromptField becomeFirstResponder];
         
         [myAlertView addSubview:self.noTitlePromptField];
@@ -565,11 +570,35 @@
 - (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex != actionSheet.cancelButtonIndex) {
-        //update the title, notify the delegate, and dismiss this controller.
-        self.workflow.name = self.noTitlePromptField.text;
         
-        [delegate didEditWorkflow:self.workflow];
-        [self dismissModalViewControllerAnimated:YES];
+        if (!self.noTitlePromptField.text || [self.noTitlePromptField.text isEqualToString:@""] ) {
+            UIAlertView *myAlertView = [[[UIAlertView alloc] initWithTitle:@"Name the workflow"
+                                                                   message:@"this gets covered" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Done", nil] autorelease];
+            self.noTitlePromptField = [[[UITextField alloc] initWithFrame:CGRectMake(14.0, 45.0, 256.0, 31.0)] autorelease];
+            self.noTitlePromptField.borderStyle = UITextBorderStyleRoundedRect;
+            self.noTitlePromptField.delegate = self;
+            self.noTitlePromptField.returnKeyType = UIReturnKeyDone;
+            self.noTitlePromptField.clearButtonMode = UITextFieldViewModeWhileEditing;
+            [self.noTitlePromptField setBackgroundColor:[UIColor clearColor]];
+            
+            NSDateFormatter *format = [[NSDateFormatter alloc] init];
+            [format setDateFormat:@"'Workflow' MM.dd.yyyy'-'HH:mm"];
+            
+            self.noTitlePromptField.text = [format stringFromDate:[NSDate date]]; //stamp this with the current date.
+            
+            [self.noTitlePromptField becomeFirstResponder];
+            
+            [myAlertView addSubview:self.noTitlePromptField];
+            [myAlertView show];
+        }
+        else {
+            //update the title, notify the delegate, and dismiss this controller.
+            self.workflow.name = self.noTitlePromptField.text;
+            
+            [delegate didEditWorkflow:self.workflow];
+            [self dismissModalViewControllerAnimated:YES];
+
+        }
     }
 }
 
