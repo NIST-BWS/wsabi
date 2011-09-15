@@ -16,6 +16,8 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+#import "UIView+UserTesting.h"
+
 @interface WsabiCollectionHeaderView : UIView {
 
 	UILabel *headerLabel;

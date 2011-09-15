@@ -23,6 +23,8 @@
 
 #import "constants.h"
 
+#import "UIView+UserTesting.h"
+
 @protocol WsabiCollectionDelegate <NSObject>
 -(void) didSelectItemAtIndex:(int)index fromCollectionCell:(id)sender;
 -(void) didRequestLargeViewOfItemAtIndex:(int)index fromCollectionCell:(id)sender;

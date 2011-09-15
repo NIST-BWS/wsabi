@@ -62,6 +62,7 @@
     UIToolbar *toolbar;
 	UIBarButtonItem *titleToolbarItem;
     UIBarButtonItem *rootMenuToolbarItem;
+    UIBarButtonItem *newLogFileToolbarItem;
     UIBarButtonItem *bugToolbarItem;
     
 	WsabiMasterViewController_iPad *rootViewController;
@@ -119,6 +120,7 @@
 -(void) handleEnterForeground:(NSNotification*)notification;
 
 //toolbar action methods
+-(IBAction) startNewUserTestingLog:(id)sender;
 -(IBAction) bugButtonPressed:(id)sender;
 
 //Miscellaneous animation methods, etc.
@@ -133,6 +135,7 @@
 @property (nonatomic, assign) IBOutlet WsabiMasterViewController_iPad *rootViewController;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *titleToolbarItem;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *rootMenuToolbarItem;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *newLogFileToolbarItem;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *bugToolbarItem;
 
 @property (nonatomic, retain) IBOutlet PagingInsetScrollView *capturerScroll;

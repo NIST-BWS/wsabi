@@ -17,6 +17,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "AQGridViewCell.h"
 
+#import "UIView+UserTesting.h"
+
 @interface WsabiCollectionItemCell : AQGridViewCell {
 	UIImage *placeholderImage;
 	UIImage *dataImage;

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Workflow.h"
 #import "constants.h"
+#import "UIView+UserTesting.h"
 
 @protocol WsabiMasterTableViewCellDelegate <NSObject>
 -(void) didRenameWorkflow:(Workflow*)w;

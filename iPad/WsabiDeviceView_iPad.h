@@ -25,6 +25,8 @@
 
 #import "AVCamDemoCaptureManager.h"
 
+#import "UIView+UserTesting.h"
+
 @protocol WsabiDeviceViewDelegate <NSObject>
 -(void) didBeginAnnotating:(id)sender;
 -(void) didEndAnnotating:(id)sender;

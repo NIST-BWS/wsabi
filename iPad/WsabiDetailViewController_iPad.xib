@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">11A511</string>
+		<string key="IBDocument.SystemVersion">11B26</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1617</string>
 		<string key="IBDocument.AppKitVersion">1138</string>
 		<string key="IBDocument.HIToolboxVersion">566.00</string>
@@ -89,7 +89,6 @@
 						<string key="NSFrameSize">{768, 44}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -104,13 +103,19 @@
 							<object class="IBUIBarButtonItem" id="688660065">
 								<string key="IBUITitle">No Workflow Loaded</string>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<float key="IBUIWidth">447</float>
+								<float key="IBUIWidth">432</float>
 								<reference key="IBUIToolbar" ref="284271245"/>
 							</object>
 							<object class="IBUIBarButtonItem" id="475153431">
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<reference key="IBUIToolbar" ref="284271245"/>
 								<int key="IBUISystemItemIdentifier">5</int>
+							</object>
+							<object class="IBUIBarButtonItem" id="25233308">
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<int key="IBUIStyle">1</int>
+								<reference key="IBUIToolbar" ref="284271245"/>
+								<int key="IBUISystemItemIdentifier">13</int>
 							</object>
 							<object class="IBUIBarButtonItem" id="922144375">
 								<object class="NSCustomResource" key="IBUIImage">
@@ -129,7 +134,6 @@
 						<string key="NSFrame">{{20, 505}, {728, 20}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<reference key="IBUIBackgroundColor" ref="287565100"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -169,7 +173,6 @@
 						<string key="NSFrame">{{0, 962}, {768, 42}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 					</object>
@@ -355,6 +358,22 @@
 					</object>
 					<int key="connectionID">73</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">startNewUserTestingLog:</string>
+						<reference key="source" ref="25233308"/>
+						<reference key="destination" ref="841351856"/>
+					</object>
+					<int key="connectionID">78</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">newLogFileToolbarItem</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="25233308"/>
+					</object>
+					<int key="connectionID">79</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -404,20 +423,16 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="688552314"/>
-							<reference ref="475153431"/>
 							<reference ref="688660065"/>
 							<reference ref="922144375"/>
+							<reference ref="25233308"/>
+							<reference ref="475153431"/>
 						</object>
 						<reference key="parent" ref="766721923"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">36</int>
 						<reference key="object" ref="688552314"/>
-						<reference key="parent" ref="284271245"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">37</int>
-						<reference key="object" ref="475153431"/>
 						<reference key="parent" ref="284271245"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -474,6 +489,16 @@
 						<reference key="object" ref="484695217"/>
 						<reference key="parent" ref="235985837"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">77</int>
+						<reference key="object" ref="25233308"/>
+						<reference key="parent" ref="284271245"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">80</int>
+						<reference key="object" ref="475153431"/>
+						<reference key="parent" ref="284271245"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -490,7 +515,6 @@
 					<string>34.CustomClassName</string>
 					<string>34.IBPluginDependency</string>
 					<string>36.IBPluginDependency</string>
-					<string>37.IBPluginDependency</string>
 					<string>38.IBPluginDependency</string>
 					<string>49.IBPluginDependency</string>
 					<string>54.IBPluginDependency</string>
@@ -501,6 +525,8 @@
 					<string>68.IBPluginDependency</string>
 					<string>71.IBPluginDependency</string>
 					<string>72.IBPluginDependency</string>
+					<string>77.IBPluginDependency</string>
+					<string>80.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -517,8 +543,9 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>ColorablePageControl</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -539,7 +566,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">76</int>
+			<int key="maxID">80</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -579,12 +606,14 @@
 							<string>bugButtonPressed:</string>
 							<string>collectionHeaderTapped:</string>
 							<string>editCollectionTable:</string>
+							<string>startNewUserTestingLog:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>id</string>
 							<string>id</string>
 							<string>UITapGestureRecognizer</string>
+							<string>id</string>
 							<string>id</string>
 						</object>
 					</object>
@@ -596,6 +625,7 @@
 							<string>bugButtonPressed:</string>
 							<string>collectionHeaderTapped:</string>
 							<string>editCollectionTable:</string>
+							<string>startNewUserTestingLog:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -615,6 +645,10 @@
 								<string key="name">editCollectionTable:</string>
 								<string key="candidateClassName">id</string>
 							</object>
+							<object class="IBActionInfo">
+								<string key="name">startNewUserTestingLog:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -628,6 +662,7 @@
 							<string>collectionsDropShadowBottom</string>
 							<string>collectionsDropShadowTop</string>
 							<string>collectionsTable</string>
+							<string>newLogFileToolbarItem</string>
 							<string>popoverController</string>
 							<string>rootMenuToolbarItem</string>
 							<string>rootViewController</string>
@@ -644,6 +679,7 @@
 							<string>UIImageView</string>
 							<string>UIImageView</string>
 							<string>UITableView</string>
+							<string>UIBarButtonItem</string>
 							<string>UIPopoverController</string>
 							<string>UIBarButtonItem</string>
 							<string>WsabiMasterViewController_iPad</string>
@@ -663,6 +699,7 @@
 							<string>collectionsDropShadowBottom</string>
 							<string>collectionsDropShadowTop</string>
 							<string>collectionsTable</string>
+							<string>newLogFileToolbarItem</string>
 							<string>popoverController</string>
 							<string>rootMenuToolbarItem</string>
 							<string>rootViewController</string>
@@ -699,6 +736,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">collectionsTable</string>
 								<string key="candidateClassName">UITableView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">newLogFileToolbarItem</string>
+								<string key="candidateClassName">UIBarButtonItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">popoverController</string>

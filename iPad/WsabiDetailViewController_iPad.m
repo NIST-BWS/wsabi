@@ -29,7 +29,8 @@
 @end
 
 @implementation WsabiDetailViewController_iPad
-@synthesize toolbar, titleToolbarItem, popoverController, bugPopoverController, rootViewController, rootMenuToolbarItem, bugToolbarItem;
+@synthesize toolbar, titleToolbarItem, popoverController, bugPopoverController, rootViewController, rootMenuToolbarItem; 
+@synthesize newLogFileToolbarItem, bugToolbarItem;
 @synthesize capturerScroll, capturerPageControl;//, capturerPagingOverlay;
 @synthesize collectionsTable, collectionsDropShadowTop, collectionsDropShadowBottom, sortedCollections;
 @synthesize workflowLoadedOverlay;
@@ -106,21 +107,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
-    
-    //if necessary, add or remove the bug button.
-    NSMutableArray *tempItems = [self.toolbar.items mutableCopy];
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"bug_button_visible_preference"]) {
-        if (![tempItems containsObject:self.bugToolbarItem]) {
-            [tempItems addObject:self.bugToolbarItem];
-            [self.toolbar setItems:tempItems animated:YES];
-        }
-    }
-    else {
-        [tempItems removeObject:self.bugToolbarItem];
-        [self.toolbar setItems:tempItems animated:YES];
-    }
-    [tempItems release];
-    
+        
     //if we're supposed to autoload a workflow, do it.
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (![defaults boolForKey:@"do_not_autoload_preference"]) {
@@ -135,6 +122,29 @@
             [self setWorkflow:(Workflow*)[context objectWithID:objID]];
         }
     }
+}
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    //if necessary, add or remove the newLog and bug buttons.
+    NSMutableArray *tempItems = [self.toolbar.items mutableCopy];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"bug_button_visible_preference"]) {
+        if (![tempItems containsObject:self.newLogFileToolbarItem]) {
+            [tempItems addObject:self.newLogFileToolbarItem];
+        }
+        if (![tempItems containsObject:self.bugToolbarItem]) {
+            [tempItems addObject:self.bugToolbarItem];
+        }
+        [self.toolbar setItems:tempItems animated:NO];
+
+    }
+    else {
+        [tempItems removeObject:self.newLogFileToolbarItem];
+        [tempItems removeObject:self.bugToolbarItem];
+        [self.toolbar setItems:tempItems animated:NO];
+    }
+    [tempItems release];
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -307,23 +317,21 @@
         [s beginConnectSequence:YES withSenderTag:-1];
     }
     
-    //if necessary, add or remove the bug button.
-    NSMutableArray *tempItems = [self.toolbar.items mutableCopy];
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"bug_button_visible_preference"]) {
-        if (![tempItems containsObject:self.bugToolbarItem]) {
-            [tempItems addObject:self.bugToolbarItem];
-            [self.toolbar setItems:tempItems animated:YES];
-        }
-    }
-    else {
-        [tempItems removeObject:self.bugToolbarItem];
-        [self.toolbar setItems:tempItems animated:YES];
-    }
-    [tempItems release];
 
+    //Fire viewWillAppear manually to make sure our toolbar buttons are as expected.
+    [self viewWillAppear:YES];
 }
 
 #pragma mark - Toolbar action methods
+-(IBAction) startNewUserTestingLog:(id)sender
+{
+    NSLog(@"Starting a new user testing log");
+    
+    if (![UIView startNewUserTestingFile]) {
+        NSLog(@"Couldn't open a new user testing file.");
+    }
+}
+
 -(IBAction) bugButtonPressed:(id)sender
 {
     //if we're already showing this controller, just hide it and return.
@@ -1606,3 +1614,4 @@
 
 
 @end
+    

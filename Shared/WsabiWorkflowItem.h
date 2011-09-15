@@ -22,6 +22,8 @@
 #import "constants.h"
 #import "WSBDModalityMap.h"
 
+#import "UIView+UserTesting.h"
+
 @protocol WsabiWorkflowItemDelegate <NSObject>
 -(void) didRequestCaptureTypeChangeForCapturer:(Capturer*)cap;
 

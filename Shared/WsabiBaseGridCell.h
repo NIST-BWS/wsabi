@@ -17,6 +17,7 @@
 #import <UIKit/UIKit.h>
 #import "constants.h"
 #import "AQGridViewCell.h"
+#import "UIView+UserTesting.h"
 
 @protocol WsabiBaseGridCellDelegate <NSObject>
 
