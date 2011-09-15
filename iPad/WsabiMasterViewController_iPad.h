@@ -21,6 +21,8 @@
 #import "WsabiWorkflowBuilderController_iPad.h"
 #import "WsabiMasterTableViewCell.h"
 
+#import "UIView+UserTesting.h"
+
 @class WsabiDetailViewController_iPad;
 
 @interface WsabiMasterViewController_iPad : UITableViewController <NSFetchedResultsControllerDelegate, UIActionSheetDelegate, WsabiWorkflowEditorDelegate, WsabiMasterTableViewCellDelegate> {

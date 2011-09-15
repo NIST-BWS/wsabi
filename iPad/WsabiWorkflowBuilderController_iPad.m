@@ -107,10 +107,19 @@
     
 	// add our gesture recognizer to the grid view to allow rearranging capturers
     UILongPressGestureRecognizer * gr = [[UILongPressGestureRecognizer alloc] initWithTarget: self action: @selector(moveActionGestureRecognizerStateChanged:)];
-    gr.minimumPressDuration = 0.2;
+    gr.minimumPressDuration = 0.17;
     gr.delegate = self;
     [self.workflowGrid addGestureRecognizer: gr];
     [gr release];
+    
+    // add our gesture recognizer to the grid view to allow rearranging capturers
+    UILongPressGestureRecognizer * gr2 = [[UILongPressGestureRecognizer alloc] initWithTarget: self action: @selector(moveActionGestureRecognizerStateChanged:)];
+    gr2.numberOfTouchesRequired = 2;
+    gr2.minimumPressDuration = 0.01;
+    gr2.delegate = self;
+    [self.workflowGrid addGestureRecognizer: gr2];
+    [gr2 release];
+
     
  	[self refreshOrderedCapturers];
 
@@ -988,9 +997,10 @@
         [self.workflowGrid reloadItemsAtIndices:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index+1, [self.capturers count] - index - 1)] withAnimation:AQGridViewItemAnimationBottom];
     }
     
-    //if there isn't anything left in this workflow, disable the done button.
+    //if there isn't anything left in this workflow, disable the done button and show the guide image.
     if ([self.capturers count] <= 0) {
         self.doneButton.enabled = NO;
+        self.helpView.alpha = 1.0;
     }
 }
 

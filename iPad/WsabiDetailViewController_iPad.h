@@ -46,6 +46,8 @@
 #import "NBCLPhoto.h"
 #import "NBCLPhotoSource.h"
 
+#import "UIView+UserTesting.h"
+
 @class WsabiMasterViewController_iPad;
 
 @interface WsabiDetailViewController_iPad : UIViewController <UIPopoverControllerDelegate, UISplitViewControllerDelegate, 

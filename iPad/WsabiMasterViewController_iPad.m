@@ -51,11 +51,12 @@
     }
 	
 	self.collectionsNavBar.topItem.leftBarButtonItem = self.editButtonItem;
+    self.collectionsNavBar.topItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewWorkflowButtonPressed:)] autorelease];
     
-    UIBarButtonItem *flexSpace = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease];
-    UIBarButtonItem *addNewWorkflowButton = [[[UIBarButtonItem alloc] initWithTitle:@"+ New Workflow" style:UIBarButtonItemStyleBordered target:self action:@selector(addNewWorkflowButtonPressed:)] autorelease];
-    [self setToolbarItems:[NSArray arrayWithObjects:flexSpace, addNewWorkflowButton, nil]];
-    self.navigationController.toolbarHidden = NO;
+//    UIBarButtonItem *flexSpace = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease];
+//    UIBarButtonItem *addNewWorkflowButton = [[[UIBarButtonItem alloc] initWithTitle:@"+ New Workflow" style:UIBarButtonItemStyleBordered target:self action:@selector(addNewWorkflowButtonPressed:)] autorelease];
+//    [self setToolbarItems:[NSArray arrayWithObjects:flexSpace, addNewWorkflowButton, nil]];
+//    self.navigationController.toolbarHidden = NO;
 }
 
 
