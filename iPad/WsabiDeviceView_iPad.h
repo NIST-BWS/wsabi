@@ -30,6 +30,7 @@
 @protocol WsabiDeviceViewDelegate <NSObject>
 -(void) didBeginAnnotating:(id)sender;
 -(void) didEndAnnotating:(id)sender;
+-(void) didConnectToSensor:(id)sender;
 -(void) didRequestConnection:(id)sender atNewUri:(NSString*)newUri;
 -(void) didRequestCapture:(id)sender;
 -(void) didRequestCancelCapture:(id)sender;

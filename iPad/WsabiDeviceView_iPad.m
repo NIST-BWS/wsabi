@@ -340,6 +340,10 @@
                          }
  
                      }
+                     completion:^(BOOL completed) {
+                         //enable the capture button
+                         
+                     }
      ];
 
     //stop the connection spinner.

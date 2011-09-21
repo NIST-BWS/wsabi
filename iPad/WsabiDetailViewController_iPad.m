@@ -253,10 +253,8 @@
             
             WsabiDeviceView_iPad *dView = [self createDeviceViewForCapturer:c];
             
-            //unless this is the first card, disable the capture button.
-            //NOTE: If anything besides the first card should be active,
-            //it will be set as active by updateScrollPositionData:
-            dView.captureButton.enabled = ([tempCapturers indexOfObject:c] == 0);
+            //unless this is the active card, disable the capture button.
+            dView.captureButton.enabled = ([tempCapturers indexOfObject:c] == [self.activeCollection.currentPosition intValue]);
             
             [self.capturerScroll addSubview:dView];
             
@@ -1216,7 +1214,6 @@
 
 -(void) didRequestConnection:(id)sender atNewUri:(NSString*)newUri
 {
-    //capture, then download.
     WsabiDeviceView_iPad *currentDevice = sender;
     for (NBCLSensorLink *link in self.sensorLinks) {
         //If the URI matches, this is a matching link.
@@ -1237,7 +1234,23 @@
 
         }
     }
- 
+    
+    //enable the capture button behind the reconnect view.
+    currentDevice.captureButton.enabled = YES;
+}
+
+-(void) didConnectToSensor:(id)sender
+{
+    //Connection was successful. If this is the active sensor, enable the capture button.
+    
+    //Find the current capturer.
+    WsabiDeviceView_iPad *currentDevice = (WsabiDeviceView_iPad*) [self.capturerScroll viewWithTag:
+                                                                   ([self.activeCollection.currentPosition intValue] + CAPTURER_TAG_OFFSET)];
+    
+    if (currentDevice == sender) {
+        //this is the active capture card; enable the capture button.
+        currentDevice.captureButton.enabled = YES;
+    }
 }
 
 -(void) didRequestCapture:(id)sender
@@ -1299,6 +1312,9 @@
                                  withRowAnimation:UITableViewRowAnimationFade];
 
     [self updateData:theData forDeviceView:currentDevice withFlash:NO];
+    
+    //enable the capture button on this device.
+    currentDevice.captureButton.enabled = YES;
 }
 
 -(void) didRequestCurrentItemFullScreen

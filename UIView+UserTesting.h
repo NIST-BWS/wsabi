@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface UIView (UserTesting)
 
 +(void) appendUserTestingStringToCurrentLog:(NSString*)theString;
 +(BOOL) startNewUserTestingFile;
+
+-(UIImage*) screenshot;
 
 @end

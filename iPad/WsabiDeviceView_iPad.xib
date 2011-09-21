@@ -10261,7 +10261,6 @@ AAEAAQABA</bytes>
 								<string key="NSFrame">{{180, 372}, {177, 37}}</string>
 								<reference key="NSSuperview" ref="191373211"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<bool key="IBUIEnabled">NO</bool>
@@ -10286,6 +10285,8 @@ AAEAAQABA</bytes>
 								<reference key="NSSuperview" ref="191373211"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="352387426"/>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<int key="IBUIContentMode">2</int>
 								<bool key="IBUIMultipleTouchEnabled">YES</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
@@ -11320,6 +11321,7 @@ AAEAAQABA</bytes>
 							<string>flipToFront</string>
 							<string>reconnectButtonPressed:</string>
 							<string>reconnectCompleted:</string>
+							<string>resultAreaDoubleTapped:</string>
 							<string>resultAreaPinched:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -11334,6 +11336,7 @@ AAEAAQABA</bytes>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>UITapGestureRecognizer</string>
 							<string>UIPinchGestureRecognizer</string>
 						</object>
 					</object>
@@ -11351,6 +11354,7 @@ AAEAAQABA</bytes>
 							<string>flipToFront</string>
 							<string>reconnectButtonPressed:</string>
 							<string>reconnectCompleted:</string>
+							<string>resultAreaDoubleTapped:</string>
 							<string>resultAreaPinched:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -11394,6 +11398,10 @@ AAEAAQABA</bytes>
 							<object class="IBActionInfo">
 								<string key="name">reconnectCompleted:</string>
 								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">resultAreaDoubleTapped:</string>
+								<string key="candidateClassName">UITapGestureRecognizer</string>
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">resultAreaPinched:</string>
