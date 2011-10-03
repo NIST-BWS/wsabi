@@ -28,7 +28,7 @@
 
     //Create the file (inserting header information), then store its path in the user preferences.
     NSError *err = nil;
-    if(![@"Timestamp,Class,xPosition,yPosition\n" writeToFile:filename atomically:YES encoding:NSUTF8StringEncoding error:&err])
+    if(![@"Timestamp,Class,FrameX,FrameY,FrameW,FrameH,TouchX,TouchY,TouchType\n" writeToFile:filename atomically:YES encoding:NSUTF8StringEncoding error:&err])
     {
         NSLog(@"Couldn't create a new user testing log at %@, error was: %@",filename, [err description]);
         return NO;
@@ -75,10 +75,17 @@
     UITouch *aTouch = [touches anyObject];
     [super touchesBegan:touches withEvent:event];
 
-    NSString *logString = [NSString stringWithFormat:@"%@,%1.0f,%1.0f\n", 
+    CGRect convertedFrame = [self convertRect:self.frame toView:nil]; //converts to window base coordinates
+    
+    NSString *logString = [NSString stringWithFormat:@"%@,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%@\n", 
                            [self class], 
+                           convertedFrame.origin.x,
+                           convertedFrame.origin.y,
+                           convertedFrame.size.width,
+                           convertedFrame.size.height,
                            [aTouch locationInView:self.window].x, 
-                           [aTouch locationInView:self.window].y];
+                           [aTouch locationInView:self.window].y,
+                           @"touch down"];
     
     //NSLog(@"%@: Got a touch at x: %f and y:%f", [self class], [aTouch locationInView:self.window].x, [aTouch locationInView:self.window].y);
     [UIView appendUserTestingStringToCurrentLog:logString];
@@ -89,16 +96,45 @@
     UITouch *aTouch = [touches anyObject];
     [super touchesMoved:touches withEvent:event];
     
-    NSString *logString = [NSString stringWithFormat:@"%@,%1.0f,%1.0f\n", 
-                           [self class], 
-                           [aTouch locationInView:self.window].x, 
-                           [aTouch locationInView:self.window].y];
+    CGRect convertedFrame = [self convertRect:self.frame toView:nil]; //converts to window base coordinates
     
+    NSString *logString = [NSString stringWithFormat:@"%@,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%@\n", 
+                           [self class], 
+                           convertedFrame.origin.x,
+                           convertedFrame.origin.y,
+                           convertedFrame.size.width,
+                           convertedFrame.size.height,
+                           [aTouch locationInView:self.window].x, 
+                           [aTouch locationInView:self.window].y,
+                           @"touch moved"];
+
     //NSLog(@"%@: Got a drag at x: %f and y:%f", [self class], [aTouch locationInView:self.window].x, [aTouch locationInView:self.window].y);
     [UIView appendUserTestingStringToCurrentLog:logString];
 
 
 }
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *aTouch = [touches anyObject];
+    [super touchesEnded:touches withEvent:event];
+    
+    CGRect convertedFrame = [self convertRect:self.frame toView:nil]; //converts to window base coordinates
+    
+    NSString *logString = [NSString stringWithFormat:@"%@,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%1.0f,%@\n", 
+                           [self class], 
+                           convertedFrame.origin.x,
+                           convertedFrame.origin.y,
+                           convertedFrame.size.width,
+                           convertedFrame.size.height,
+                           [aTouch locationInView:self.window].x, 
+                           [aTouch locationInView:self.window].y,
+                           @"touch ended"];
+    
+    [UIView appendUserTestingStringToCurrentLog:logString];    
+    
+}
+
 
 - (UIImage*)screenshot 
 {

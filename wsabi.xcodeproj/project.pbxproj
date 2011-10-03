@@ -32,7 +32,6 @@
 		EA0B8E22122562C1002B5B0A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA0B8E21122562C1002B5B0A /* CFNetwork.framework */; };
 		EA0B8E24122562C1002B5B0A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA0B8E23122562C1002B5B0A /* MobileCoreServices.framework */; };
 		EA0B8E26122562C1002B5B0A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA0B8E25122562C1002B5B0A /* SystemConfiguration.framework */; };
-		EA0B8E28122562C1002B5B0A /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EA0B8E27122562C1002B5B0A /* libz.1.2.3.dylib */; };
 		EA197A6A135382A100204F09 /* NBCLPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = EA197A64135382A100204F09 /* NBCLPhoto.m */; };
 		EA197A6B135382A100204F09 /* NBCLPhotoBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA197A66135382A100204F09 /* NBCLPhotoBrowserController.m */; };
 		EA197A6C135382A100204F09 /* NBCLPhotoBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA197A67135382A100204F09 /* NBCLPhotoBrowserController.xib */; };
@@ -87,6 +86,7 @@
 		EA456643134CBA990080DC54 /* BiometricData.m in Sources */ = {isa = PBXBuildFile; fileRef = EA456642134CBA990080DC54 /* BiometricData.m */; };
 		EA456645134CEC340080DC54 /* BadgeBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = EA456644134CEC340080DC54 /* BadgeBackground.png */; };
 		EA4A7E02135CA9880066C392 /* WsabiSensorController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA4A7E01135CA9880066C392 /* WsabiSensorController_iPad.xib */; };
+		EA4BA89D143A24C000E4064E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EA4BA89C143A24C000E4064E /* libz.dylib */; };
 		EA4FFFB1132A631700EA4D61 /* WsabiBaseGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4FFFB0132A631700EA4D61 /* WsabiBaseGridCell.m */; };
 		EA539D4812F7038D006A894F /* FaceIcon_50px.png in Resources */ = {isa = PBXBuildFile; fileRef = EA539D4412F7038D006A894F /* FaceIcon_50px.png */; };
 		EA539D4912F7038D006A894F /* FingerprintIcon_50px.png in Resources */ = {isa = PBXBuildFile; fileRef = EA539D4512F7038D006A894F /* FingerprintIcon_50px.png */; };
@@ -461,6 +461,7 @@
 		EA456642134CBA990080DC54 /* BiometricData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BiometricData.m; path = Shared/BiometricData.m; sourceTree = "<group>"; };
 		EA456644134CEC340080DC54 /* BadgeBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BadgeBackground.png; path = Shared/Images/BadgeBackground.png; sourceTree = "<group>"; };
 		EA4A7E01135CA9880066C392 /* WsabiSensorController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WsabiSensorController_iPad.xib; path = iPad/WsabiSensorController_iPad.xib; sourceTree = "<group>"; };
+		EA4BA89C143A24C000E4064E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		EA4FFFAF132A631600EA4D61 /* WsabiBaseGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WsabiBaseGridCell.h; path = Shared/WsabiBaseGridCell.h; sourceTree = "<group>"; };
 		EA4FFFB0132A631700EA4D61 /* WsabiBaseGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WsabiBaseGridCell.m; path = Shared/WsabiBaseGridCell.m; sourceTree = "<group>"; };
 		EA539D4412F7038D006A894F /* FaceIcon_50px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FaceIcon_50px.png; path = Shared/Images/FaceIcon_50px.png; sourceTree = "<group>"; };
@@ -571,6 +572,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA4BA89D143A24C000E4064E /* libz.dylib in Frameworks */,
 				EA87B4DB1370843C00AA87C8 /* ImageIO.framework in Frameworks */,
 				EA9CF6FD1365A67C00CCC13A /* AssetsLibrary.framework in Frameworks */,
 				EA9CF6F91365A63500CCC13A /* AVFoundation.framework in Frameworks */,
@@ -589,7 +591,6 @@
 				EA0B8E22122562C1002B5B0A /* CFNetwork.framework in Frameworks */,
 				EA0B8E24122562C1002B5B0A /* MobileCoreServices.framework in Frameworks */,
 				EA0B8E26122562C1002B5B0A /* SystemConfiguration.framework in Frameworks */,
-				EA0B8E28122562C1002B5B0A /* libz.1.2.3.dylib in Frameworks */,
 				EAEED961126F300C005325EB /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -716,6 +717,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EA4BA89C143A24C000E4064E /* libz.dylib */,
 				EA87B4D8136F1CB100AA87C8 /* Three20.bundle */,
 				EA9CF6FC1365A67C00CCC13A /* AssetsLibrary.framework */,
 				EA9CF6FA1365A66100CCC13A /* CoreAudio.framework */,
@@ -1519,11 +1521,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "";
@@ -1539,11 +1541,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
