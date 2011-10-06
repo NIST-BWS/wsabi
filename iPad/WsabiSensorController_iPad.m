@@ -17,7 +17,7 @@
 
 
 @implementation WsabiSensorController_iPad
-@synthesize tableView, selectedModalities, sortedParams, isNewSensor, delegate, managedObjectContext;
+@synthesize tableView, doneButton, selectedModalities, sortedParams, isNewSensor, delegate, managedObjectContext;
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 
@@ -135,7 +135,7 @@
 	[self dismissModalViewControllerAnimated:YES];
 }
 
--(IBAction) saveButtonPressed:(id)sender
+-(IBAction) doneButtonPressed:(id)sender
 {
 
 	//fill the sensor with the data from this form.
@@ -267,8 +267,19 @@
 		if (indexPath.section == kSensorSectionName && self.sensor.name) {
 			textField.text = self.sensor.name;
 		}
-		if (indexPath.section == kSensorSectionNetwork && self.sensor.uri) {
-			textField.text = self.sensor.uri;
+		if (indexPath.section == kSensorSectionNetwork) {
+            
+            //If we already have a stored URI for the sensor, enable the Done button.
+            if(self.sensor.uri && ![self.sensor.uri isEqualToString:@""])
+            {
+                textField.text = self.sensor.uri;
+                self.doneButton.enabled = YES;
+            }
+            //Otherwise, leave it disabled.
+            else
+            {
+                self.doneButton.enabled = NO;
+            }
             textField.autocorrectionType = UITextAutocorrectionTypeNo;
 		}
 	}
@@ -394,6 +405,20 @@
 
 #pragma mark -
 #pragma mark UITextFieldDelegate methods
+- (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if ([[textField.text stringByReplacingCharactersInRange:range withString:string] isEqualToString:@""]) {
+        //the field is empty, so disable the Done button.
+        self.doneButton.enabled = NO;
+    }
+    else
+    {
+        //there's something in the field, so enable the Done button.
+        self.doneButton.enabled = YES;
+    }
+    return YES;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
 	[textField resignFirstResponder];
@@ -422,6 +447,7 @@
 
 - (void)dealloc {
 	[tableView release];
+    [doneButton release];
     [super dealloc];
 }
 

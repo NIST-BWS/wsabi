@@ -24,8 +24,8 @@
 
 #define kTextFieldTag 1001
 
-#define kSensorSectionName 0
-#define kSensorSectionNetwork 1
+#define kSensorSectionNetwork 0
+#define kSensorSectionName 1
 #define kSensorSectionModality 2
 #define kSensorSectionParameters 3
 
@@ -37,6 +37,7 @@
 @interface WsabiSensorController_iPad : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
 
 	UITableView *tableView;
+    UIBarButtonItem *doneButton;
 	
 	NSMutableArray *selectedModalities;
 	NSMutableArray *sortedParams;
@@ -53,10 +54,11 @@
 - (BOOL)findAndResignFirstResonder: (UIView*) theView;
 
 -(IBAction) cancelButtonPressed:(id)sender;
--(IBAction) saveButtonPressed:(id)sender;
+-(IBAction) doneButtonPressed:(id)sender;
 //-(void) tableBackgroundPressed:(UITapGestureRecognizer*)recog;
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *doneButton;
 @property (nonatomic, retain) NSMutableArray *selectedModalities;
 @property (nonatomic, retain) NSMutableArray *sortedParams;
 
