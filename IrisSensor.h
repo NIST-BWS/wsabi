@@ -1,9 +1,9 @@
 //
 //  IrisSensor.h
-//  Wsabi
+//  wsabi
 //
-//  Created by Matt Aronoff on 4/6/11.
-//  Copyright (c) 2011 NIST. All rights reserved.
+//  Created by Matt Aronoff on 10/11/11.
+//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -11,9 +11,8 @@
 #import "Sensor.h"
 
 
-@interface IrisSensor : Sensor {
-@private
-}
+@interface IrisSensor : Sensor
+
 @property (nonatomic, retain) NSNumber * supportsDualIris;
 
 @end
