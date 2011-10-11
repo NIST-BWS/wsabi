@@ -31,7 +31,7 @@
 @implementation WsabiDetailViewController_iPad
 @synthesize toolbar, titleToolbarItem, popoverController, bugPopoverController, rootViewController, rootMenuToolbarItem; 
 @synthesize newLogFileToolbarItem, bugToolbarItem;
-@synthesize capturerScroll, capturerPageControl;//, capturerPagingOverlay;
+@synthesize capturerScroll, capturerPageControl;
 @synthesize collectionsTable, collectionsDropShadowTop, collectionsDropShadowBottom, sortedCollections;
 @synthesize workflowLoadedOverlay;
 @synthesize sensorLinks;

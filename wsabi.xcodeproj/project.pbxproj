@@ -73,17 +73,6 @@
 		EA2F79F3132E9DFE0031B8D2 /* TrashCanOpen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2F79EF132E9DFE0031B8D2 /* TrashCanOpen@2x.png */; };
 		EA3268BE12882B91004A5CE5 /* UITransparentToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3268BD12882B91004A5CE5 /* UITransparentToolbar.m */; };
 		EA3268D012884011004A5CE5 /* WsabiDeviceView_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3268CF12884011004A5CE5 /* WsabiDeviceView_iPad.m */; };
-		EA456625134CBA970080DC54 /* Sensor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA456624134CBA970080DC54 /* Sensor.m */; };
-		EA456628134CBA980080DC54 /* FaceSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA456627134CBA980080DC54 /* FaceSensor.m */; };
-		EA45662B134CBA980080DC54 /* MultimodalSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA45662A134CBA980080DC54 /* MultimodalSensor.m */; };
-		EA45662E134CBA980080DC54 /* IrisSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA45662D134CBA980080DC54 /* IrisSensor.m */; };
-		EA456631134CBA980080DC54 /* BiometricCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = EA456630134CBA980080DC54 /* BiometricCollection.m */; };
-		EA456634134CBA980080DC54 /* SensorModality.m in Sources */ = {isa = PBXBuildFile; fileRef = EA456633134CBA980080DC54 /* SensorModality.m */; };
-		EA456637134CBA980080DC54 /* Workflow.m in Sources */ = {isa = PBXBuildFile; fileRef = EA456636134CBA980080DC54 /* Workflow.m */; };
-		EA45663A134CBA990080DC54 /* Capturer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA456639134CBA990080DC54 /* Capturer.m */; };
-		EA45663D134CBA990080DC54 /* FingerprintSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA45663C134CBA990080DC54 /* FingerprintSensor.m */; };
-		EA456640134CBA990080DC54 /* SensorParam.m in Sources */ = {isa = PBXBuildFile; fileRef = EA45663F134CBA990080DC54 /* SensorParam.m */; };
-		EA456643134CBA990080DC54 /* BiometricData.m in Sources */ = {isa = PBXBuildFile; fileRef = EA456642134CBA990080DC54 /* BiometricData.m */; };
 		EA456645134CEC340080DC54 /* BadgeBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = EA456644134CEC340080DC54 /* BadgeBackground.png */; };
 		EA4A7E02135CA9880066C392 /* WsabiSensorController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA4A7E01135CA9880066C392 /* WsabiSensorController_iPad.xib */; };
 		EA4BA89D143A24C000E4064E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EA4BA89C143A24C000E4064E /* libz.dylib */; };
@@ -111,6 +100,17 @@
 		EA8715F71402AD7E0081E5EA /* UISegmentBorderedButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8715F31402AD7E0081E5EA /* UISegmentBorderedButton@2x.png */; };
 		EA8715F81402AD7E0081E5EA /* UISegmentBorderedButtonHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8715F41402AD7E0081E5EA /* UISegmentBorderedButtonHighlighted.png */; };
 		EA8715F91402AD7E0081E5EA /* UISegmentBorderedButtonHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8715F51402AD7E0081E5EA /* UISegmentBorderedButtonHighlighted@2x.png */; };
+		EA877D341444847D0050C4CA /* IrisSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA877D331444847D0050C4CA /* IrisSensor.m */; };
+		EA877D371444847E0050C4CA /* Workflow.m in Sources */ = {isa = PBXBuildFile; fileRef = EA877D361444847E0050C4CA /* Workflow.m */; };
+		EA877D3A1444847E0050C4CA /* SensorParam.m in Sources */ = {isa = PBXBuildFile; fileRef = EA877D391444847E0050C4CA /* SensorParam.m */; };
+		EA877D3D1444847E0050C4CA /* BiometricCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = EA877D3C1444847E0050C4CA /* BiometricCollection.m */; };
+		EA877D401444847E0050C4CA /* Capturer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA877D3F1444847E0050C4CA /* Capturer.m */; };
+		EA877D431444847E0050C4CA /* BiometricData.m in Sources */ = {isa = PBXBuildFile; fileRef = EA877D421444847E0050C4CA /* BiometricData.m */; };
+		EA877D461444847F0050C4CA /* Sensor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA877D451444847F0050C4CA /* Sensor.m */; };
+		EA877D491444847F0050C4CA /* FingerprintSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA877D481444847F0050C4CA /* FingerprintSensor.m */; };
+		EA877D4C1444847F0050C4CA /* SensorModality.m in Sources */ = {isa = PBXBuildFile; fileRef = EA877D4B1444847F0050C4CA /* SensorModality.m */; };
+		EA877D4F1444847F0050C4CA /* FaceSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA877D4E1444847F0050C4CA /* FaceSensor.m */; };
+		EA877D521444847F0050C4CA /* MultimodalSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA877D511444847F0050C4CA /* MultimodalSensor.m */; };
 		EA87B4D9136F1CB100AA87C8 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EA87B4D8136F1CB100AA87C8 /* Three20.bundle */; };
 		EA87B4DB1370843C00AA87C8 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA87B4DA1370843C00AA87C8 /* ImageIO.framework */; };
 		EA87B4DF13730C1400AA87C8 /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = EA87B4DD13730C1400AA87C8 /* 20-gear2.png */; };
@@ -437,28 +437,6 @@
 		EA3268BD12882B91004A5CE5 /* UITransparentToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UITransparentToolbar.m; path = Shared/UITransparentToolbar.m; sourceTree = "<group>"; };
 		EA3268CE12884011004A5CE5 /* WsabiDeviceView_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WsabiDeviceView_iPad.h; path = iPad/WsabiDeviceView_iPad.h; sourceTree = "<group>"; };
 		EA3268CF12884011004A5CE5 /* WsabiDeviceView_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WsabiDeviceView_iPad.m; path = iPad/WsabiDeviceView_iPad.m; sourceTree = "<group>"; };
-		EA456623134CBA970080DC54 /* Sensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sensor.h; path = Shared/Sensor.h; sourceTree = "<group>"; };
-		EA456624134CBA970080DC54 /* Sensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Sensor.m; path = Shared/Sensor.m; sourceTree = "<group>"; };
-		EA456626134CBA980080DC54 /* FaceSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FaceSensor.h; path = Shared/FaceSensor.h; sourceTree = "<group>"; };
-		EA456627134CBA980080DC54 /* FaceSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FaceSensor.m; path = Shared/FaceSensor.m; sourceTree = "<group>"; };
-		EA456629134CBA980080DC54 /* MultimodalSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultimodalSensor.h; path = Shared/MultimodalSensor.h; sourceTree = "<group>"; };
-		EA45662A134CBA980080DC54 /* MultimodalSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MultimodalSensor.m; path = Shared/MultimodalSensor.m; sourceTree = "<group>"; };
-		EA45662C134CBA980080DC54 /* IrisSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IrisSensor.h; path = Shared/IrisSensor.h; sourceTree = "<group>"; };
-		EA45662D134CBA980080DC54 /* IrisSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IrisSensor.m; path = Shared/IrisSensor.m; sourceTree = "<group>"; };
-		EA45662F134CBA980080DC54 /* BiometricCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BiometricCollection.h; path = Shared/BiometricCollection.h; sourceTree = "<group>"; };
-		EA456630134CBA980080DC54 /* BiometricCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BiometricCollection.m; path = Shared/BiometricCollection.m; sourceTree = "<group>"; };
-		EA456632134CBA980080DC54 /* SensorModality.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SensorModality.h; path = Shared/SensorModality.h; sourceTree = "<group>"; };
-		EA456633134CBA980080DC54 /* SensorModality.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SensorModality.m; path = Shared/SensorModality.m; sourceTree = "<group>"; };
-		EA456635134CBA980080DC54 /* Workflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Workflow.h; path = Shared/Workflow.h; sourceTree = "<group>"; };
-		EA456636134CBA980080DC54 /* Workflow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Workflow.m; path = Shared/Workflow.m; sourceTree = "<group>"; };
-		EA456638134CBA990080DC54 /* Capturer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Capturer.h; path = Shared/Capturer.h; sourceTree = "<group>"; };
-		EA456639134CBA990080DC54 /* Capturer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Capturer.m; path = Shared/Capturer.m; sourceTree = "<group>"; };
-		EA45663B134CBA990080DC54 /* FingerprintSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FingerprintSensor.h; path = Shared/FingerprintSensor.h; sourceTree = "<group>"; };
-		EA45663C134CBA990080DC54 /* FingerprintSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FingerprintSensor.m; path = Shared/FingerprintSensor.m; sourceTree = "<group>"; };
-		EA45663E134CBA990080DC54 /* SensorParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SensorParam.h; path = Shared/SensorParam.h; sourceTree = "<group>"; };
-		EA45663F134CBA990080DC54 /* SensorParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SensorParam.m; path = Shared/SensorParam.m; sourceTree = "<group>"; };
-		EA456641134CBA990080DC54 /* BiometricData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BiometricData.h; path = Shared/BiometricData.h; sourceTree = "<group>"; };
-		EA456642134CBA990080DC54 /* BiometricData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BiometricData.m; path = Shared/BiometricData.m; sourceTree = "<group>"; };
 		EA456644134CEC340080DC54 /* BadgeBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BadgeBackground.png; path = Shared/Images/BadgeBackground.png; sourceTree = "<group>"; };
 		EA4A7E01135CA9880066C392 /* WsabiSensorController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WsabiSensorController_iPad.xib; path = iPad/WsabiSensorController_iPad.xib; sourceTree = "<group>"; };
 		EA4BA89C143A24C000E4064E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -492,6 +470,28 @@
 		EA8715F31402AD7E0081E5EA /* UISegmentBorderedButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UISegmentBorderedButton@2x.png"; sourceTree = "<group>"; };
 		EA8715F41402AD7E0081E5EA /* UISegmentBorderedButtonHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UISegmentBorderedButtonHighlighted.png; sourceTree = "<group>"; };
 		EA8715F51402AD7E0081E5EA /* UISegmentBorderedButtonHighlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UISegmentBorderedButtonHighlighted@2x.png"; sourceTree = "<group>"; };
+		EA877D321444847D0050C4CA /* IrisSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IrisSensor.h; sourceTree = "<group>"; };
+		EA877D331444847D0050C4CA /* IrisSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IrisSensor.m; sourceTree = "<group>"; };
+		EA877D351444847E0050C4CA /* Workflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Workflow.h; sourceTree = "<group>"; };
+		EA877D361444847E0050C4CA /* Workflow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Workflow.m; sourceTree = "<group>"; };
+		EA877D381444847E0050C4CA /* SensorParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorParam.h; sourceTree = "<group>"; };
+		EA877D391444847E0050C4CA /* SensorParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorParam.m; sourceTree = "<group>"; };
+		EA877D3B1444847E0050C4CA /* BiometricCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BiometricCollection.h; sourceTree = "<group>"; };
+		EA877D3C1444847E0050C4CA /* BiometricCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BiometricCollection.m; sourceTree = "<group>"; };
+		EA877D3E1444847E0050C4CA /* Capturer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Capturer.h; sourceTree = "<group>"; };
+		EA877D3F1444847E0050C4CA /* Capturer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Capturer.m; sourceTree = "<group>"; };
+		EA877D411444847E0050C4CA /* BiometricData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BiometricData.h; sourceTree = "<group>"; };
+		EA877D421444847E0050C4CA /* BiometricData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BiometricData.m; sourceTree = "<group>"; };
+		EA877D441444847F0050C4CA /* Sensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sensor.h; sourceTree = "<group>"; };
+		EA877D451444847F0050C4CA /* Sensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sensor.m; sourceTree = "<group>"; };
+		EA877D471444847F0050C4CA /* FingerprintSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FingerprintSensor.h; sourceTree = "<group>"; };
+		EA877D481444847F0050C4CA /* FingerprintSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FingerprintSensor.m; sourceTree = "<group>"; };
+		EA877D4A1444847F0050C4CA /* SensorModality.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorModality.h; sourceTree = "<group>"; };
+		EA877D4B1444847F0050C4CA /* SensorModality.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorModality.m; sourceTree = "<group>"; };
+		EA877D4D1444847F0050C4CA /* FaceSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceSensor.h; sourceTree = "<group>"; };
+		EA877D4E1444847F0050C4CA /* FaceSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceSensor.m; sourceTree = "<group>"; };
+		EA877D501444847F0050C4CA /* MultimodalSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultimodalSensor.h; sourceTree = "<group>"; };
+		EA877D511444847F0050C4CA /* MultimodalSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultimodalSensor.m; sourceTree = "<group>"; };
 		EA87B4D8136F1CB100AA87C8 /* Three20.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Three20.bundle; path = ../../shared_libs/three20/src/Three20.bundle; sourceTree = "<group>"; };
 		EA87B4DA1370843C00AA87C8 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		EA87B4DD13730C1400AA87C8 /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "20-gear2.png"; path = "Shared/Images/20-gear2.png"; sourceTree = "<group>"; };
@@ -807,28 +807,28 @@
 		EA0B8DE21225517F002B5B0A /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				EA456641134CBA990080DC54 /* BiometricData.h */,
-				EA456642134CBA990080DC54 /* BiometricData.m */,
-				EA45663E134CBA990080DC54 /* SensorParam.h */,
-				EA45663F134CBA990080DC54 /* SensorParam.m */,
-				EA45663B134CBA990080DC54 /* FingerprintSensor.h */,
-				EA45663C134CBA990080DC54 /* FingerprintSensor.m */,
-				EA456638134CBA990080DC54 /* Capturer.h */,
-				EA456639134CBA990080DC54 /* Capturer.m */,
-				EA456635134CBA980080DC54 /* Workflow.h */,
-				EA456636134CBA980080DC54 /* Workflow.m */,
-				EA456632134CBA980080DC54 /* SensorModality.h */,
-				EA456633134CBA980080DC54 /* SensorModality.m */,
-				EA45662F134CBA980080DC54 /* BiometricCollection.h */,
-				EA456630134CBA980080DC54 /* BiometricCollection.m */,
-				EA45662C134CBA980080DC54 /* IrisSensor.h */,
-				EA45662D134CBA980080DC54 /* IrisSensor.m */,
-				EA456629134CBA980080DC54 /* MultimodalSensor.h */,
-				EA45662A134CBA980080DC54 /* MultimodalSensor.m */,
-				EA456626134CBA980080DC54 /* FaceSensor.h */,
-				EA456627134CBA980080DC54 /* FaceSensor.m */,
-				EA456623134CBA970080DC54 /* Sensor.h */,
-				EA456624134CBA970080DC54 /* Sensor.m */,
+				EA877D501444847F0050C4CA /* MultimodalSensor.h */,
+				EA877D511444847F0050C4CA /* MultimodalSensor.m */,
+				EA877D4D1444847F0050C4CA /* FaceSensor.h */,
+				EA877D4E1444847F0050C4CA /* FaceSensor.m */,
+				EA877D4A1444847F0050C4CA /* SensorModality.h */,
+				EA877D4B1444847F0050C4CA /* SensorModality.m */,
+				EA877D471444847F0050C4CA /* FingerprintSensor.h */,
+				EA877D481444847F0050C4CA /* FingerprintSensor.m */,
+				EA877D441444847F0050C4CA /* Sensor.h */,
+				EA877D451444847F0050C4CA /* Sensor.m */,
+				EA877D411444847E0050C4CA /* BiometricData.h */,
+				EA877D421444847E0050C4CA /* BiometricData.m */,
+				EA877D3E1444847E0050C4CA /* Capturer.h */,
+				EA877D3F1444847E0050C4CA /* Capturer.m */,
+				EA877D3B1444847E0050C4CA /* BiometricCollection.h */,
+				EA877D3C1444847E0050C4CA /* BiometricCollection.m */,
+				EA877D381444847E0050C4CA /* SensorParam.h */,
+				EA877D391444847E0050C4CA /* SensorParam.m */,
+				EA877D351444847E0050C4CA /* Workflow.h */,
+				EA877D361444847E0050C4CA /* Workflow.m */,
+				EA877D321444847D0050C4CA /* IrisSensor.h */,
+				EA877D331444847D0050C4CA /* IrisSensor.m */,
 				EAD04518135CC188004FCD3B /* wsabi.xcdatamodeld */,
 			);
 			name = "Data Model";
@@ -1397,17 +1397,6 @@
 				EABFA917132689FB00E72BFE /* ColorablePageControl.m in Sources */,
 				EA4FFFB1132A631700EA4D61 /* WsabiBaseGridCell.m in Sources */,
 				EAF0DFF61333AC8600FD2E2E /* NBCLSensorRawOutputController.m in Sources */,
-				EA456625134CBA970080DC54 /* Sensor.m in Sources */,
-				EA456628134CBA980080DC54 /* FaceSensor.m in Sources */,
-				EA45662B134CBA980080DC54 /* MultimodalSensor.m in Sources */,
-				EA45662E134CBA980080DC54 /* IrisSensor.m in Sources */,
-				EA456631134CBA980080DC54 /* BiometricCollection.m in Sources */,
-				EA456634134CBA980080DC54 /* SensorModality.m in Sources */,
-				EA456637134CBA980080DC54 /* Workflow.m in Sources */,
-				EA45663A134CBA990080DC54 /* Capturer.m in Sources */,
-				EA45663D134CBA990080DC54 /* FingerprintSensor.m in Sources */,
-				EA456640134CBA990080DC54 /* SensorParam.m in Sources */,
-				EA456643134CBA990080DC54 /* BiometricData.m in Sources */,
 				EA197A6A135382A100204F09 /* NBCLPhoto.m in Sources */,
 				EA197A6B135382A100204F09 /* NBCLPhotoBrowserController.m in Sources */,
 				EA197A6D135382A100204F09 /* NBCLPhotoSource.m in Sources */,
@@ -1426,6 +1415,17 @@
 				EA9CF7191368620E00CCC13A /* NBCLInternalCameraSensorLink.m in Sources */,
 				EAD00F6814027F7D00525190 /* WsabiMasterTableViewCell.m in Sources */,
 				EACC58811422494D005B39EC /* UIView+UserTesting.m in Sources */,
+				EA877D341444847D0050C4CA /* IrisSensor.m in Sources */,
+				EA877D371444847E0050C4CA /* Workflow.m in Sources */,
+				EA877D3A1444847E0050C4CA /* SensorParam.m in Sources */,
+				EA877D3D1444847E0050C4CA /* BiometricCollection.m in Sources */,
+				EA877D401444847E0050C4CA /* Capturer.m in Sources */,
+				EA877D431444847E0050C4CA /* BiometricData.m in Sources */,
+				EA877D461444847F0050C4CA /* Sensor.m in Sources */,
+				EA877D491444847F0050C4CA /* FingerprintSensor.m in Sources */,
+				EA877D4C1444847F0050C4CA /* SensorModality.m in Sources */,
+				EA877D4F1444847F0050C4CA /* FaceSensor.m in Sources */,
+				EA877D521444847F0050C4CA /* MultimodalSensor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -359,6 +359,8 @@
 	
 	[self presentModalViewController:builder animated:YES];
 
+    //remove us from edit mode.
+    self.editing = NO;
 }
 
 #pragma mark - Table View Cell Delegate

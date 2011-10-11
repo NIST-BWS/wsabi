@@ -20,6 +20,7 @@
 #import "Capturer.h"
 #import "BiometricData.h"
 #import "Sensor.h"
+#import "SensorModality.h"
 
 #import "NBCLSensorLink.h"
 

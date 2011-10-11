@@ -213,112 +213,134 @@
     
     //if there's a result stored at this position, hide the capture button.
     self.captureButton.alpha = (self.resultImageView.image == nil) ? CAPTURE_BUTTON_ALPHA : 0.0;
-    //NSLog(@"Setting the capture button's alpha to %f",self.captureButton.alpha);
     
-    //start off with certain things visible.
-    self.annotationLabel1.hidden = NO;
-    self.annotationLabel2.hidden = NO;
-    self.annotationLabel3.hidden = NO;
-    self.annotationLabel4.hidden = NO;
-    
-    self.annotation1.hidden = NO;
-    self.annotation2.hidden = NO;
-    self.annotation3.hidden = NO;
-    self.annotation4.hidden = NO;
-    
-    int capType = [self.capturer.captureType intValue];
-    
-    //FIXME: This relies on there being a single annotation for each capture type. (It won't fail otherwise,
-    //but we may get unexpected results.) That's pretty brittle, and should probably be changed.
-    
-    //figure out which annotation selectors should be shown, and what their labels should be.
-    
-    self.annotations = [NSKeyedUnarchiver unarchiveObjectWithData:data.annotations];
-    //if there aren't any stored annotations, create an empty dictionary.
-    if (!self.annotations) {
-        self.annotations = [[[NSMutableDictionary alloc] initWithCapacity:4] autorelease];
+    BOOL fingerModalityFound = NO;
+    for (SensorModality *mod in self.capturer.sensor.modalities) {
+        if ([mod.type intValue] == kModalityFinger) {
+            fingerModalityFound = YES;
+        }
     }
     
-    switch (capType) {
-        case kCaptureTypeLeftSlap:
-            self.annotationLabel1.text = [WSBDModalityMap stringForCaptureType:kCaptureTypeLeftIndexFlat];
-            self.annotation1.selectedSegmentIndex = [[self.annotations objectForKey:[NSNumber numberWithInt:kCaptureTypeLeftIndexFlat]] intValue];
-            
-            self.annotationLabel2.text = [WSBDModalityMap stringForCaptureType:kCaptureTypeLeftMiddleFlat];
-            self.annotation2.selectedSegmentIndex = [[self.annotations objectForKey:[NSNumber numberWithInt:kCaptureTypeLeftMiddleFlat]] intValue];
-            
-            self.annotationLabel3.text = [WSBDModalityMap stringForCaptureType:kCaptureTypeLeftRingFlat];
-            self.annotation3.selectedSegmentIndex = [[self.annotations objectForKey:[NSNumber numberWithInt:kCaptureTypeLeftRingFlat]] intValue];
-            
-            self.annotationLabel4.text = [WSBDModalityMap stringForCaptureType:kCaptureTypeLeftLittleFlat];
-            self.annotation4.selectedSegmentIndex = [[self.annotations objectForKey:[NSNumber numberWithInt:kCaptureTypeLeftLittleFlat]] intValue];
-            
-            //set object tags so we can retrieve the data later.
-            self.annotation1.tag = kCaptureTypeLeftIndexFlat;
-            self.annotation2.tag = kCaptureTypeLeftMiddleFlat;
-            self.annotation3.tag = kCaptureTypeLeftRingFlat;
-            self.annotation4.tag = kCaptureTypeLeftLittleFlat;
-            
-            break;
-        case kCaptureTypeRightSlap:
-            self.annotationLabel1.text = [WSBDModalityMap stringForCaptureType:kCaptureTypeRightIndexFlat];
-            self.annotation1.selectedSegmentIndex = [[self.annotations objectForKey:[NSNumber numberWithInt:kCaptureTypeRightIndexFlat]] intValue];
-            
-            self.annotationLabel2.text = [WSBDModalityMap stringForCaptureType:kCaptureTypeRightMiddleFlat];
-            self.annotation2.selectedSegmentIndex = [[self.annotations objectForKey:[NSNumber numberWithInt:kCaptureTypeRightMiddleFlat]] intValue];
-            
-            self.annotationLabel3.text = [WSBDModalityMap stringForCaptureType:kCaptureTypeRightRingFlat];
-            self.annotation3.selectedSegmentIndex = [[self.annotations objectForKey:[NSNumber numberWithInt:kCaptureTypeRightRingFlat]] intValue];
-            
-            self.annotationLabel4.text = [WSBDModalityMap stringForCaptureType:kCaptureTypeRightLittleFlat];
-            self.annotation4.selectedSegmentIndex = [[self.annotations objectForKey:[NSNumber numberWithInt:kCaptureTypeRightLittleFlat]] intValue];
-            
-            //set object tags so we can retrieve the data later.
-            self.annotation1.tag = kCaptureTypeRightIndexFlat;
-            self.annotation2.tag = kCaptureTypeRightMiddleFlat;
-            self.annotation3.tag = kCaptureTypeRightRingFlat;
-            self.annotation4.tag = kCaptureTypeRightLittleFlat;
-            
-            break;
-            
-        case kCaptureTypeThumbsSlap:
-            self.annotationLabel1.text = [WSBDModalityMap stringForCaptureType:kCaptureTypeRightThumbFlat];
-            self.annotation1.selectedSegmentIndex = [[self.annotations objectForKey:[NSNumber numberWithInt:kCaptureTypeRightThumbFlat]] intValue];
-            
-            self.annotationLabel2.text = [WSBDModalityMap stringForCaptureType:kCaptureTypeLeftThumbFlat];
-            self.annotation2.selectedSegmentIndex = [[self.annotations objectForKey:[NSNumber numberWithInt:kCaptureTypeLeftThumbFlat]] intValue];
-            
-            self.annotationLabel3.hidden = YES;
-            self.annotationLabel4.hidden = YES;
-            
-            self.annotation3.hidden = YES;
-            self.annotation4.hidden = YES;
-            
-            //set object tags so we can retrieve the data later.
-            self.annotation1.tag = kCaptureTypeRightThumbFlat;
-            self.annotation2.tag = kCaptureTypeLeftThumbFlat;
-            
-            break;
-        default:
-            //just display the single annotation for whatever the listed capture type is.
-            self.annotationLabel1.text = [WSBDModalityMap stringForCaptureType:capType];
-            
-            self.annotationLabel2.hidden = YES;
-            self.annotation2.hidden = YES;
-            
-            self.annotationLabel3.hidden = YES;
-            self.annotation3.hidden = YES;
-            
-            self.annotationLabel4.hidden = YES;
-            self.annotation4.hidden = YES;
-            
-            self.annotation1.selectedSegmentIndex = [[self.annotations objectForKey:self.capturer.captureType] intValue];
-            
-            //set object tags so we can retrieve the data later.
-            self.annotation1.tag = capType;
-            
-            break;
-    } 
+    if(fingerModalityFound){
+        //start off with certain things visible.
+        self.annotationLabel1.hidden = NO;
+        self.annotationLabel2.hidden = NO;
+        self.annotationLabel3.hidden = NO;
+        self.annotationLabel4.hidden = NO;
+        
+        self.annotation1.hidden = NO;
+        self.annotation2.hidden = NO;
+        self.annotation3.hidden = NO;
+        self.annotation4.hidden = NO;
+        
+        int capType = [self.capturer.captureType intValue];
+        
+        //FIXME: This relies on there being a single annotation for each capture type. (It won't fail otherwise,
+        //but we may get unexpected results.) That's pretty brittle, and should probably be changed.
+        
+        //figure out which annotation selectors should be shown, and what their labels should be.
+        
+        self.annotations = [NSKeyedUnarchiver unarchiveObjectWithData:data.annotations];
+        //if there aren't any stored annotations, create an empty dictionary.
+        if (!self.annotations) {
+            self.annotations = [[[NSMutableDictionary alloc] initWithCapacity:4] autorelease];
+        }
+        
+        switch (capType) {
+            case kCaptureTypeLeftSlap:
+                self.annotationLabel1.text = [WSBDModalityMap stringForCaptureType:kCaptureTypeLeftIndexFlat];
+                self.annotation1.selectedSegmentIndex = [[self.annotations objectForKey:[NSNumber numberWithInt:kCaptureTypeLeftIndexFlat]] intValue];
+                
+                self.annotationLabel2.text = [WSBDModalityMap stringForCaptureType:kCaptureTypeLeftMiddleFlat];
+                self.annotation2.selectedSegmentIndex = [[self.annotations objectForKey:[NSNumber numberWithInt:kCaptureTypeLeftMiddleFlat]] intValue];
+                
+                self.annotationLabel3.text = [WSBDModalityMap stringForCaptureType:kCaptureTypeLeftRingFlat];
+                self.annotation3.selectedSegmentIndex = [[self.annotations objectForKey:[NSNumber numberWithInt:kCaptureTypeLeftRingFlat]] intValue];
+                
+                self.annotationLabel4.text = [WSBDModalityMap stringForCaptureType:kCaptureTypeLeftLittleFlat];
+                self.annotation4.selectedSegmentIndex = [[self.annotations objectForKey:[NSNumber numberWithInt:kCaptureTypeLeftLittleFlat]] intValue];
+                
+                //set object tags so we can retrieve the data later.
+                self.annotation1.tag = kCaptureTypeLeftIndexFlat;
+                self.annotation2.tag = kCaptureTypeLeftMiddleFlat;
+                self.annotation3.tag = kCaptureTypeLeftRingFlat;
+                self.annotation4.tag = kCaptureTypeLeftLittleFlat;
+                
+                break;
+            case kCaptureTypeRightSlap:
+                self.annotationLabel1.text = [WSBDModalityMap stringForCaptureType:kCaptureTypeRightIndexFlat];
+                self.annotation1.selectedSegmentIndex = [[self.annotations objectForKey:[NSNumber numberWithInt:kCaptureTypeRightIndexFlat]] intValue];
+                
+                self.annotationLabel2.text = [WSBDModalityMap stringForCaptureType:kCaptureTypeRightMiddleFlat];
+                self.annotation2.selectedSegmentIndex = [[self.annotations objectForKey:[NSNumber numberWithInt:kCaptureTypeRightMiddleFlat]] intValue];
+                
+                self.annotationLabel3.text = [WSBDModalityMap stringForCaptureType:kCaptureTypeRightRingFlat];
+                self.annotation3.selectedSegmentIndex = [[self.annotations objectForKey:[NSNumber numberWithInt:kCaptureTypeRightRingFlat]] intValue];
+                
+                self.annotationLabel4.text = [WSBDModalityMap stringForCaptureType:kCaptureTypeRightLittleFlat];
+                self.annotation4.selectedSegmentIndex = [[self.annotations objectForKey:[NSNumber numberWithInt:kCaptureTypeRightLittleFlat]] intValue];
+                
+                //set object tags so we can retrieve the data later.
+                self.annotation1.tag = kCaptureTypeRightIndexFlat;
+                self.annotation2.tag = kCaptureTypeRightMiddleFlat;
+                self.annotation3.tag = kCaptureTypeRightRingFlat;
+                self.annotation4.tag = kCaptureTypeRightLittleFlat;
+                
+                break;
+                
+            case kCaptureTypeThumbsSlap:
+                self.annotationLabel1.text = [WSBDModalityMap stringForCaptureType:kCaptureTypeRightThumbFlat];
+                self.annotation1.selectedSegmentIndex = [[self.annotations objectForKey:[NSNumber numberWithInt:kCaptureTypeRightThumbFlat]] intValue];
+                
+                self.annotationLabel2.text = [WSBDModalityMap stringForCaptureType:kCaptureTypeLeftThumbFlat];
+                self.annotation2.selectedSegmentIndex = [[self.annotations objectForKey:[NSNumber numberWithInt:kCaptureTypeLeftThumbFlat]] intValue];
+                
+                self.annotationLabel3.hidden = YES;
+                self.annotationLabel4.hidden = YES;
+                
+                self.annotation3.hidden = YES;
+                self.annotation4.hidden = YES;
+                
+                //set object tags so we can retrieve the data later.
+                self.annotation1.tag = kCaptureTypeRightThumbFlat;
+                self.annotation2.tag = kCaptureTypeLeftThumbFlat;
+                
+                break;
+            default:
+                //just display the single annotation for whatever the listed capture type is.
+                self.annotationLabel1.text = [WSBDModalityMap stringForCaptureType:capType];
+                
+                self.annotationLabel2.hidden = YES;
+                self.annotation2.hidden = YES;
+                
+                self.annotationLabel3.hidden = YES;
+                self.annotation3.hidden = YES;
+                
+                self.annotationLabel4.hidden = YES;
+                self.annotation4.hidden = YES;
+                
+                self.annotation1.selectedSegmentIndex = [[self.annotations objectForKey:self.capturer.captureType] intValue];
+                
+                //set object tags so we can retrieve the data later.
+                self.annotation1.tag = capType;
+                
+                break;
+        } 
+
+    }
+    else {
+        //start off with everything hidden
+        self.annotationLabel1.hidden = YES;
+        self.annotationLabel2.hidden = YES;
+        self.annotationLabel3.hidden = YES;
+        self.annotationLabel4.hidden = YES;
+        
+        self.annotation1.hidden = YES;
+        self.annotation2.hidden = YES;
+        self.annotation3.hidden = YES;
+        self.annotation4.hidden = YES;
+
+    }
     
     //update the annotations UI on the device front.
     [self refreshAnnotationBadge];
@@ -631,7 +653,20 @@
 -(IBAction)notTakenButtonPressed:(id)sender 
 {
     //toggle the button.
-    self.notTakenButton.selected = !self.notTakenButton.selected;
+    BOOL isSelected = !self.notTakenButton.selected;
+    
+    self.notTakenButton.selected = isSelected;
+    
+    //enable or disable everything else based on this button's selectedness
+    self.annotation1.enabled = !isSelected;
+    self.annotation2.enabled = !isSelected;
+    self.annotation3.enabled = !isSelected;
+    self.annotation4.enabled = !isSelected;
+    self.annotationLabel1.enabled = !isSelected;
+    self.annotationLabel2.enabled = !isSelected;
+    self.annotationLabel3.enabled = !isSelected;
+    self.annotationLabel4.enabled = !isSelected;
+    
 }
 
 -(IBAction) resultAreaDoubleTapped:(UITapGestureRecognizer *)recog
