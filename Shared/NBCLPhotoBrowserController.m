@@ -67,7 +67,7 @@
 - (void)dealloc
 {
     [super dealloc];
-    [pageControl release];
+    //[pageControl release];
 }
 
 - (void)didReceiveMemoryWarning

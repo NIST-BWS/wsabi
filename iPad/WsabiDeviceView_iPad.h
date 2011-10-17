@@ -74,7 +74,8 @@
     UIBarButtonItem *doneButton;
 	UIBarButtonItem *titleBarItem;
     
-    UIButton *notTakenButton;
+    UILabel *notTakenLabel;
+    UISwitch *notTakenSwitch;
     
     UILabel *annotationLabel1;
     UILabel *annotationLabel2;
@@ -141,12 +142,14 @@
 //Back View
 
 -(IBAction) doneButtonPressed:(id)sender;
+-(IBAction) notTakenValueChanged:(id)sender;
 
 @property (nonatomic, retain) IBOutlet UIView *backView;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *doneButton;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *titleBarItem;
 
-@property (nonatomic, retain) IBOutlet UIButton *notTakenButton;
+@property (nonatomic, retain) IBOutlet UILabel *notTakenLabel;
+@property (nonatomic, retain) IBOutlet UISwitch *notTakenSwitch;
 
 @property (nonatomic, retain) IBOutlet UILabel *annotationLabel1;
 @property (nonatomic, retain) IBOutlet UILabel *annotationLabel2;

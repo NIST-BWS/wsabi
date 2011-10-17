@@ -991,10 +991,10 @@
     
     [self.workflowGrid deleteItemsAtIndices:[NSIndexSet indexSetWithIndex:index] withAnimation:AQGridViewItemAnimationRight];
     //if there's anything after the deleted cell, reload it.
-    int remainingCount = ([self.capturers count] - index) - 1;
+    int remainingCount = ([self.capturers count] - index);
     if (remainingCount > 0) 
     {
-        [self.workflowGrid reloadItemsAtIndices:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index+1, [self.capturers count] - index - 1)] withAnimation:AQGridViewItemAnimationBottom];
+        [self.workflowGrid reloadItemsAtIndices:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, [self.capturers count] - index)] withAnimation:AQGridViewItemAnimationBottom];
     }
     
     //if there isn't anything left in this workflow, disable the done button and show the guide image.

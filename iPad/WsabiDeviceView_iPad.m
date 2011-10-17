@@ -23,7 +23,7 @@
 @synthesize livePreviewView, hasLivePreview;
 @synthesize nameLabel, modalityLabel, modalityIconView, resultImageView;
 @synthesize reconnectView, reconnectButton, reconnectTextField, reconnectActivity, captureButton, cancelCaptureButton, captureActivity;
-@synthesize notTakenButton;
+@synthesize notTakenLabel, notTakenSwitch;
 @synthesize annotationLabel1,annotationLabel2,annotationLabel3,annotationLabel4;
 @synthesize annotationButton, annotationBadge;
 @synthesize annotations;
@@ -80,11 +80,7 @@
             self.captureButton.transform = CGAffineTransformMakeScale(1.04, 1.04);
         }
                          completion:nil];
-        
-        //set the images for the not-taken button.
-        [self.notTakenButton setBackgroundImage:[[UIImage imageNamed:@"UISegmentBorderedButton"] stretchableImageWithLeftCapWidth:11 topCapHeight:0] forState:UIControlStateNormal];
-        [self.notTakenButton setBackgroundImage:[[UIImage imageNamed:@"UISegmentBorderedButtonHighlighted"] stretchableImageWithLeftCapWidth:11 topCapHeight:0] forState:UIControlStateSelected];
-        
+                
         //attach a reverse-pinch gesture recognizer to the result area
         UIPinchGestureRecognizer *reversePinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(resultAreaPinched:)];
         [self.resultImageView addGestureRecognizer:reversePinch];
@@ -119,7 +115,8 @@
     [cancelCaptureButton release];
     [captureActivity release];
     
-    [notTakenButton release];
+    [notTakenLabel release];
+    [notTakenSwitch release];
     
     [annotation1 release];
     [annotation2 release];
@@ -213,6 +210,23 @@
     
     //if there's a result stored at this position, hide the capture button.
     self.captureButton.alpha = (self.resultImageView.image == nil) ? CAPTURE_BUTTON_ALPHA : 0.0;
+    
+    //See if this result is intentionally not taken, and adjust accordingly
+    self.notTakenSwitch.on = [newData.notTaken boolValue];
+    
+    //toggle the button.
+    BOOL isNotTaken = self.notTakenSwitch.on;
+    
+    //enable or disable everything else based on this button's selectedness
+    self.annotation1.enabled = !isNotTaken;
+    self.annotation2.enabled = !isNotTaken;
+    self.annotation3.enabled = !isNotTaken;
+    self.annotation4.enabled = !isNotTaken;
+    self.annotationLabel1.enabled = !isNotTaken;
+    self.annotationLabel2.enabled = !isNotTaken;
+    self.annotationLabel3.enabled = !isNotTaken;
+    self.annotationLabel4.enabled = !isNotTaken;
+
     
     BOOL fingerModalityFound = NO;
     for (SensorModality *mod in self.capturer.sensor.modalities) {
@@ -650,22 +664,23 @@
 	[delegate didEndAnnotating:self];
 }
 
--(IBAction)notTakenButtonPressed:(id)sender 
+-(IBAction)notTakenValueChanged:(id)sender 
 {
     //toggle the button.
-    BOOL isSelected = !self.notTakenButton.selected;
-    
-    self.notTakenButton.selected = isSelected;
-    
+    BOOL isNotTaken = self.notTakenSwitch.on;
+        
     //enable or disable everything else based on this button's selectedness
-    self.annotation1.enabled = !isSelected;
-    self.annotation2.enabled = !isSelected;
-    self.annotation3.enabled = !isSelected;
-    self.annotation4.enabled = !isSelected;
-    self.annotationLabel1.enabled = !isSelected;
-    self.annotationLabel2.enabled = !isSelected;
-    self.annotationLabel3.enabled = !isSelected;
-    self.annotationLabel4.enabled = !isSelected;
+    self.annotation1.enabled = !isNotTaken;
+    self.annotation2.enabled = !isNotTaken;
+    self.annotation3.enabled = !isNotTaken;
+    self.annotation4.enabled = !isNotTaken;
+    self.annotationLabel1.enabled = !isNotTaken;
+    self.annotationLabel2.enabled = !isNotTaken;
+    self.annotationLabel3.enabled = !isNotTaken;
+    self.annotationLabel4.enabled = !isNotTaken;
+    
+    //save the result to core data.
+    self.data.notTaken = [NSNumber numberWithBool:isNotTaken];
     
 }
 

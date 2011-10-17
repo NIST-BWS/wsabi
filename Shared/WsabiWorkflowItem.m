@@ -154,7 +154,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	//there's just the one section, so the full number of parameters goes in that section.
     NSLog(@"Capturer should have %d parameters",[self.currentParamKeys count]);
-    return [self.currentParamKeys count];
+    //return [self.currentParamKeys count];
+    return 0;
 }
 
 
